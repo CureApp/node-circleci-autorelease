@@ -1,0 +1,26 @@
+{
+  "name": "node-circleci-autorelease",
+  "version": "1.0.0",
+  "description": "generate circle.yml for autorelease",
+  "main": "bin/generate-yml",
+  "postinstall": "bin/install-node-circleci-autorelease",
+  "bin": {
+    "generate-circle-yml": "bin/generate-yml",
+    "bmp-release": "bin/bmp-release",
+    "get-bmp-version": "bin/get-bmp-version"
+  },
+  "scripts": {
+    "test": "echo no test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CureApp/node-circleci-autorelease.git"
+  },
+  "author": "CureApp, Inc.",
+  "license": "MIT",
+  "dependencies": {
+    "coffee-script": "^1.10.0",
+    "deepmerge": "^0.2.10",
+    "js-yaml": "^3.4.3"
+  }
+}
