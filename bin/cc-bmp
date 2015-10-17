@@ -1,0 +1,70 @@
+#!/bin/bash
+
+dirname=${0%/*}
+source $dirname/private/run
+source $dirname/private/assert_command_succeed
+source $dirname/private/get_bmp_version
+
+main () {
+
+    assert_bmp_exist
+
+    run bmp $*
+
+    assert_command_succeed $? bmp
+
+    version=`get_bmp_version`
+
+    echo "current version: $version"
+
+    run git add -A
+
+    run git commit --allow-empty -m "release $version" && show_notice
+}
+
+
+###
+# @private
+# check existence of bmp command
+# exit 1 when not exist
+# @function assert_bmp_exist
+###
+assert_bmp_exist () {
+    which bmp > /dev/null
+    if [[ $? == 1 ]]; then
+        echo -e "
+            bmp is not installed.
+            try
+
+                gem install bmp
+        "
+        exit 1
+    fi
+}
+
+###
+# @private
+# show notice after git commit
+# @function assert_bmp_exist
+###
+show_notice () {
+    echo -e "
+--------------------------------------------------------
+   if you mistakenly ran this command, you can reset by
+
+       git reset HEAD^
+
+
+   Don't be upset :) Otherwise,
+
+       git push origin master
+
+
+   will be the next command.
+--------------------------------------------------------
+"
+
+}
+
+
+main $*

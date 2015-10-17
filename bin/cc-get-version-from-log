@@ -1,0 +1,86 @@
+#!/bin/bash
+
+dirname=${0%/*}
+source $dirname/private/run
+source $dirname/private/get_bmp_version
+
+###
+# @public
+# get version from commit log
+# @function get_version_from_log
+###
+get_version_from_log () {
+
+    commit_msg=`git log --pretty=format:"%s" -1`
+
+    commit_msg='release 1.0.0' # for test
+
+    echo latest commit log: \"$commit_msg\" >&2
+
+    if [[ "$commit_msg" =~ ^release\ +[0-9]+\. ]]; then
+
+        version=`echo $commit_msg | sed "s/^release\ *//"`
+
+        validate_version $version
+
+        echo $version
+
+    else
+        show_info_to_stderr
+
+        exit 1
+
+    fi
+}
+
+
+###
+# @private
+# when the matched version is different from bmp version, exit 1
+# @function validate_version
+###
+validate_version () {
+
+    version=$1
+
+    # check existence of bmp
+    # if no bmp, given version is regarded as valid
+    which bmp > /dev/null
+    if [ $? == 1 ]; then
+        return
+    fi
+
+    bmp_version=`get_bmp_version`
+
+    if [[ $bmp_version != $version ]]; then
+
+        echo -e "
+    commit version is not consistent with bmp version
+
+        commit version : $version
+        bmp version    : $bmp_version
+" >&2
+        exit 1
+    fi
+}
+
+
+###
+# @private
+# show info about commit log to stderr
+# @function show_info_to_stderr
+###
+show_info_to_stderr () {
+    echo -e "
+    commit message does not match the release format.
+
+    please commit with message like
+
+        release X.Y.Z
+
+    for creating release tags.
+" >&2
+}
+
+
+get_version_from_log

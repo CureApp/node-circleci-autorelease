@@ -1,0 +1,19 @@
+#!/bin/bash
+
+###
+# pass the latest signal, and check if it succeeded or failed
+# exit 1 when failed
+# @function assert_command_succeed
+###
+assert_command_succeed () {
+
+    signal=$1
+    name=$2
+
+    if [ $signal == 1 ]; then
+        echo "$name failed" >&2
+        exit 1;
+    else
+        echo "$name succeeded" >&2
+    fi
+}
