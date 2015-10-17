@@ -19,7 +19,7 @@ main () {
 
     run git add -A
 
-    run git commit --allow-empty -m "'release $version'" && show_notice
+    run git commit --allow-empty -m "release $version" && show_notice
 }
 
 
