@@ -219,9 +219,9 @@ For example,
 **Don't forget to call** `npm run circle` after adding information to package.json.
 
 
-### `config` field
+### "config" field
 
-customize `config` field of `node-circleci-autorelease` to add git information.
+customize "config" field in "node-circleci-autorelease" to add git information.
 
 | key            | description                      | default             |
 |:---------------|:---------------------------------|:--------------------|
@@ -231,7 +231,7 @@ customize `config` field of `node-circleci-autorelease` to add git information.
 | version-prefix | prefix of tags to be created     | v                   |
 
 
-### `ignores` field
+### "ignores" field
 
 list containing files and directories to ignore for release.
 
@@ -247,7 +247,7 @@ There are two ways to grant write access:
 - OAuth token
 
 ## SSH key
-
+add user key, or [manually add read-write deployment key](https://circleci.com/docs/adding-read-write-deployment-key) to the project at [CircleCI](https://circleci.com)
 
 
 ## OAuth token
