@@ -1,0 +1,84 @@
+#!/bin/bash
+
+dirname=${0%/*}
+source $dirname/private/run
+source $dirname/private/assert_command_succeed
+source $dirname/private/get_bmp_version
+
+check_commit_message () {
+
+    commit_msg=`git log --pretty=format:"%s" -1`
+
+    assert_command_succeed $? 'git log'
+
+    echo latest commit message: \"$commit_msg\"
+
+    if [[ "$commit_msg" =~ ^release\ +[0-9]+\. ]]; then
+
+        version=`echo $commit_msg | sed "s/^release\ *//"`
+
+        validate_version $version
+
+    else
+        show_info_to_stderr
+
+        exit 1
+
+    fi
+}
+
+
+###
+# @private
+# exit 0 when the matched version is equal to bmp version
+# else exit 1
+# @function validate_version
+###
+validate_version () {
+
+    version=$1
+
+    # check existence of bmp
+    # if no bmp, given version is regarded as valid
+    which bmp > /dev/null
+    if [ $? == 1 ]; then
+        exit 0
+    fi
+
+    bmp_version=`get_bmp_version`
+
+    if [[ $bmp_version == $version ]]; then
+
+        exit 0
+
+    else
+        echo -e "
+    commit version is not consistent with bmp version
+
+        commit version : $version
+        bmp version    : $bmp_version
+"
+        exit 1
+    fi
+}
+
+
+###
+# @private
+# show info about commit message to stderr
+# @function show_info_to_stderr
+###
+show_info_to_stderr () {
+    echo -e "
+    commit message does not match the release format.
+
+    please commit with message like
+
+        release X.Y.Z
+
+    for creating release tags.
+" >&2
+}
+
+
+check_commit_message
