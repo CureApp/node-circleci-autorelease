@@ -3,12 +3,12 @@
   "version": "1.0.0",
   "description": "create release tags at CircleCI",
   "main": "bin/cc-generate-yml",
-  "postinstall": "bin/cc-install",
   "bin": {
     "cc-bmp": "bin/cc-bmp",
     "cc-generate-yml": "bin/cc-generate-yml"
   },
   "scripts": {
+    "postinstall": "bin/cc-install",
     "test": "echo no test",
     "bmp-p": "cc-bmp -p",
     "bmp-m": "cc-bmp -m",
