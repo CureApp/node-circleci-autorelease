@@ -1,17 +1,23 @@
 # node-circleci-autorelease
 
-generate `circle.yml` for creating release branch and tags for Node.js project
+create release tags at CircleCI for Node.js project
+
+```bash
+git commit -m 'release 1.2.3'
+git push origin master
+```
+
+CircleCI creates tag `1.2.3`.
 
 
 # concept
 
-## release branch
+## release tag
 
-branch **with builds** and **without sources**.
+tag **with builds** and **without sources**.
 
 - **builds**:  products of build tools (browserified and babeled js, minified css)
 - **sources**: unnecessary sources for production (e.g. spec/)
-
 
 
 ## add builds
@@ -33,7 +39,7 @@ Suitable for files required for test.
 ```sh
 npm run pre-release
 ```
-runs just before creating release branch.
+runs just before creating a release tag.
 
 Thus, it runs only at commits for release.
 Suitable for files required only for production (`*.min.js`).
@@ -43,7 +49,7 @@ Suitable for files required only for production (`*.min.js`).
 
 add `.releaseignore` file.
 
-files and directories written in `.releaseignore` are removed just before creating release branch.
+files and directories written in `.releaseignore` are removed just before creating a release tag.
 
 
 # installation
@@ -93,19 +99,28 @@ npm run circle
 creates `circle.yml` to your current working directory for auto-release.
 
 
-## create release branch at CircleCI
+## create a release tag at CircleCI
 
 push to master branch with a specific commit message.
 
 ```sh
-git commit -m 'release vX.Y.Z'
+git commit -m 'release X.Y.Z'
 git push origin master
 ```
 
 CircleCI detects the commit message pattern and
 
-1. creates `release` branch
-2. creates a tag `vX.Y.Z`
+creates a tag `X.Y.Z`
+
+### prefix
+You can set version prefix like
+
+- `vX.Y.Z`
+- `release-X.Y.Z`
+
+when you set `version-prefix` field in package.json
+
+See "customize" section for detail.
 
 
 ## with bmp
@@ -127,9 +142,9 @@ npm run bmp-j
 they update version and commit with a message
 
 ```
-release vX.Y.Z
+release X.Y.Z
 ```
-if you push to github/master, then CircleCI create release branch and tag.
+if you push to github/master, then CircleCI create a release tag.
 
 
 # customize
@@ -157,7 +172,7 @@ modify `scripts` field in `package.json` like
   }
 }
 ```
-`npm run pre-release` runs just before creating release branch in CircleCI.
+`npm run pre-release` runs just before creating a release tag in CircleCI.
 You add for files required for test.
 
 ## ignore files for release
@@ -221,7 +236,8 @@ For example,
     },
     "config": {
       "git-user-name": "CircleCI",
-      "git-user-email": "circleci@cureapp.jp"
+      "git-user-email": "circleci@cureapp.jp",
+      "version-prefix": "v"
     },
     "ignores": [
       "node_modules",
@@ -249,6 +265,7 @@ customize `config` field of `node-circleci-autorelease` to add git information.
 | git-user-name  | user name of the release commit  | CircleCI            |
 | git-user-email | user email of the release commit | circleci@cureapp.jp |
 | github-token   | OAuth token (if needed)          |                     |
+| version-prefix | prefix of tags to be created     | v                   |
 
 
 ### `ignores` field
