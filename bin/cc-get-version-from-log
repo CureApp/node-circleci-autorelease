@@ -2,22 +2,28 @@
 
 dirname=${0%/*}
 source $dirname/private/run
-source $dirname/private/assert_command_succeed
 source $dirname/private/get_bmp_version
 
-check_commit_message () {
+###
+# @public
+# get version from commit log
+# @function get_version_from_log
+###
+get_version_from_log () {
 
     commit_msg=`git log --pretty=format:"%s" -1`
 
-    assert_command_succeed $? 'git log'
+    commit_msg='release 1.0.0' # for test
 
-    echo latest commit message: \"$commit_msg\"
+    echo latest commit log: \"$commit_msg\" >&2
 
     if [[ "$commit_msg" =~ ^release\ +[0-9]+\. ]]; then
 
         version=`echo $commit_msg | sed "s/^release\ *//"`
 
         validate_version $version
+
+        echo $version
 
     else
         show_info_to_stderr
@@ -30,8 +36,7 @@ check_commit_message () {
 
 ###
 # @private
-# exit 0 when the matched version is equal to bmp version
-# else exit 1
+# when the matched version is different from bmp version, exit 1
 # @function validate_version
 ###
 validate_version () {
@@ -42,22 +47,19 @@ validate_version () {
     # if no bmp, given version is regarded as valid
     which bmp > /dev/null
     if [ $? == 1 ]; then
-        exit 0
+        return
     fi
 
     bmp_version=`get_bmp_version`
 
-    if [[ $bmp_version == $version ]]; then
+    if [[ $bmp_version != $version ]]; then
 
-        exit 0
-
-    else
         echo -e "
     commit version is not consistent with bmp version
 
         commit version : $version
         bmp version    : $bmp_version
-"
+" >&2
         exit 1
     fi
 }
@@ -65,7 +67,7 @@ validate_version () {
 
 ###
 # @private
-# show info about commit message to stderr
+# show info about commit log to stderr
 # @function show_info_to_stderr
 ###
 show_info_to_stderr () {
@@ -81,4 +83,4 @@ show_info_to_stderr () {
 }
 
 
-check_commit_message
+get_version_from_log

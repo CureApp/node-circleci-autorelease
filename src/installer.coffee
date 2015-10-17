@@ -78,6 +78,7 @@ class Installer
             'git-user-name'  : 'CircleCI'
             'git-user-email' : 'circleci@cureapp.jp'
             'github-token'   : ''
+            'version-prefix' : 'v'
 
         defaultIgnores = [
             'node_modules'
@@ -90,12 +91,12 @@ class Installer
             'npm-debug.log'
         ]
 
-        setting = @packageJSON['circleci-autorelease'] ? { config: {} }
+        setting = @packageJSON['node-circleci-autorelease'] ? { config: {} }
 
         @setNonExistingValues(setting.config, config)
         setting.ignores ?= defaultIgnores
 
-        @packageJSON['circleci-autorelease'] = setting
+        @packageJSON['node-circleci-autorelease'] = setting
 
 
     ###*
@@ -105,10 +106,9 @@ class Installer
     ###
     setNonExistingValues: (original = {}, newObj = {}) ->
 
-        for key, value of newObj
-            if not original[key]?
-                console.log "appending #{key}: '#{value}' to package.json"
-                original[key] = value
+        for key, value of newObj when not original[key]?
+            console.log "appending #{key}: '#{value}' to package.json"
+            original[key] = value
 
 
 module.exports = Installer

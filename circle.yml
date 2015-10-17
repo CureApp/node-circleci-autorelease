@@ -1,0 +1,16 @@
+machine:
+    environment:
+        PATH: '$PATH:$HOME/$CIRCLE_PROJECT_REPONAME/node_modules/node-circleci-autorelease/bin'
+        VERSION_PREFIX: v
+    pre:
+        - "git config --global user.name 'CircleCI'"
+        - "git config --global user.email 'circleci@cureapp.jp'"
+dependencies:
+    post:
+        - npm run post-dependencies
+deployment:
+    create_release_branch:
+        branch:
+            - master
+        commands:
+            - 'cc-prepare-for-release && npm run pre-release && cc-release || cc-ok'

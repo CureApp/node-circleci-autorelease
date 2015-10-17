@@ -1,0 +1,23 @@
+#!/bin/bash
+
+dirname=${0%/*}
+source $dirname/private/run
+
+###
+# @public
+# - checks if circle-ci should create a release tag or not
+# - creates a local branch
+###
+main () {
+
+    version=`$dirname/cc-get-version-from-log`
+
+    if [[ ! -n $version ]]; then
+        exit 1
+    fi
+
+    run git checkout --orphan release-$version
+
+}
+
+main

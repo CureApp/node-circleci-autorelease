@@ -6,7 +6,7 @@
 # @function run
 ###
 run () {
-    echo -e executing command: $*
+    echo -e executing command: $* >&2
 
     if [[ ! -n "$DRY_RUN" ]]; then
         $*

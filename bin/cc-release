@@ -1,1 +1,55 @@
 #!/bin/bash
+
+dirname=${0%/*}
+source $dirname/private/run
+
+###
+# @public
+# - re-checks version
+# - uses OAuth token if given
+# - removes files to ignore for release
+# - commits and creates a tag into github
+###
+main () {
+
+    version=`$dirname/cc-get-version-from-log`
+    version=$VERSION_PREFIX$version
+
+    # if github OAuth token is given, use it.
+    if [[ -n "$GITHUB_TOKEN" ]]; then
+
+        remote="github"
+        repo=$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
+        url="https://$GITHUB_TOKEN:x-oauth-basic@github.com/$repo.git"
+        run git remote add github $url
+
+    else
+        remote="origin"
+
+    fi
+
+    ignore_files
+
+    run git add -A
+    run git commit -m $version
+    run git tag $version
+    run git push $remote $version
+
+}
+
+
+###
+# @private
+# remove files to ignore for release
+# @function ignore_files
+###
+ignore_files () {
+
+    files=`$dirname/cc-get-ignore-files`
+
+    for filename in $files; do
+        run rm -fr $filename
+    done
+}
+
+main

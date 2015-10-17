@@ -21,7 +21,7 @@ class PackageJSONLoader
 
         path = cwd + '/package.json'
 
-        fs.writeFileSync(path, JSON.stringify content)
+        fs.writeFileSync(path, JSON.stringify content, null, 2)
 
 
 

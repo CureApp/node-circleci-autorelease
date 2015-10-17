@@ -17,5 +17,5 @@ module.exports =
             create_release_branch:
                 branch:  [ 'master' ]
                 commands: [
-                    'cc-check-commit-message && npm run pre-release && cc-release || cc-ok'
+                    'cc-prepare-for-release && npm run pre-release && cc-release || cc-not-released'
                 ]

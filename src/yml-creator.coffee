@@ -75,7 +75,7 @@ class YmlCreator
 
 
     ###*
-    attach config (git information) to yml
+    attach config (git information, prefix, etc..) to yml
 
     @method attachConfig
     @private
@@ -91,6 +91,9 @@ class YmlCreator
 
         if config['github-token']
             @setting.machine.environment.GITHUB_TOKEN = config['github-token']
+
+        if config['version-prefix']?
+            @setting.machine.environment.VERSION_PREFIX = config['version-prefix']
 
 
 module.exports = YmlCreator

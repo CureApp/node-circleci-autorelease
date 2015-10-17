@@ -2,15 +2,20 @@
   "name": "node-circleci-autorelease",
   "version": "1.0.0",
   "description": "generate circle.yml for autorelease",
-  "main": "bin/generate-yml",
-  "postinstall": "bin/install-node-circleci-autorelease",
+  "main": "bin/cc-generate-yml",
+  "postinstall": "bin/cc-install",
   "bin": {
-    "generate-circle-yml": "bin/generate-yml",
-    "bmp-release": "bin/bmp-release",
-    "get-bmp-version": "bin/get-bmp-version"
+    "cc-bmp": "bin/cc-bmp",
+    "cc-generate-yml": "bin/cc-generate-yml"
   },
   "scripts": {
-    "test": "echo no test"
+    "test": "echo no test",
+    "bmp-p": "cc-bmp -p",
+    "bmp-m": "cc-bmp -m",
+    "bmp-j": "cc-bmp -j",
+    "circle": "cc-generate-yml",
+    "post-dependencies": "echo post-dependencies",
+    "pre-release": "echo pre-release"
   },
   "repository": {
     "type": "git",
@@ -22,5 +27,23 @@
     "coffee-script": "^1.10.0",
     "deepmerge": "^0.2.10",
     "js-yaml": "^3.4.3"
+  },
+  "node-circleci-autorelease": {
+    "config": {
+      "git-user-name": "CircleCI",
+      "git-user-email": "circleci@cureapp.jp",
+      "github-token": "",
+      "version-prefix": "v"
+    },
+    "ignores": [
+      "node_modules",
+      ".gitignore",
+      ".editorconfig",
+      "spec",
+      "README.md",
+      ".releaseignore",
+      ".bmp.yml",
+      "npm-debug.log"
+    ]
   }
 }

@@ -11,9 +11,9 @@ assert_command_succeed () {
     name=$2
 
     if [ $signal == 1 ]; then
-        echo "$name failed"
-        exit;
+        echo "$name failed" >&2
+        exit 1;
     else
-        echo "$name succeeded"
+        echo "$name succeeded" >&2
     fi
 }
