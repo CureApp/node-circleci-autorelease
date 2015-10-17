@@ -9,47 +9,7 @@ git push origin master
 
 CircleCI creates tag `1.2.3`.
 
-
-# concept
-
-## release tag
-
-tag **with builds** and **without sources**.
-
-- **builds**:  products of build tools (browserified and babeled js, minified css)
-- **sources**: unnecessary sources for production (e.g. spec/)
-
-
-## add builds
-
-two npm scripts add builds
-
-### post-dependencies
-
-```sh
-npm run post-dependencies
-```
-runs at the last of `dependencies` section in CircleCI.
-
-Thus, it runs at all commits.
-Suitable for files required for test.
-
-### pre-release
-
-```sh
-npm run pre-release
-```
-runs just before creating a release tag.
-
-Thus, it runs only at commits for release.
-Suitable for files required only for production (`*.min.js`).
-
-
-## remove sources
-
-add `.releaseignore` file.
-
-files and directories written in `.releaseignore` are removed just before creating a release tag.
+You can add and remove files for release tag via hooks.
 
 
 # installation
@@ -57,37 +17,6 @@ files and directories written in `.releaseignore` are removed just before creati
 ```sh
 npm install node-circleci-autorelease
 ```
-
-# requirements
-
-- must be node.js project.
-
-- **grant write access for github to CircleCI**
-
-There are two ways:
-- SSH key
-- OAuth token
-
-## SSH key
-
-
-
-## OAuth token
-
-**not recommended for public project**.
-
-package.json
-```json
-{
-  "node-circleci-autorelease": {
-    "config": {
-      "github-token": "your token here"
-      }
-    }
-  }
-}
-```
-
 
 # usage
 ## generate circle.yml
@@ -121,6 +50,40 @@ You can set version prefix like
 when you set `version-prefix` field in package.json
 
 See "customize" section for detail.
+
+
+## hooks
+
+Two npm scripts are prepared for hooks.
+
+1. post-dependencies
+2. pre-release
+
+### post-dependencies
+
+```sh
+npm run post-dependencies
+```
+It runs at the last of `dependencies` section in CircleCI.
+
+Thus, it runs at all commits.
+Suitable for files required for test.
+
+### pre-release
+
+```sh
+npm run pre-release
+```
+It runs just before creating a release tag.
+
+Thus, it runs only at commits for release.
+Suitable for files required only for production (`*.min.js`).
+
+
+## .releaseignore file
+
+Files and directories written in `.releaseignore` are removed just before creating a release tag.
+
 
 
 ## with bmp
@@ -271,6 +234,38 @@ customize `config` field of `node-circleci-autorelease` to add git information.
 ### `ignores` field
 
 list containing files and directories to ignore for release.
+
+
+# requirements
+
+- must be a node.js project.
+
+- **grant write access for github to CircleCI**
+
+There are two ways to grant write access:
+- SSH key
+- OAuth token
+
+## SSH key
+
+
+
+## OAuth token
+
+**not recommended for public project**.
+
+package.json
+```json
+{
+  "node-circleci-autorelease": {
+    "config": {
+      "github-token": "your token here"
+      }
+    }
+  }
+}
+```
+
 
 
 # tips
