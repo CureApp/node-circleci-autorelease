@@ -13,7 +13,7 @@ main () {
 
     assert_command_succeed $? bmp
 
-    version=$VERSION_PREFIX`get_bmp_version`
+    version=`get_bmp_version`
 
     echo "current version: $version"
 
@@ -67,4 +67,4 @@ show_notice () {
 }
 
 
-main
+main $*
