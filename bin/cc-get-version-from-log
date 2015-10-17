@@ -13,8 +13,6 @@ get_version_from_log () {
 
     commit_msg=`git log --pretty=format:"%s" -1`
 
-    commit_msg='release 1.0.0' # for test
-
     echo latest commit log: \"$commit_msg\" >&2
 
     if [[ "$commit_msg" =~ ^release\ +[0-9]+\. ]]; then

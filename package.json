@@ -15,7 +15,8 @@
     "bmp-j": "cc-bmp -j",
     "circle": "cc-generate-yml",
     "post-dependencies": "echo post-dependencies",
-    "pre-release": "echo pre-release"
+    "pre-release": "echo pre-release",
+    "post-release": "echo post-release"
   },
   "repository": {
     "type": "git",

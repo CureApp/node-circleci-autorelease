@@ -2,7 +2,7 @@
 
 create release tags at CircleCI for Node.js project
 
-```bash
+```sh
 git commit -m 'release 1.2.3'
 git push origin master
 ```
@@ -54,10 +54,11 @@ See "customize" section for detail.
 
 ## hooks
 
-Two npm scripts are prepared for hooks.
+Three npm scripts are prepared for hooks.
 
 1. post-dependencies
 2. pre-release
+3. post-release
 
 ### post-dependencies
 
@@ -78,6 +79,22 @@ It runs just before creating a release tag.
 
 Thus, it runs only at commits for release.
 Suitable for files required only for production (`*.min.js`).
+
+### post-release
+
+```sh
+npm run post-release
+```
+It runs just after creating a release tag.
+
+files written in .releaseignore and `node-circleci-autorelease.ignores` section in package.json
+are already removed.
+
+Suitable for releasing commands like
+
+```sh
+bower register
+```
 
 
 ## .releaseignore file
@@ -111,32 +128,6 @@ if you push to github/master, then CircleCI create a release tag.
 
 
 # customize
-
-## post-dependencies hook
-
-modify `scripts` field in `package.json` like
-```json
-{
-  "scripts": {
-    "post-dependencies": "grunt browserify"
-  }
-}
-```
-
-`npm run post-dependencies` runs at the last of `dependencies` section in CircleCI at all commits.
-
-## pre-release hook
-
-modify `scripts` field in `package.json` like
-```json
-{
-  "scripts": {
-    "pre-release": "grunt minify"
-  }
-}
-```
-`npm run pre-release` runs just before creating a release tag in CircleCI.
-You add for files required for test.
 
 ## ignore files for release
 
@@ -236,6 +227,17 @@ customize "config" field in "node-circleci-autorelease" to add git information.
 list containing files and directories to ignore for release.
 
 
+## npm publish
+if you set two environment variables at CircleCI project settings,
+
+```sh
+NPM_AUTH  # "_auth" of your .npmrc
+NPM_EMAIL # "email" of your .npmrc
+```
+
+then CircleCI automatically runs `npm publish`.
+
+
 # requirements
 
 - must be a node.js project.
@@ -251,30 +253,17 @@ add user key, or [manually add read-write deployment key](https://circleci.com/d
 
 
 ## OAuth token
+See [github: creating an access token](https://help.github.com/articles/creating-an-access-token-for-command-line-use/).
 
-**not recommended for public project**.
-
-package.json
-```json
-{
-  "node-circleci-autorelease": {
-    "config": {
-      "github-token": "your token here"
-      }
-    }
-  }
-}
-```
-
+After creating, set `GITHUB_TOKEN` environment variable at CircleCI project settings.
 
 
 # tips
-## with task runners
+## with grunt
 
 add `grunt-cli` to devDependencies
 
 you can write `grunt` command without full path in npm.
-
 
 
 

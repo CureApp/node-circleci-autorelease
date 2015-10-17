@@ -57,6 +57,7 @@ class Installer
             'circle'            : 'cc-generate-yml'
             'post-dependencies' : 'echo post-dependencies'
             'pre-release'       : 'echo pre-release'
+            'post-release'      : 'echo post-release'
 
         existingScripts = @packageJSON.scripts ? {}
 
