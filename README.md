@@ -174,6 +174,7 @@ spec
 README.md
 .releaseignore
 .bmp.yml
+npm-debug.log
 ```
 
 These are written in `node-circleci-autorelease.ignores` field in your package.json
@@ -188,7 +189,8 @@ These are written in `node-circleci-autorelease.ignores` field in your package.j
       "spec",
       "README.md",
       ".releaseignore",
-      ".bmp.yml"
+      ".bmp.yml",
+      "npm-debug.log"
     ]
   }
 }
@@ -228,7 +230,8 @@ For example,
       "spec",
       "README.md",
       ".releaseignore",
-      ".bmp.yml"
+      ".bmp.yml",
+      "npm-debug.log"
     ]
   }
 }
