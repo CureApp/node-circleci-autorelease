@@ -15,8 +15,9 @@ You can add and remove files for release tag via hooks.
 # installation
 
 ```sh
-npm install node-circleci-autorelease
+npm install --save-dev node-circleci-autorelease
 ```
+on your Node.js project.
 
 # usage
 ## generate circle.yml

@@ -34,7 +34,8 @@
       "git-user-name": "CircleCI",
       "git-user-email": "circleci@cureapp.jp",
       "version-prefix": "v",
-      "create-branch": true
+      "create-branch": true,
+      "gh-pages-dir": "bin"
     },
     "ignores": [
       "node_modules",

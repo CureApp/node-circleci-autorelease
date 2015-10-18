@@ -2,6 +2,7 @@
 
 dirname=${0%/*}
 source $dirname/private/run
+source $dirname/private/select_remote_repo
 
 ###
 # @public
@@ -16,18 +17,7 @@ main () {
     version=`$dirname/cc-get-version-from-log`
     version=$VERSION_PREFIX$version
 
-    # if github OAuth token is given, use it.
-    if [[ -n "$GITHUB_TOKEN" ]]; then
-
-        remote="github"
-        repo=$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
-        url="https://$GITHUB_TOKEN:x-oauth-basic@github.com/$repo.git"
-        run git remote add github $url
-
-    else
-        remote="origin"
-
-    fi
+    remote=`select_remote_repo`
 
     run git checkout -b release-$version
 
@@ -38,7 +28,7 @@ main () {
     run git tag $version
     run git push --force $remote $version
 
-    push_release_branch
+    push_release_branch $remote
 
     publish_npm
 
@@ -48,6 +38,8 @@ main () {
 }
 
 push_release_branch () {
+
+    remote=$1
 
     if [[ -n "$CREATE_BRANCH" ]]; then
         run git push --force $remote release-$version

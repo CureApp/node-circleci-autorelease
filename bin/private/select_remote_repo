@@ -1,0 +1,30 @@
+#!/bin/bash
+dirname=${0%/*} # always sourced from .bin, so dirname will be '..'
+source $dirname/private/run
+
+select_remote_repo () {
+
+    # if github OAuth token is given, use it.
+    if [[ -n "$GITHUB_TOKEN" ]]; then
+
+        remote="github"
+
+        if [[ ! `remote_github_exist` ]]; then
+
+            repo=$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
+            url="https://$GITHUB_TOKEN:x-oauth-basic@github.com/$repo.git"
+            run git remote add github $url
+
+        fi
+
+    else
+        remote="origin"
+
+    fi
+
+    echo $remote
+}
+
+remote_github_exist () {
+    git remote | grep github
+}

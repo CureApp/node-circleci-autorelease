@@ -1,0 +1,48 @@
+#!/bin/bash
+
+dirname=${0%/*}
+source $dirname/private/run
+source $dirname/private/select_remote_repo
+
+###
+# @public
+# - re-checks version
+# - uses OAuth token if given
+# - checkouts release branch
+# - modify .gitignore
+# - commits and creates a tag into github
+###
+main () {
+
+    remote=`select_remote_repo`
+
+    run git checkout --orphan gh-pages
+
+    if [[ -n "$GH_PAGES_DIR" ]]; then
+        run git add $GH_PAGES_DIR
+        run git clean -fdx
+
+        for file in `ls $GH_PAGES_DIR`; do
+
+            run git mv $GH_PAGES_DIR/$file .
+        done
+    else
+        show_notice
+
+    fi
+
+    run git commit -a -m "gh-pages"
+    run git push --force $remote gh-pages
+}
+
+show_notice () {
+
+    echo "
+    All files in master branch are added to gh-pages.
+
+    Set 'gh-pages-dir' at your package.json, then only the contents of
+    the directory are added to gh-pages.
+" >&2
+}
+
+main

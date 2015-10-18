@@ -56,6 +56,7 @@ class Installer
             'post-dependencies' : 'echo post-dependencies'
             'pre-release'       : 'echo pre-release'
             'post-release'      : 'echo post-release'
+            'gh-pages'          : 'echo gh-pages'
 
         existingScripts = @packageJSON.scripts ? {}
 
@@ -78,6 +79,7 @@ class Installer
             'git-user-email' : 'circleci@cureapp.jp'
             'version-prefix' : 'v'
             'create-branch'  : false
+            'gh-pages-dir'   : 'doc'
 
         defaultIgnores = [
             'node_modules'

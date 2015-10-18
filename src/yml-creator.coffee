@@ -97,4 +97,8 @@ class YmlCreator
             @setting.machine.environment.CREATE_BRANCH = 1
 
 
+        if config['gh-pages-dir']
+            @setting.machine.environment.GH_PAGES_DIR = config['gh-pages-dir']
+
+
 module.exports = YmlCreator
