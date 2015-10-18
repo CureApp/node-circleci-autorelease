@@ -65,13 +65,14 @@ ignore_files () {
 ###
 publish_npm () {
 
-    if [[ -n "$NPM_AUTH" -a -n "$NPM_EMAIL" ]]; then
+    if [[ -n "$NPM_AUTH" && -n "$NPM_EMAIL" ]]; then
         echo "_auth=$NPM_AUTH" >> ~/.npmrc
         echo "email=$NPM_EMAIL" >> ~/.npmrc
 
         run npm publish
 
     #else
+        echo "'npm publish' was skipped as NPM_AUTH and NPM_EMAIL are not set."
         # show_how_to_publish_npm
     fi
 }
