@@ -19,6 +19,7 @@ main () {
     run git checkout --orphan gh-pages
 
     if [[ -n "$GH_PAGES_DIR" ]]; then
+        run git reset
         run git add $GH_PAGES_DIR
         run git clean -fdx
 
@@ -31,7 +32,7 @@ main () {
 
     fi
 
-    run git commit -a -m "gh-pages"
+    run git commit -m "gh-pages"
     run git push --force $remote gh-pages
 }
 
