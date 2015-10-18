@@ -7,7 +7,8 @@ source $dirname/private/run
 # @public
 # - re-checks version
 # - uses OAuth token if given
-# - removes files to ignore for release
+# - checkouts release branch
+# - modify .gitignore
 # - commits and creates a tag into github
 ###
 main () {
@@ -28,7 +29,9 @@ main () {
 
     fi
 
-    ignore_files
+    run git checkout release-$version
+
+    $dirname/cc-get-ignore-files > .gitignore
 
     run git add -A
     run git commit -m $version
@@ -40,21 +43,6 @@ main () {
     run npm run post-release
 
     run git checkout $CIRCLE_BRANCH
-}
-
-
-###
-# @private
-# remove files to ignore for release
-# @function ignore_files
-###
-ignore_files () {
-
-    files=`$dirname/cc-get-ignore-files`
-
-    for filename in $files; do
-        run rm -fr $filename
-    done
 }
 
 
@@ -76,7 +64,6 @@ publish_npm () {
         # show_how_to_publish_npm
     fi
 }
-
 
 
 show_how_to_publish_npm () {

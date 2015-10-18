@@ -15,9 +15,6 @@ main () {
     if [[ ! -n $version ]]; then
         exit 1
     fi
-
-    run git checkout --orphan release-$version
-
 }
 
 main

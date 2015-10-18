@@ -19,7 +19,7 @@ class IgnoreFileCollector
     @run: ->
         filename = process.cwd() + '/circle.yml'
         files = new @(process.cwd()).collect()
-        console.log files.join(' ')
+        console.log files.join('\n')
 
 
     ###*
