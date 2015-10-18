@@ -1,17 +1,1 @@
-machine:
-    environment:
-        PATH: '$PATH:$HOME/$CIRCLE_PROJECT_REPONAME/bin'
-        VERSION_PREFIX: v
-    pre:
-        - "git config --global user.name 'CircleCI'"
-        - "git config --global user.email 'circleci@cureapp.jp'"
-dependencies:
-    post:
-        - npm run post-dependencies
-deployment:
-    create_release_branch:
-        branch:
-            - master
-        commands:
-            - 'git status'
-            - 'cc-prepare-for-release && npm run pre-release && cc-release || cc-not-released'
+undefined
