@@ -4,7 +4,8 @@ module.exports =
     get: ->
 
         general:
-            ignore: [ 'gh-pages', '/release.*/' ]
+            branches:
+                ignore: [ 'gh-pages', '/release.*/' ]
 
         machine:
             environment:

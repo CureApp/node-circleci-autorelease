@@ -1,7 +1,8 @@
 general:
-    ignore:
-        - gh-pages
-        - '/release.*/'
+    branches:
+        ignore:
+            - gh-pages
+            - '/release.*/'
 machine:
     environment:
         PATH: '$PATH:$HOME/$CIRCLE_PROJECT_REPONAME/bin'
