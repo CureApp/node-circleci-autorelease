@@ -19,7 +19,9 @@ main () {
     run git checkout --orphan gh-pages
 
     if [[ -n "$GH_PAGES_DIR" ]]; then
+
         run git reset
+        add_circle_yml
         run git add $GH_PAGES_DIR
         run git clean -fdx
 
@@ -34,6 +36,11 @@ main () {
 
     run git commit -m "gh-pages"
     run git push --force $remote gh-pages
+}
+
+add_circle_yml () {
+    run cp src/gh-pages.yml circle.yml
+    run git add circle.yml
 }
 
 show_notice () {
