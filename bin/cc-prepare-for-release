@@ -1,12 +1,10 @@
 #!/bin/bash
 
 dirname=${0%/*}
-source $dirname/private/run
 
 ###
 # @public
-# - checks if circle-ci should create a release tag or not
-# - creates a local branch
+# checks if circle-ci should create a release tag or not
 ###
 main () {
 
