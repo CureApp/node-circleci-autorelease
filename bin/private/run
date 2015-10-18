@@ -6,7 +6,7 @@
 # @function run
 ###
 run () {
-    echo -e executing command: "$@" >&2
+    echo -e "executing command: \033[0;32m$@\033[0m" >&2
 
     if [[ ! -n "$DRY_RUN" ]]; then
         "$@"
