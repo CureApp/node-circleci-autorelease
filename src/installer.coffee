@@ -78,7 +78,6 @@ class Installer
         config =
             'git-user-name'  : 'CircleCI'
             'git-user-email' : 'circleci@cureapp.jp'
-            'github-token'   : ''
             'version-prefix' : 'v'
 
         defaultIgnores = [

@@ -89,9 +89,6 @@ class YmlCreator
                 "git config --global user.email '#{config['git-user-email']}'"
             ]
 
-        if config['github-token']
-            @setting.machine.environment.GITHUB_TOKEN = config['github-token']
-
         if config['version-prefix']?
             @setting.machine.environment.VERSION_PREFIX = config['version-prefix']
 

@@ -218,7 +218,6 @@ customize "config" field in "node-circleci-autorelease" to add git information.
 |:---------------|:---------------------------------|:--------------------|
 | git-user-name  | user name of the release commit  | CircleCI            |
 | git-user-email | user email of the release commit | circleci@cureapp.jp |
-| github-token   | OAuth token (if needed)          |                     |
 | version-prefix | prefix of tags to be created     | v                   |
 
 
