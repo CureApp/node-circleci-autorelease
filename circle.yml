@@ -1,7 +1,7 @@
 general:
     ignore:
         - gh-pages
-        - !<tag:yaml.org,2002:js/regexp> '/release.*/'
+        - '/release.*/'
 machine:
     environment:
         PATH: '$PATH:$HOME/$CIRCLE_PROJECT_REPONAME/bin'
