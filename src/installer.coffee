@@ -77,6 +77,7 @@ class Installer
             'git-user-name'  : 'CircleCI'
             'git-user-email' : 'circleci@cureapp.jp'
             'version-prefix' : 'v'
+            'create-branch'  : false
 
         defaultIgnores = [
             'node_modules'

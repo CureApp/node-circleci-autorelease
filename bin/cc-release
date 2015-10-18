@@ -38,6 +38,10 @@ main () {
     run git tag $version
     run git push $remote $version
 
+    if [[ -n "$CREATE_BRANCH" ]]; then
+        run git push $remote release-$version
+    fi
+
     publish_npm
 
     run npm run post-release

@@ -93,4 +93,8 @@ class YmlCreator
             @setting.machine.environment.VERSION_PREFIX = config['version-prefix']
 
 
+        if config['create-branch']
+            @setting.machine.environment.CREATE_BRANCH = 1
+
+
 module.exports = YmlCreator

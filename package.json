@@ -33,7 +33,8 @@
     "config": {
       "git-user-name": "CircleCI",
       "git-user-email": "circleci@cureapp.jp",
-      "version-prefix": "v"
+      "version-prefix": "v",
+      "create-branch": true
     },
     "ignores": [
       "node_modules",
