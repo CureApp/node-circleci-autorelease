@@ -9,7 +9,7 @@ source $dirname/private/select_remote_repo
 # - re-checks version
 # - uses OAuth token if given
 # - checkouts release branch
-# - modify .gitignore
+# - ignore files
 # - commits and creates a tag into github
 ###
 main () {
@@ -21,7 +21,7 @@ main () {
 
     run git checkout -b release-$version
 
-    $dirname/cc-get-ignore-files > .gitignore
+    ignore_files
 
     run git add -A
     run git commit -m $version
@@ -45,6 +45,24 @@ push_release_branch () {
         run git push --force $remote release-$version
     else
         echo -e "release branch was not generated. Set 'create-branch' field to true at package.json." >&2
+    fi
+}
+
+###
+# @private
+# 1. update .gitignore
+# 2. remove files in .gitignore from cache
+# @function ignore_files
+###
+ignore_files () {
+
+    $dirname/cc-get-ignore-files > .gitignore
+
+    files_to_remove=`git ls-files --full-name -i --exclude-from=.gitignore`
+
+    if [[ -n "$files_to_remove" ]]; then
+
+        run git rm --cached $files_to_remove
     fi
 }
 
