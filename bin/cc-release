@@ -1,0 +1,98 @@
+#!/bin/bash
+
+dirname=${0%/*}
+source $dirname/private/run
+
+###
+# @public
+# - re-checks version
+# - uses OAuth token if given
+# - removes files to ignore for release
+# - commits and creates a tag into github
+###
+main () {
+
+    version=`$dirname/cc-get-version-from-log`
+    version=$VERSION_PREFIX$version
+
+    # if github OAuth token is given, use it.
+    if [[ -n "$GITHUB_TOKEN" ]]; then
+
+        remote="github"
+        repo=$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
+        url="https://$GITHUB_TOKEN:x-oauth-basic@github.com/$repo.git"
+        run git remote add github $url
+
+    else
+        remote="origin"
+
+    fi
+
+    ignore_files
+
+    run git add -A
+    run git commit -m $version
+    run git tag $version
+    run git push $remote $version
+
+    publish_npm
+
+    run npm run post-release
+
+    run git checkout $CIRCLE_BRANCH
+}
+
+
+###
+# @private
+# remove files to ignore for release
+# @function ignore_files
+###
+ignore_files () {
+
+    files=`$dirname/cc-get-ignore-files`
+
+    for filename in $files; do
+        run rm -fr $filename
+    done
+}
+
+
+###
+# @private
+# publish npm if environment variables 'NPMRC' exists
+# @function publish_npm
+###
+publish_npm () {
+
+    if [[ -n "$NPM_AUTH" && -n "$NPM_EMAIL" ]]; then
+        echo "_auth=$NPM_AUTH" >> ~/.npmrc
+        echo "email=$NPM_EMAIL" >> ~/.npmrc
+
+        run npm publish
+
+    #else
+        echo "'npm publish' was skipped as NPM_AUTH and NPM_EMAIL are not set."
+        # show_how_to_publish_npm
+    fi
+}
+
+
+
+show_how_to_publish_npm () {
+    echo "
+    'npm publish' was not executed as \$NPM_AUTH and \$NPM_EMAIL environment variables does not exist.
+
+    Set it at
+        https://circleci.com/gh/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME/edit#env-vars
+
+    Name: NPM_AUTH
+    Value: (value of '_auth' at your .npmrc)
+
+    Name: NPM_EMAIL
+    Value: (value of 'email' at your .npmrc)
+
+" >&2
+}
+
+main
