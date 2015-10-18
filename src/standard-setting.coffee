@@ -3,6 +3,9 @@ module.exports =
 
     get: ->
 
+        general:
+            ignore: [ 'gh-pages', /release.*/ ]
+
         machine:
             environment:
                 PATH: '$PATH:$HOME/$CIRCLE_PROJECT_REPONAME/node_modules/node-circleci-autorelease/bin'

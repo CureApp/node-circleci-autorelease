@@ -1,8 +1,13 @@
+general:
+    ignore:
+        - gh-pages
+        - !<tag:yaml.org,2002:js/regexp> '/release.*/'
 machine:
     environment:
         PATH: '$PATH:$HOME/$CIRCLE_PROJECT_REPONAME/bin'
         VERSION_PREFIX: v
         CREATE_BRANCH: 1
+        GH_PAGES_DIR: bin
     pre:
         - "git config --global user.name 'CircleCI'"
         - "git config --global user.email 'circleci@cureapp.jp'"
@@ -19,4 +24,4 @@ deployment:
         branch:
             - master
         commands:
-            - 'npm run gh-pages && cc-publish-gh-pages doc'
+            - 'npm run gh-pages && cc-gh-pages'
