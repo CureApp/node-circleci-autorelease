@@ -17,9 +17,7 @@ class Installer
     @static
     ###
     @run: ->
-        filename = process.cwd() + '/circle.yml'
-        content = new @(process.cwd()).install()
-        fs.writeFileSync(filename, content)
+        new @(process.cwd()).install()
 
 
     ###*

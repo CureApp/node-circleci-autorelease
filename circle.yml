@@ -7,14 +7,10 @@ machine:
         - "git config --global user.email 'circleci@cureapp.jp'"
 dependencies:
     post:
-        - git status
         - npm run post-dependencies
-        - git status
 deployment:
     create_release_branch:
         branch:
             - master
         commands:
-            - 'git status'
-            - 'git diff package.json'
-            # - 'cc-prepare-for-release && npm run pre-release && cc-release || cc-not-released'
+            - 'cc-prepare-for-release && npm run pre-release && cc-release || cc-not-released'
