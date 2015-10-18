@@ -31,6 +31,10 @@ main () {
 
     run git checkout -b release-$version
 
+    run git diff
+    run git checkout circle.yml
+    run git checkout package.json
+
     $dirname/cc-get-ignore-files > .gitignore
 
     run git add -A
