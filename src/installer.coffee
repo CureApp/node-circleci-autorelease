@@ -82,10 +82,8 @@ class Installer
 
         defaultIgnores = [
             'node_modules'
-            '.gitignore'
             '.editorconfig'
             'spec'
-            'README.md'
             '.releaseignore'
             '.bmp.yml'
             'npm-debug.log'

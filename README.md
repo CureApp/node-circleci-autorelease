@@ -87,9 +87,6 @@ npm run post-release
 ```
 It runs just after creating a release tag.
 
-files written in .releaseignore and `node-circleci-autorelease.ignores` section in package.json
-are already removed.
-
 Suitable for releasing commands like
 
 ```sh
@@ -99,8 +96,7 @@ bower register
 
 ## .releaseignore file
 
-Files and directories written in `.releaseignore` are removed just before creating a release tag.
-
+Files and directories written in `.releaseignore` are newly written into `.gitignore` just before creating a release tag.
 
 
 ## with bmp
@@ -137,10 +133,8 @@ The following files and directories are ignored by default:
 
 ```text
 node_modules
-.gitignore
 .editorconfig
 spec
-README.md
 .releaseignore
 .bmp.yml
 npm-debug.log
@@ -153,10 +147,8 @@ These are written in `node-circleci-autorelease.ignores` field in your package.j
   "node-circleci-autorelease": {
     "ignores": [
       "node_modules",
-      ".gitignore",
       ".editorconfig",
       "spec",
-      "README.md",
       ".releaseignore",
       ".bmp.yml",
       "npm-debug.log"
@@ -195,10 +187,8 @@ For example,
     },
     "ignores": [
       "node_modules",
-      ".gitignore",
       ".editorconfig",
       "spec",
-      "README.md",
       ".releaseignore",
       ".bmp.yml",
       "npm-debug.log"
