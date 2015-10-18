@@ -2,6 +2,7 @@ machine:
     environment:
         PATH: '$PATH:$HOME/$CIRCLE_PROJECT_REPONAME/bin'
         VERSION_PREFIX: v
+        CREATE_BRANCH: 1
     pre:
         - "git config --global user.name 'CircleCI'"
         - "git config --global user.email 'circleci@cureapp.jp'"
