@@ -36,7 +36,7 @@ main () {
     run git add -A
     run git commit -m $version
     run git tag $version
-    run git push $remote $version
+    run git push --force $remote $version
 
     push_release_branch
 
@@ -50,7 +50,7 @@ main () {
 push_release_branch () {
 
     if [[ -n "$CREATE_BRANCH" ]]; then
-        run git push $remote release-$version
+        run git push --force $remote release-$version
     else
         echo -e "release branch was not generated. Set 'create-branch' field to true at package.json." >&2
     fi
