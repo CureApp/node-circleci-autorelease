@@ -38,15 +38,22 @@ main () {
     run git tag $version
     run git push $remote $version
 
-    if [[ -n "$CREATE_BRANCH" ]]; then
-        run git push $remote release-$version
-    fi
+    push_release_branch
 
     publish_npm
 
     run npm run post-release
 
     run git checkout $CIRCLE_BRANCH
+}
+
+push_release_branch () {
+
+    if [[ -n "$CREATE_BRANCH" ]]; then
+        run git push $remote release-$version
+    else
+        echo -e "release branch was not generated. Set 'create-branch' field to true at package.json." >&2
+    fi
 }
 
 
@@ -64,7 +71,7 @@ publish_npm () {
         run npm publish
 
     else
-        echo "'npm publish' was skipped as NPM_AUTH and NPM_EMAIL are not set."
+        echo "'npm publish' was skipped as NPM_AUTH and NPM_EMAIL are not set." >&2
         # show_how_to_publish_npm
     fi
 }
