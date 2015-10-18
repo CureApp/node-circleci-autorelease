@@ -10,6 +10,11 @@ main () {
 
     version=`$dirname/cc-get-version-from-log`
 
+    run git status
+    run git diff package.json
+    run git checkout circle.yml
+    run git checkout package.json
+
     if [[ ! -n $version ]]; then
         exit 1
     fi

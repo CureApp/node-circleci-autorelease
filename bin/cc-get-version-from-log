@@ -21,6 +21,8 @@ get_version_from_log () {
 
         validate_version $version
 
+        git status
+
         echo $version
 
     else

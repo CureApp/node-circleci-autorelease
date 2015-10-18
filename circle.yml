@@ -13,4 +13,5 @@ deployment:
         branch:
             - master
         commands:
+            - 'git status'
             - 'cc-prepare-for-release && npm run pre-release && cc-release || cc-not-released'
