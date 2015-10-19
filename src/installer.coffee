@@ -2,6 +2,7 @@
 
 fs = require 'fs'
 PackageJSONLoader = require './package-json-loader'
+WorkingDirectory = require './working-directory'
 
 ###*
 create yml
@@ -17,7 +18,8 @@ class Installer
     @static
     ###
     @run: ->
-        new @(process.cwd()).install()
+        cwd = new WorkingDirectory().resolve()
+        new @(cwd).install()
 
 
     ###*
