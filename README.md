@@ -253,6 +253,14 @@ add `grunt-cli` to devDependencies
 
 you can write `grunt` command without full path in npm.
 
+## with gulp
+
+add `gulp` to devDependencies (which must already be included though.)
+
+
+## with bower
+
+add `bower` to devDependencies
 
 
 # LICENSE
