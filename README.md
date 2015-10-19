@@ -60,6 +60,7 @@ Three npm scripts are prepared for hooks.
 1. post-dependencies
 2. pre-release
 3. post-release
+4. post-release
 
 ### post-dependencies
 
@@ -92,6 +93,20 @@ Suitable for releasing commands like
 
 ```sh
 bower register
+```
+
+
+### gh-pages
+
+```sh
+npm run gh-pages
+```
+It runs just before creating "gh-pages" branch.
+
+Document generation would be suitable.
+
+```sh
+grunt yuidoc
 ```
 
 
@@ -141,6 +156,8 @@ Turn `create-gh-pages` to true in your package.json to enable it.
   }
 }
 ```
+
+`npm run gh-pages` is executed before creating the branch.
 
 
 # customize
