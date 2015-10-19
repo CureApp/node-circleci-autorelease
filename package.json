@@ -31,12 +31,16 @@
     "js-yaml": "^3.4.3"
   },
   "node-circleci-autorelease": {
+    "machine": {
+      "environment": {
+        "PATH": "$PATH:$HOME/$CIRCLE_PROJECT_REPONAME/bin"
+      }
+    },
     "config": {
       "git-user-name": "CircleCI",
       "git-user-email": "circleci@cureapp.jp",
       "version-prefix": "v",
-      "create-branch": true,
-      "gh-pages-dir": "bin"
+      "create-branch": true
     },
     "ignores": [
       "node_modules",

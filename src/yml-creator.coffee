@@ -97,6 +97,10 @@ class YmlCreator
             @setting.machine.environment.CREATE_BRANCH = 1
 
 
+        if config['create-gh-pages']
+            @setting.machine.environment.CREATE_GH_PAGES = 1
+
+
         if config['gh-pages-dir']
             @setting.machine.environment.GH_PAGES_DIR = config['gh-pages-dir']
 

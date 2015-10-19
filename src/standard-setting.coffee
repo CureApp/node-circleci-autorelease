@@ -22,5 +22,5 @@ module.exports =
                 branch:  [ 'master' ]
                 commands: [
                     'cc-prepare-for-release && npm run pre-release && cc-release || cc-not-released'
-                    'npm run gh-pages && cc-gh-pages'
+                    'cc-gh-pages'
                 ]

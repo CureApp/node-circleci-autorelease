@@ -75,11 +75,12 @@ class Installer
     attachCustomFields: ->
 
         config =
-            'git-user-name'  : 'CircleCI'
-            'git-user-email' : 'circleci@cureapp.jp'
-            'version-prefix' : 'v'
-            'create-branch'  : false
-            'gh-pages-dir'   : 'doc'
+            'git-user-name'   : 'CircleCI'
+            'git-user-email'  : 'circleci@cureapp.jp'
+            'version-prefix'  : 'v'
+            'create-branch'   : false
+            'create-gh-pages' : false
+            'gh-pages-dir'    : 'doc'
 
         defaultIgnores = [
             'node_modules'

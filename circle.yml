@@ -8,7 +8,6 @@ machine:
         PATH: '$PATH:$HOME/$CIRCLE_PROJECT_REPONAME/bin'
         VERSION_PREFIX: v
         CREATE_BRANCH: 1
-        GH_PAGES_DIR: bin
     pre:
         - "git config --global user.name 'CircleCI'"
         - "git config --global user.email 'circleci@cureapp.jp'"
@@ -21,4 +20,4 @@ deployment:
             - master
         commands:
             - 'cc-prepare-for-release && npm run pre-release && cc-release || cc-not-released'
-            - 'npm run gh-pages && cc-gh-pages'
+            - cc-gh-pages

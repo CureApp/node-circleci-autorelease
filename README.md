@@ -1,6 +1,6 @@
 # node-circleci-autorelease
 
-create release tags at CircleCI for Node.js project
+create release tags, release branches and gh-pages at CircleCI for Node.js project
 
 ```sh
 git commit -m 'release 1.2.3'
@@ -123,6 +123,25 @@ release X.Y.Z
 ```
 if you push to github/master, then CircleCI create a release tag.
 
+## gh-pages
+
+Just push to master, then `gh-pages` branch is created.
+
+This feature is disabled by default.
+
+Turn `create-gh-pages` to true in your package.json to enable it.
+
+```json
+{
+  "node-circleci-autorelease": {
+    "config": {
+      "create-gh-pages": true,
+      "gh-pages-dir": "doc"
+    }
+  }
+}
+```
+
 
 # customize
 
@@ -182,16 +201,9 @@ For example,
       }
     },
     "config": {
-      "git-user-name": "CircleCI",
-      "git-user-email": "circleci@cureapp.jp",
       "version-prefix": "v"
     },
     "ignores": [
-      "node_modules",
-      ".editorconfig",
-      "spec",
-      ".releaseignore",
-      ".bmp.yml",
       "npm-debug.log"
     ]
   }
@@ -205,12 +217,14 @@ For example,
 
 customize "config" field in "node-circleci-autorelease" to add git information.
 
-| key            | description                      | default             |
-|:---------------|:---------------------------------|:--------------------|
-| git-user-name  | user name of the release commit  | CircleCI            |
-| git-user-email | user email of the release commit | circleci@cureapp.jp |
-| version-prefix | prefix of tags to be created     | v                   |
-| create-branch  | create release branch or not     | false               |
+| key             | description                      | default             |
+|:----------------|:---------------------------------|:--------------------|
+| git-user-name   | user name of the release commit  | CircleCI            |
+| git-user-email  | user email of the release commit | circleci@cureapp.jp |
+| version-prefix  | prefix of tags to be created     | v                   |
+| create-branch   | create release branch or not     | false               |
+| create-gh-pages | create gh-pages branch or not    | false               |
+| gh-pages-dir    | directory to publish on gh-pages | doc                 |
 
 
 ### "ignores" field
