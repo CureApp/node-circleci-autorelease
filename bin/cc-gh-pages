@@ -29,7 +29,7 @@ main () {
 
         run git reset
         add_circle_yml
-        run git add $GH_PAGES_DIR
+        run git add -f $GH_PAGES_DIR
         run git clean -fdx
 
         for file in `ls $GH_PAGES_DIR`; do
