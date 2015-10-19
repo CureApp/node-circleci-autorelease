@@ -50,7 +50,7 @@ class YmlCreator
         delete custom.config
         delete custom.ignores
 
-        @attachNodeEngine()
+        #@attachNodeEngine()
 
         @attachConfig(config)
 
@@ -62,6 +62,7 @@ class YmlCreator
 
     ###*
     attach node version information from package.json
+    TODO: 4.2.x <= cannot be parsed on CircleCI
 
     @method attachNodeEngine
     @private
