@@ -16,7 +16,8 @@
     "post-dependencies": "echo post-dependencies",
     "pre-release": "echo pre-release",
     "post-release": "echo post-release",
-    "gh-pages": "echo gh-pages"
+    "gh-pages": "echo gh-pages",
+    "bmp": "cc-bmp"
   },
   "repository": {
     "type": "git",

@@ -53,6 +53,7 @@ class Installer
     attachScripts: ->
 
         newScripts =
+            'bmp'               : 'cc-bmp'
             'bmp-p'             : 'cc-bmp -p'
             'bmp-m'             : 'cc-bmp -m'
             'bmp-j'             : 'cc-bmp -j'
