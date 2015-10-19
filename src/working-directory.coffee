@@ -9,7 +9,7 @@ class WorkingDirectory
 
 
     resolve: ->
-        while @inNodeModules() and @upperPackageHasSelf()
+        if @inNodeModules() and @upperPackageJSON()
             @path = path.normalize @path + '/../..'
 
         return @path
@@ -20,16 +20,11 @@ class WorkingDirectory
         path.basename(path.normalize @path + '/..') is 'node_modules'
 
 
-    upperPackageHasSelf: ->
+    upperPackageJSON: ->
 
         upperPackagePath = path.normalize @path + '/../../package.json'
 
-        unless fs.existsSync(upperPackagePath)
-            return false
-
-        packageJSON = require upperPackagePath
-
-        packageJSON.devDependencies['node-circleci-autorelease'] or packageJSON.dependencies['node-circleci-autorelease']
+        fs.existsSync(upperPackagePath)
 
 
 module.exports = WorkingDirectory
