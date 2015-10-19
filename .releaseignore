@@ -1,0 +1,5 @@
+node_modules
+.editorconfig
+.releaseignore
+.bmp.yml
+npm-debug.log

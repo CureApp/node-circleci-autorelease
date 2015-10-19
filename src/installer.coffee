@@ -123,6 +123,8 @@ class Installer
 
         fs.writeFileSync(filename, defaultIgnores.join('\n') + '\n')
 
+        console.log 'creating a file: .releaseignore'
+
 
 
 module.exports = Installer
