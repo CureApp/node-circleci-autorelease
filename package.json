@@ -4,7 +4,8 @@
   "description": "create release tags at CircleCI",
   "main": "bin/cc-generate-yml",
   "bin": {
-    "cc": "bin"
+    "cc-bmp": "bin/cc-bmp",
+    "cc-generate-yml": "bin/cc-generate-yml"
   },
   "scripts": {
     "postinstall": "bin/cc-install",
