@@ -51,7 +51,7 @@ add_circle_yml () {
 }
 
 show_how_to_create_gh_pages () {
-        echo "
+        echo -e "
     gh-pages is not created because \$CREATE_GH_PAGES is not set.
     Set 'create-gh-pages' to true at your package.json, then CircleCI creates the branch.
 " >&2
@@ -60,7 +60,7 @@ show_how_to_create_gh_pages () {
 
 show_how_to_set_dir () {
 
-    echo "
+    echo -e "
     All files in master branch are added to gh-pages.
 
     Set 'gh-pages-dir' at your package.json, then only the contents of
