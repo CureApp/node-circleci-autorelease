@@ -56,7 +56,7 @@ push_release_branch () {
 ###
 ignore_files () {
 
-    $dirname/cc-get-ignore-files > .gitignore
+    run cp .releaseignore .gitignore
 
     files_to_remove=`git ls-files --full-name -i --exclude-from=.gitignore`
 

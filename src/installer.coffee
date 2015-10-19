@@ -39,6 +39,9 @@ class Installer
         @attachCustomFields()
         PackageJSONLoader.save(@cwd, @packageJSON)
 
+        @createReleaseIgnore()
+
+
 
     ###*
     attach scripts
@@ -82,19 +85,9 @@ class Installer
             'create-gh-pages' : false
             'gh-pages-dir'    : 'doc'
 
-        defaultIgnores = [
-            'node_modules'
-            '.editorconfig'
-            'spec'
-            '.releaseignore'
-            '.bmp.yml'
-            'npm-debug.log'
-        ]
-
         setting = @packageJSON['node-circleci-autorelease'] ? { config: {} }
 
         @setNonExistingValues(setting.config, config)
-        setting.ignores ?= defaultIgnores
 
         @packageJSON['node-circleci-autorelease'] = setting
 
@@ -109,6 +102,27 @@ class Installer
         for key, value of newObj when not original[key]?
             console.log "appending #{key}: '#{value}' to package.json"
             original[key] = value
+
+
+
+
+    createReleaseIgnore: ->
+
+        filename = @cwd + '/.releaseignore'
+
+        return if fs.existsSync filename
+
+        defaultIgnores = [
+            'node_modules'
+            '.editorconfig'
+            'spec'
+            '.releaseignore'
+            '.bmp.yml'
+            'npm-debug.log'
+        ]
+
+        fs.writeFileSync(filename, defaultIgnores.join('\n') + '\n')
+
 
 
 module.exports = Installer

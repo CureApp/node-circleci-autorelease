@@ -41,14 +41,6 @@
       "git-user-email": "circleci@cureapp.jp",
       "version-prefix": "v",
       "create-branch": true
-    },
-    "ignores": [
-      "node_modules",
-      ".editorconfig",
-      "spec",
-      ".releaseignore",
-      ".bmp.yml",
-      "npm-debug.log"
-    ]
+    }
   }
 }

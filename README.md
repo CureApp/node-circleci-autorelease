@@ -148,34 +148,8 @@ Turn `create-gh-pages` to true in your package.json to enable it.
 ## ignore files for release
 
 add `.releaseignore` file.
+Format is the same as `.gitignore`.
 
-The following files and directories are ignored by default:
-
-```text
-node_modules
-.editorconfig
-spec
-.releaseignore
-.bmp.yml
-npm-debug.log
-```
-
-These are written in `node-circleci-autorelease.ignores` field in your package.json
-
-```json
-{
-  "node-circleci-autorelease": {
-    "ignores": [
-      "node_modules",
-      ".editorconfig",
-      "spec",
-      ".releaseignore",
-      ".bmp.yml",
-      "npm-debug.log"
-    ]
-  }
-}
-```
 
 ## overwrite circle.yml
 
@@ -189,7 +163,7 @@ deployment:
 ## package.json
 
 `node-circleci-autorelease` section in your package.json will be parsed as the same structure as circle.yml
-except for `config` and `ignores` fields.
+except for `config` fields.
 
 For example,
 ```json
@@ -202,10 +176,7 @@ For example,
     },
     "config": {
       "version-prefix": "v"
-    },
-    "ignores": [
-      "npm-debug.log"
-    ]
+    }
   }
 }
 ```
@@ -225,11 +196,6 @@ customize "config" field in "node-circleci-autorelease" to add git information.
 | create-branch   | create release branch or not     | false               |
 | create-gh-pages | create gh-pages branch or not    | false               |
 | gh-pages-dir    | directory to publish on gh-pages | doc                 |
-
-
-### "ignores" field
-
-list containing files and directories to ignore for release.
 
 
 ## npm publish
