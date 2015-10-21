@@ -1,6 +1,6 @@
 {
   "name": "node-circleci-autorelease",
-  "version": "1.5.6",
+  "version": "1.5.7",
   "description": "create release tags at CircleCI",
   "main": "bin/cc-generate-yml",
   "directories": {
