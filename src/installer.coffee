@@ -120,6 +120,7 @@ class Installer
             '.editorconfig'
             'spec'
             '.releaseignore'
+            '.gitignore'
             '.bmp.yml'
             'npm-debug.log'
         ]

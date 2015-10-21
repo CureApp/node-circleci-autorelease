@@ -50,15 +50,15 @@ push_release_branch () {
 
 ###
 # @private
-# 1. update .gitignore
-# 2. remove files in .gitignore from cache
+# 1. replace .git/info/exclude
+# 2. remove files in .releaseignore from cache
 # @function ignore_files
 ###
 ignore_files () {
 
-    run cp .releaseignore .gitignore
+    run cp .releaseignore .git/info/exclude
 
-    files_to_remove=`git ls-files --full-name -i --exclude-from=.gitignore`
+    files_to_remove=`git ls-files --full-name -i --exclude-from=.releaseignore`
 
     if [[ -n "$files_to_remove" ]]; then
 
