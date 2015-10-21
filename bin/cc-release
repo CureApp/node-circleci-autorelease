@@ -55,12 +55,14 @@ push_release_branch () {
 ###
 # @private
 # 1. replace .git/info/exclude
+# 2. remove .gitignore
 # 2. remove files in .releaseignore from cache
 # @function ignore_files
 ###
 ignore_files () {
 
     run cp .releaseignore .git/info/exclude
+    run git rm .gitignore
 
     files_to_remove=`git ls-files --full-name -i --exclude-from=.releaseignore`
 
