@@ -47,7 +47,7 @@ main () {
 
 add_circle_yml () {
     run cp src/gh-pages.yml circle.yml
-    run git add circle.yml
+    run git add -f circle.yml
 }
 
 show_how_to_create_gh_pages () {
