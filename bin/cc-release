@@ -82,7 +82,11 @@ publish_npm () {
         echo "_auth=$NPM_AUTH" >> ~/.npmrc
         echo "email=$NPM_EMAIL" >> ~/.npmrc
 
+        run cp .releaseignore .npmignore
+
         run npm publish
+
+        run rm .npmignore
 
     else
         echo "'npm publish' was skipped as NPM_AUTH and NPM_EMAIL are not set." >&2
