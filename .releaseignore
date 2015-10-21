@@ -5,3 +5,4 @@ node_modules
 .bmp.yml
 circle.yml
 npm-debug.log
+README.md
