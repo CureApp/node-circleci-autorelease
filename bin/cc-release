@@ -43,11 +43,8 @@ push_release_branch () {
 
     if [[ -n "$CREATE_BRANCH" ]]; then
 
-        if [[ ! -f circle.yml ]]; then
-            run cp src/release.yml circle.yml
-            run git add -f circle.yml
-            run git commit -m 'add circle.yml for release'
-        fi
+        run git add -f circle.yml
+        run git commit --allow-empty -m 'add circle.yml for release'
 
         run git push --force $remote release-$version
     else
