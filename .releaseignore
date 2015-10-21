@@ -1,7 +1,0 @@
-node_modules
-.editorconfig
-.releaseignore
-.gitignore
-.bmp.yml
-circle.yml
-npm-debug.log
