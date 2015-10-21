@@ -122,6 +122,7 @@ class Installer
             '.releaseignore'
             '.gitignore'
             '.bmp.yml'
+            'circle.yml'
             'npm-debug.log'
         ]
 
