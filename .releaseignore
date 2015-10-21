@@ -1,5 +1,6 @@
 node_modules
 .editorconfig
 .releaseignore
+.gitignore
 .bmp.yml
 npm-debug.log
