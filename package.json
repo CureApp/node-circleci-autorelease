@@ -11,6 +11,7 @@
     "test": "echo no test",
     "bmp-p": "cc-bmp -p",
     "bmp-m": "cc-bmp -m",
+    "bmp-r": "cc-bmp -r",
     "bmp-j": "cc-bmp -j",
     "circle": "cc-generate-yml",
     "post-dependencies": "echo post-dependencies",
