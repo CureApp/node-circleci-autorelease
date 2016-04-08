@@ -17,7 +17,7 @@ get_version_from_log () {
 
     if [[ "$commit_msg" =~ ^(re-)?release\ +[0-9]+\. ]]; then
 
-        version=`echo $commit_msg | sed "s/^release\ *//"`
+        version=`echo $commit_msg | sed "s/^re-//" | sed "s/^release\ *//"`
 
         validate_version $version
 
