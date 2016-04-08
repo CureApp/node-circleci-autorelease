@@ -6,10 +6,19 @@ source $dirname/private/assert_command_succeed
 source $dirname/private/get_bmp_version
 
 main () {
+    args=$*
+
+    # if "-r" is given, re-release
+    if [[ $args == "-r" ]]; then
+        verb="re-release"
+        args=""
+    else
+        verb="release"
+    fi
 
     assert_bmp_exist
 
-    run bmp $*
+    run bmp $args
 
     assert_command_succeed $? bmp
 
@@ -19,7 +28,7 @@ main () {
 
     run git add -A
 
-    run git commit --allow-empty -m "release $version" && show_notice
+    run git commit --allow-empty -m "$verb $version" && show_notice
 }
 
 
