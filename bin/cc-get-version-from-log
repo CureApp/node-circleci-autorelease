@@ -15,7 +15,7 @@ get_version_from_log () {
 
     echo latest commit log: \"$commit_msg\" >&2
 
-    if [[ "$commit_msg" =~ ^release\ +[0-9]+\. ]]; then
+    if [[ "$commit_msg" =~ ^(re-)?release\ +[0-9]+\. ]]; then
 
         version=`echo $commit_msg | sed "s/^release\ *//"`
 
