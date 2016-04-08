@@ -57,7 +57,7 @@ class Installer
             'bmp-p'             : 'cc-bmp -p'
             'bmp-m'             : 'cc-bmp -m'
             'bmp-j'             : 'cc-bmp -j'
-            'bmp-j'             : 'cc-bmp -j'
+            'bmp-r'             : 'cc-bmp -r'
             'circle'            : 'cc-generate-yml'
             'post-dependencies' : 'echo post-dependencies'
             'pre-release'       : 'echo pre-release'
