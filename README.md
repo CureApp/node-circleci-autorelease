@@ -129,14 +129,24 @@ then you can use following commands.
 npm run bmp-p
 npm run bmp-m
 npm run bmp-j
+npm run bmp-r
 ```
 
-they update version and commit with a message
+they update version and commit with a message except running `npm run bmp-r`.
 
 ```
 release X.Y.Z
 ```
 if you push to github/master, then CircleCI create a release tag.
+
+### re-release
+`npm run bmp-r` doesn't bump version. Instead, it makes an empty commit with the following message:
+
+```
+re-release X.Y.Z
+```
+where X.Y.Z is the current version. This is useful when the last release is failed.
+
 
 ## gh-pages
 
