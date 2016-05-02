@@ -56,7 +56,7 @@ class YmlCreator
 
         merged = merge(@setting, custom)
 
-        return yaml.dump merged, indent: 4
+        return yaml.dump merged, indent: 4, lineWidth: 120
 
 
 
