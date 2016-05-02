@@ -10,6 +10,7 @@ source $dirname/private/select_remote_repo
 # - uses OAuth token if given
 # - checkouts release branch
 # - ignore files
+# - add shrinkwrap.json if needed (requires $NPM_SHRINKWRAP flag.)
 # - commits and creates a tag into github
 ###
 main () {
@@ -22,6 +23,7 @@ main () {
     run git checkout -b release-$version
 
     ignore_files
+    add_shrinkwrap_json
 
     run git add -A
     run git commit -m $version
@@ -36,6 +38,21 @@ main () {
 
     run git checkout $CIRCLE_BRANCH
 }
+
+
+add_shrinkwrap_json () {
+
+    if [[ -n "$NPM_SHRINKWRAP" && $NPM_SHRINKWRAP != 0 ]]; then
+
+        run npm shrinkwrap
+
+    else
+        echo -e "'npm shrinkwrap' was not executed. Set 'node-circleci-autorelease.shrinkwrap' field to true at package.json." >&2
+        echo -e "Alternatively, you can make shrinkwrap.json by setting environment variable \$NPM_SHRINKWRAP=1" >&2
+    fi
+}
+
+
 
 push_release_branch () {
 
