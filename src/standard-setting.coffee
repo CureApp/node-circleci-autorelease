@@ -13,7 +13,10 @@ module.exports =
 
         dependencies:
 
-            post: [ 'npm run post-dependencies' ]
+            post: [
+                'cc-npm-update'
+                'npm run post-dependencies'
+            ]
 
 
         deployment:
