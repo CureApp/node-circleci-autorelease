@@ -22,6 +22,9 @@ class YmlCreator
         filename = process.cwd() + '/circle.yml'
         content = new @(process.cwd()).create()
         fs.writeFileSync(filename, content)
+        msg = "A new circle.yml was successfully generated!"
+        console.log "\u001b[32m#{msg}\u001b[0m\n\n"
+        console.log(content)
 
 
     ###*
