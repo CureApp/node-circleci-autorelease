@@ -1,0 +1,64 @@
+#!/bin/bash
+
+dirname=${0%/*}
+source $dirname/private/run
+
+###
+# @public
+# - npm update --depth X --dev --save
+# X is $NPM_UPDATE_DEPTH
+# When X is 0 (default value), npm update will not be executed.
+###
+main () {
+
+    depth=$NPM_UPDATE_DEPTH
+
+    if [[ -n "$depth" && $depth != 0 ]]; then
+
+        npm_update $depth
+    else
+        echo "'npm update' was skipped as \$NPM_UPDATE_DEPTH are not set (or set to zero)." >&2
+    fi
+}
+
+
+
+npm_update () {
+
+    depth=$1
+    major_npm_version=`get_major_npm_version`
+
+    if [[ "$major_npm_version" < 3 ]]; then
+
+        show_why_npm2_is_not_recommended
+
+        run npm update --depth $depth
+
+    else
+        run npm update --dev --depth $depth
+    fi
+}
+
+
+
+
+get_major_npm_version () {
+    npm -v | sed -e "s/\.[0-9]*//g"
+}
+
+
+show_why_npm2_is_not_recommended () {
+    echo "
+    To update node_modules, npm version should be 3 or more.
+
+    This is because npm v2 has a bug that it tries to install devDependencies of submodules when --dev option is set.
+
+    https://github.com/npm/npm/issues/5554
+
+    As a workaround, we omit updating devDependencies in npm v2.
+" >&2
+}
+
+
+
+main
