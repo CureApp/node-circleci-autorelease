@@ -47,7 +47,9 @@
       "version-prefix": "v",
       "create-branch": true,
       "create-gh-pages": false,
-      "gh-pages-dir": "doc"
+      "gh-pages-dir": "doc",
+      "npm-shrinkwrap": true,
+      "npm-update-depth": 9999
     }
   }
 }

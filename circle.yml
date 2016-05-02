@@ -9,6 +9,8 @@ machine:
         VERSION_PREFIX: v
         CREATE_BRANCH: 1
         GH_PAGES_DIR: doc
+        NPM_SHRINKWRAP: 1
+        NPM_UPDATE_DEPTH: 9999
     pre:
         - git config --global user.name 'CircleCI'
         - git config --global user.email 'circleci@cureapp.jp'
