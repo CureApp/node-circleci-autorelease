@@ -47,7 +47,7 @@ add_shrinkwrap_json () {
         run npm shrinkwrap
 
     else
-        echo -e "'npm shrinkwrap' was not executed. Set 'node-circleci-autorelease.shrinkwrap' field to true at package.json." >&2
+        echo -e "'npm shrinkwrap' was not executed. Set 'node-circleci-autorelease.npm-shrinkwrap' field to true at package.json." >&2
         echo -e "Alternatively, you can make shrinkwrap.json by setting environment variable \$NPM_SHRINKWRAP=1" >&2
     fi
 }

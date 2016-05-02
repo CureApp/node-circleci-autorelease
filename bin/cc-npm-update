@@ -17,7 +17,8 @@ main () {
 
         npm_update $depth
     else
-        echo "'npm update' was skipped as \$NPM_UPDATE_DEPTH are not set (or set to zero)." >&2
+        echo -e "'npm update' was skipped. Set 'node-circleci-autorelease.npm-update-depth' field to true at package.json." >&2
+        echo -e "Alternatively, you can run 'npm update' by setting environment variable \$NPM_UPDATE_DEPTH=1" >&2
     fi
 }
 

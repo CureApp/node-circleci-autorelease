@@ -87,6 +87,9 @@ class Installer
             'create-branch'   : false
             'create-gh-pages' : false
             'gh-pages-dir'    : 'doc'
+            'npm-shrinkwrap'  : false
+            'npm-update-depth': false
+
 
         setting = @packageJSON['node-circleci-autorelease'] ? { config: {} }
 

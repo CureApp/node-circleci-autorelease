@@ -106,4 +106,11 @@ class YmlCreator
             @setting.machine.environment.GH_PAGES_DIR = config['gh-pages-dir']
 
 
+        if config['npm-shrinkwrap']
+            @setting.machine.environment.NPM_SHRINKWRAP = 1
+
+
+        if config['npm-update-depth']
+            @setting.machine.environment.NPM_UPDATE_DEPTH = config['npm-update-depth']
+
 module.exports = YmlCreator
