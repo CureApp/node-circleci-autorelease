@@ -62,6 +62,7 @@ class Installer
             'post-dependencies' : 'echo post-dependencies'
             'pre-release'       : 'echo pre-release'
             'post-release'      : 'echo post-release'
+            'release'           : 'cc-local-release'
             'gh-pages'          : 'echo gh-pages'
 
         existingScripts = @packageJSON.scripts ? {}
