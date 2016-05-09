@@ -1,0 +1,19 @@
+#!/usr/bin/env node
+require('coffee-script/register');
+var exporter = require('../src/env-var-exporter');
+var result;
+
+switch (process.argv[2]) {
+    case '--circle':
+        result = exporter.getCircleEnvVars()
+        break;
+
+    case '--custom':
+        result = exporter.getCustomEnvVars()
+        break;
+
+    default:
+        break;
+
+}
+console.log(result);

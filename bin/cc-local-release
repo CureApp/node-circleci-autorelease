@@ -1,0 +1,27 @@
+#!/bin/bash
+
+dirname=${0%/*}
+source $dirname/private/run
+
+###
+# @public
+# - set environment variables defined in CircleCI
+# - npm update
+# - npm run post-dependencies
+# - skip test and release
+# - make gh-pages
+###
+main () {
+    load_env_vars
+    $dirname/cc-npm-update
+    npm run post-dependencies
+    $dirname/cc-prepare-for-release && npm run pre-release && $dirname/cc-release || $dirname/cc-not-released
+    $dirname/cc-gh-pages
+}
+
+load_env_vars() {
+    eval `$dirname/cc-show-env-var-commands --circle`
+    eval `$dirname/cc-show-env-var-commands --custom`
+}
+
+main
