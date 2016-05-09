@@ -12,12 +12,24 @@ source $dirname/private/run
 # - make gh-pages
 ###
 main () {
+
+    check_version
     load_env_vars
     $dirname/cc-npm-update
     npm run post-dependencies
     $dirname/cc-prepare-for-release && npm run pre-release && $dirname/cc-release || $dirname/cc-not-released
     $dirname/cc-gh-pages
 }
+
+check_version () {
+
+    version=`$dirname/cc-get-version-from-log`
+
+    if [[ ! -n $version ]]; then
+        exit 1
+    fi
+}
+
 
 load_env_vars() {
     eval `$dirname/cc-show-env-var-commands --circle`
