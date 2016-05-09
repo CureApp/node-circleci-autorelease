@@ -1,0 +1,30 @@
+#!/bin/bash
+
+dirname=${0%/*}
+source $dirname/private/run
+
+###
+# @public
+# - re-checks version
+# - uses OAuth token if given
+# - checkouts release branch
+# - ignore files
+# - add shrinkwrap.json if needed (requires $NPM_SHRINKWRAP flag.)
+# - commits and creates a tag into github
+###
+main () {
+    load_env_vars
+    # cc-npm-update
+    # npm run post-dependencies
+    # cc-prepare-for-release && npm run pre-release && cc-release || cc-not-released
+    # cc-gh-pages
+}
+
+load_env_vars() {
+    $dirname/cc-show-env-var-commands | sh
+    echo $CIRCLE_PR_NUMBER
+    echo $CIRCLE_PROJECT_REPONAME
+}
+
+
+main

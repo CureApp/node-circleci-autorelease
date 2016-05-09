@@ -1,0 +1,3 @@
+#!/usr/bin/env node
+require('coffee-script/register');
+console.log(require('../src/env-var-exporter').getShellCommands());
