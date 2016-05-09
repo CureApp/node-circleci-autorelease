@@ -22,7 +22,8 @@
     "pre-release": "echo pre-release",
     "post-release": "echo post-release",
     "gh-pages": "echo gh-pages",
-    "bmp": "cc-bmp"
+    "bmp": "cc-bmp",
+    "release": "cc-local-release"
   },
   "repository": {
     "type": "git",
