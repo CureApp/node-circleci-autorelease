@@ -19,7 +19,7 @@ class EnvVarExporter
     ###
     @getCircleEnvVars: ->
 
-        cwd = process.cwd()
+        cwd = new WorkingDirectory().resolve()
 
         packageJSON = PackageJSONLoader.load(cwd)
 
@@ -35,7 +35,7 @@ class EnvVarExporter
     ###
     @getCustomEnvVars: ->
 
-        cwd = process.cwd()
+        cwd = new WorkingDirectory().resolve()
 
         filename = cwd + '/circle.yml'
         if not fs.existsSync(filename)
