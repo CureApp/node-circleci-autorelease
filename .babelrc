@@ -1,4 +1,9 @@
 {
   "presets": ["es2015", "stage-0"],
-  "plugins": ["transform-object-assign"]
+  "plugins": [
+    "transform-object-assign",
+    "typecheck",
+    "syntax-flow",
+    "transform-flow-strip-types"
+  ]
 }

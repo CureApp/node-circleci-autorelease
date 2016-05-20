@@ -2,7 +2,7 @@
 
 const fs = require('fs')
 const program = require('commander')
-    .version(require(__dirname + '/../package.json').version)
+    .version(require(__dirname + '/../../package.json').version)
 
 const subcommands = {
     'bmp'        : 'version bumping',
@@ -12,7 +12,7 @@ const subcommands = {
 }
 
 Object.keys(subcommands)
-    .filter(function(sub) { return fs.existsSync(__dirname + '/../dist/subcommands/' + sub + '.js')})
+    .filter(function(sub) { return fs.existsSync(__dirname + '/nca-' + sub + '.js')})
     .forEach(function(sub) { program.command(sub, subcommands[sub]) })
 
 program.parse(process.argv)
