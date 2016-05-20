@@ -1,0 +1,5 @@
+#!/usr/bin/env node
+require('shelljs/global')
+
+cd(__dirname + '/../exec-files')
+exec('./cc-show-env-var-commands')

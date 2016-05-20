@@ -23,5 +23,8 @@
     "coffee-script": "^1.10.0",
     "deepmerge": "^0.2.10",
     "js-yaml": "^3.4.3"
+  },
+  "devDependencies": {
+    "shelljs": "^0.7.0"
   }
 }
