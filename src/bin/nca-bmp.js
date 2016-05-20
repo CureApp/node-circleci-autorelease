@@ -1,6 +1,8 @@
 import {exec, which} from 'shelljs'
 import program from 'commander'
 import chalk from 'chalk'
+import WorkingDirectory from '../lib/working-directory'
+import PackageJSONLoader from '../lib/package-json-loader'
 
 const COMMAND_DESC = `
   bump-level:
@@ -47,9 +49,8 @@ export default function run() {
  * @private
  */
 function getCurrentVersion(): string {
-    return '1.2.3'
     const cwd = new WorkingDirectory().resolve()
-    return PackageJSONLoader.load().version
+    return PackageJSONLoader.load(cwd).version
 }
 
 
@@ -95,8 +96,5 @@ function showNotice () {
 --------------------------------------------------------
 `)
 }
-
-
-
 
 if (require.main === module) run()
