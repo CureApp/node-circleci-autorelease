@@ -9,6 +9,7 @@ const subcommands = {
     'generate'       : 'generate circle.yml',
     'update-modules' : 'update node modules',
     'release'        : 'release current version',
+    'notice'         : 'show notice',
 }
 
 Object.keys(subcommands)
