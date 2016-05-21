@@ -37,7 +37,7 @@ export default class AutoreleaseYml {
     }
 
 
-    config(key: string): string|number|boolean {
+    config(key: string): primitive {
         let val = this.__data.config ? this.__data.config[key] : undefined
         return (val != null)? val : this.constructor.defaultConfig[key]
     }

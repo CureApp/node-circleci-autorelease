@@ -3,7 +3,7 @@
 [include]
 
 [libs]
-decls
+src/decls
 
 [options]
 esproposal.class_static_fields=enable

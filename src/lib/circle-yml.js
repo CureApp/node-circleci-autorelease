@@ -2,7 +2,7 @@
 
 import merge from 'deepmerge'
 import yaml from 'js-yaml'
-import AutoreleaseYml from './autorelease-yml' // TODO Remove this row. This import is only required for ESLint.
+import type AutoreleaseYml from './autorelease-yml'
 
 export default class CircleYml {
 
@@ -47,7 +47,7 @@ export default class CircleYml {
         }
     }
 
-    static updateModulesCommand(depth: number|string|boolean): ?Array<string> {
+    static updateModulesCommand(depth: primitive): ?Array<string> {
         if (!depth) { return }
         return ['$(npm bin)/nca update-modules']
     }
