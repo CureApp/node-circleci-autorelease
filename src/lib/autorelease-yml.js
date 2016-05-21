@@ -27,6 +27,14 @@ export default class AutoreleaseYml {
     }
 
 
+    get config(): Object {
+        return Object.assign({}, this.__data.config)
+    }
+
+    get circle(): Object {
+        return Object.assign({}, this.__data.circle)
+    }
+
     /**
      * check format of autorelease.yml
      * @public
@@ -110,7 +118,7 @@ export default class AutoreleaseYml {
     /**
      * @private
      */
-    checkHookCommandFormat(cmds: string, name: string, subname: string) {
+    checkHookCommandFormat(cmds: any, name: string, subname: string) {
         if (typeof cmds === 'string') {
             return
         }
