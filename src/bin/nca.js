@@ -6,7 +6,7 @@ const program = require('commander')
 
 const subcommands = {
     'bmp'        : 'version bumping',
-    'generate'   : 'generate circleyml',
+    'generate'   : 'generate circle.yml',
     'update-npm' : 'update node modules',
     'release'    : 'release current version',
 }
