@@ -2,8 +2,16 @@
   "presets": ["es2015", "stage-0"],
   "plugins": [
     "transform-object-assign",
+    "array-includes",
     "typecheck",
     "syntax-flow",
     "transform-flow-strip-types"
-  ]
+  ],
+  "env": {
+    "development": {
+      "presets": [
+          "power-assert"
+      ]
+    }
+  }
 }
