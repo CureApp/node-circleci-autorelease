@@ -19,7 +19,7 @@ config:
   create_gh_pages: false,
   gh_pages_dir: doc,
   npm_shrinkwrap: true,
-  npm_update_depth: 9999
+  npm_update_depth: 4
 
 
 circle:

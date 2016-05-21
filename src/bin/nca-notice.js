@@ -42,7 +42,7 @@ If you would like to update them, edit .autorelease.yml
 like the code below.
 
     config:
-      npm_update_depth: 9999 # greater than 0 -> updated
+      npm_update_depth: 4 # greater than 0 -> updated
 
 --------------------------------------------------------
 `
