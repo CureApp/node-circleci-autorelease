@@ -3,7 +3,7 @@
   "plugins": [
     "transform-object-assign",
     "array-includes",
-    "typecheck",
+    ["typecheck", { "only": ["enabled"] }],
     "syntax-flow",
     "transform-flow-strip-types"
   ],
