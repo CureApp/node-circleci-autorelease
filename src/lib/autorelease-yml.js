@@ -31,7 +31,7 @@ export default class AutoreleaseYml {
      * check format of autorelease.yml
      * @public
      */
-    checkFormat(): void {
+    checkFormat() {
 
         if (!this.__data) throw new Error('Yaml has not been loaded.')
 
@@ -86,7 +86,7 @@ export default class AutoreleaseYml {
     /**
      * @private
      */
-    checkHooksFormat(hooks: Object): void {
+    checkHooksFormat(hooks: Object) {
 
         Object.keys(hooks).forEach(name => {
             if (! this.hookNames.includes(name)) {
@@ -110,7 +110,7 @@ export default class AutoreleaseYml {
     /**
      * @private
      */
-    checkHookCommandFormat(cmds: string, name: string, subname: string): void {
+    checkHookCommandFormat(cmds: string, name: string, subname: string) {
         if (typeof cmds === 'string') {
             return
         }
@@ -129,7 +129,7 @@ export default class AutoreleaseYml {
     /**
      * @private
      */
-    checkConfigFormat(config: Object): void {
+    checkConfigFormat(config: Object) {
         Object.keys(config).forEach(name => {
             if (!this.configNames.includes(name)) {
                 throw new Error(`Unknown field: "config.${name}"`)
@@ -145,7 +145,7 @@ export default class AutoreleaseYml {
     /**
      * @private
      */
-    checkCircleFormat(circle: Object): void {
+    checkCircleFormat(circle: Object) {
         return
     }
 
