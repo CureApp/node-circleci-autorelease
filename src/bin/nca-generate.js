@@ -14,6 +14,8 @@ export default function run() {
 
     const arYml = AutoreleaseYml.loadFromDir(rootDir)
 
+    arYml.checkFormat()
+
     const ymlStr = CircleYml.generate(arYml) 
 
     const filename = join(rootDir, 'circle.yml')

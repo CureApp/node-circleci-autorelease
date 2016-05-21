@@ -10,7 +10,7 @@ const program = require('commander')
     .version(version)
 
 const subcommands = {
-    'bmp'            : 'version bumping',
+    'bmp'            : 'generate circle.yml and bumping version',
     'generate'       : 'generate circle.yml',
     'update-modules' : 'update node modules',
     'release'        : 'release current version',

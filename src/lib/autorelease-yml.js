@@ -40,7 +40,13 @@ export default class AutoreleaseYml {
 
 
     constructor(path: string) {
-        this.__data = yaml.safeLoad(fs.readFileSync(path, 'utf8'))
+        try {
+            this.__data = yaml.safeLoad(fs.readFileSync(path, 'utf8'))
+        }
+        // if .autorelease.yml is not found, silently prepare a default object
+        catch (e) {
+            this.__data = {}
+        }
     }
 
 

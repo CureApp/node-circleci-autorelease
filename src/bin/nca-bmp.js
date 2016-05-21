@@ -6,6 +6,7 @@ import program from 'commander'
 import chalk from 'chalk'
 import WorkingDirectory from '../lib/working-directory'
 import PackageJSONLoader from '../lib/package-json-loader'
+import generateCircleYml from './nca-generate'
 
 const COMMAND_DESC = `
   bump-level:
@@ -33,14 +34,17 @@ export default function run() {
         process.exit(1)
     }
 
+    generateCircleYml()
+
+
     const verb = arg === 'r' ? 're-release' : 'release'
 
-    exec(`bmp -${arg}`)
+    exec(`echo bmp -${arg}`)
 
     const version = getCurrentVersion()
 
-    exec('git add -A')
-    exec(`git commit --allow-empty -m "${verb} ${version}"`)
+    exec('echo git add -A')
+    exec(`echo git commit --allow-empty -m "${verb} ${version}"`)
     showNotice()
 
     return 0
