@@ -38,7 +38,9 @@ export default class CircleYml {
             },
 
             dependencies: {
-                post: this.updateModulesCommands(arYml.config('npm_update_depth'))
+                post: [
+                    this.updateModulesCommand(arYml.config('npm_update_depth'))
+                ]
             },
 
             deployment: {
@@ -57,9 +59,11 @@ export default class CircleYml {
      * generate command to update node_modules
      * @private
      */
-    static updateModulesCommands(depth: primitive): ?Array<string> {
-        if (!depth) { return }
-        return ['$(npm bin)/nca update-modules']
+    static updateModulesCommand(depth: primitive): string {
+        if (!depth) {
+            return '$(npm bin)/nca notice update-modules'
+        }
+        return `$(npm bin)/nca update-modules --depth ${depth}`
     }
 
     /**
