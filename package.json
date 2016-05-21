@@ -11,7 +11,9 @@
     "npm": ">=3"
   },
   "scripts": {
-    "test": "npm run test:spec",
+    "lint": "eslint src",
+    "flow": "npm run flow",
+    "test": "npm run lint && flow && npm run test:spec",
     "test:spec": "mocha $(find test/spec -type f ! -path '*/data/*')"
   },
   "repository": {
@@ -41,6 +43,7 @@
     "eslint": "^2.10.2",
     "eslint-plugin-flowtype": "^2.2.7",
     "eslint-plugin-react": "^5.1.1",
+    "flow-bin": "^0.25.0",
     "mocha": "^2.4.5",
     "power-assert": "^1.4.1",
     "shelljs": "^0.7.0"
