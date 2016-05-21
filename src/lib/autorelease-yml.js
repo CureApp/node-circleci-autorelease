@@ -14,11 +14,18 @@ export default class AutoreleaseYml {
     static defaultConfig = {
         git_user_name: 'CircleCI',
         git_user_email: 'circleci@cureapp.jp',
+
+        // options for nca update-modules
+        npm_update_depth: 0,
+
+        // options for nca release
         version_prefix: 'v',
-        create_branch: 1,
+        create_branch: false,
+        npm_shrinkwrap: false,
+
+        // options for nca gh-pages
+        create_gh_pages: false,
         gh_pages_dir: 'doc',
-        npm_shrinkwrap: 1,
-        npm_update_depth: 9999
     }
 
 
@@ -88,16 +95,7 @@ export default class AutoreleaseYml {
      * @private
      */
     get configNames(): Array<string> {
-        return [
-            'git_user_name',
-            'git_user_email',
-            'version_prefix',
-            'create_branch',
-            'create_gh_pages',
-            'gh_pages_dir',
-            'npm_shrinkwrap',
-            'npm_update_depth'
-        ]
+        return Object.keys(this.constructor.defaultConfig)
     }
 
 
