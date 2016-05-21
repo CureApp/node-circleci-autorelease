@@ -67,46 +67,46 @@ describe('AutoreleaseYml', function() {
                 assert.throws(x => { arYml.checkFormat() }, /Unknown field: "hooks.ghpages"/)
             })
 
-            it('should be ok when hooks.update_npm contains only "pre" field', function() {
+            it('should be ok when hooks.update_modules contains only "pre" field', function() {
                 const arYml = new AutoreleaseYml(this.path)
-                arYml.__data.hooks.update_npm = {pre: ['echo AutoRelease!']}
+                arYml.__data.hooks.update_modules = {pre: ['echo AutoRelease!']}
 
                 assert.doesNotThrow(x => { arYml.checkFormat() })
             })
 
 
-            it('should throw error when hooks.update_npm is empty', function() {
+            it('should throw error when hooks.update_modules is empty', function() {
                 const arYml = new AutoreleaseYml(this.path)
-                arYml.__data.hooks.update_npm = {}
+                arYml.__data.hooks.update_modules = {}
 
-                assert.throws(x => { arYml.checkFormat() }, /Field not found: "hooks\.update_npm\.pre"/)
+                assert.throws(x => { arYml.checkFormat() }, /Field not found: "hooks\.update_modules\.pre"/)
             })
 
 
-            it('should throw error when invalid field exists in hooks.update_npm', function() {
+            it('should throw error when invalid field exists in hooks.update_modules', function() {
                 const arYml = new AutoreleaseYml(this.path)
-                arYml.__data.hooks.update_npm.before = {}
+                arYml.__data.hooks.update_modules.before = {}
 
-                assert.throws(x => { arYml.checkFormat() }, /Unknown field: "hooks.update_npm.before"/)
+                assert.throws(x => { arYml.checkFormat() }, /Unknown field: "hooks.update_modules.before"/)
             })
 
 
-            it('should be ok when hooks.update_npm is array', function() {
+            it('should be ok when hooks.update_modules is array', function() {
                 const arYml = new AutoreleaseYml(this.path)
-                arYml.__data.hooks.update_npm.pre = ['echo "CureApp"', 'rm .gitignore']
+                arYml.__data.hooks.update_modules.pre = ['echo "CureApp"', 'rm .gitignore']
                 assert.doesNotThrow(x => { arYml.checkFormat() })
             })
 
 
-            it('should be ok when hooks.update_npm is string', function() {
+            it('should be ok when hooks.update_modules is string', function() {
                 const arYml = new AutoreleaseYml(this.path)
-                arYml.__data.hooks.update_npm.pre = 'echo "CureApp"'
+                arYml.__data.hooks.update_modules.pre = 'echo "CureApp"'
                 assert.doesNotThrow(x => { arYml.checkFormat() })
             })
 
-            it('should throw error when hooks.update_npm is object', function() {
+            it('should throw error when hooks.update_modules is object', function() {
                 const arYml = new AutoreleaseYml(this.path)
-                arYml.__data.hooks.update_npm.pre = { cmd1: 'echo "CureApp"' }
+                arYml.__data.hooks.update_modules.pre = { cmd1: 'echo "CureApp"' }
                 assert.throws(x => { arYml.checkFormat() }, /It should be an array or a string/)
             })
 

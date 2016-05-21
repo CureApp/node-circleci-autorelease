@@ -5,10 +5,10 @@ const program = require('commander')
     .version(require(__dirname + '/../../package.json').version)
 
 const subcommands = {
-    'bmp'        : 'version bumping',
-    'generate'   : 'generate circle.yml',
-    'update-npm' : 'update node modules',
-    'release'    : 'release current version',
+    'bmp'            : 'version bumping',
+    'generate'       : 'generate circle.yml',
+    'update-modules' : 'update node modules',
+    'release'        : 'release current version',
 }
 
 Object.keys(subcommands)

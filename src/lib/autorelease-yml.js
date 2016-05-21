@@ -11,6 +11,16 @@ export default class AutoreleaseYml {
 
     static filename = '.autorelease.yml'
 
+    static defaultConfig = {
+        git_user_name: 'CircleCI',
+        git_user_email: 'circleci@cureapp.jp',
+        version_prefix: 'v',
+        create_branch: 1,
+        gh_pages_dir: 'doc',
+        npm_shrinkwrap: 1,
+        npm_update_depth: 9999
+    }
+
 
     /**
      * load yml file in the given directory
@@ -27,8 +37,9 @@ export default class AutoreleaseYml {
     }
 
 
-    get config(): Object {
-        return Object.assign({}, this.__data.config)
+    config(key: string): string|number|boolean {
+        let val = this.__data.config ? this.__data.config[key] : undefined
+        return (val != null)? val : this.constructor.defaultConfig[key]
     }
 
     get circle(): Object {
@@ -70,7 +81,7 @@ export default class AutoreleaseYml {
      * @private
      */
     get hookNames(): Array<string> {
-        return ['update_npm', 'release', 'gh_pages']
+        return ['update_modules', 'release', 'gh_pages']
     }
 
     /**

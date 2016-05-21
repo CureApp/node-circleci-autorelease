@@ -1,7 +1,7 @@
 
 hooks:
 
-  update_npm:
+  update_modules:
     pre: echo "running before updating npm"
 
   release:

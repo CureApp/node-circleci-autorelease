@@ -6,7 +6,7 @@ import AutoreleaseYml from './autorelease-yml' // TODO Remove this row. This imp
 
 export default class CircleYml {
 
-    static generate(arYml: AutoreleaseYml): String {
+    static generate(arYml: AutoreleaseYml): string {
 
         const standard = this.standard(arYml)
         const custom = arYml.circle
@@ -25,15 +25,14 @@ export default class CircleYml {
             },
 
             machine: {
-                environment: this.environment(arYml.config),
-                post: [
-                    'git config --global user.name ${GIT_USER_NAME}',
-                    'git config --global user.email ${GIT_USER_EMAIL}'
+                pre: [
+                    `git config --global user.name "${arYml.config('git_user_name')}"`,
+                    `git config --global user.email "${arYml.config('git_user_email')}"`
                 ],
             },
 
             dependencies: {
-                post: ['$(npm bin)/nca update-npm']
+                post: this.updateModulesCommand(arYml.config('npm_update_depth'))
             },
 
             deployment: {
@@ -48,23 +47,9 @@ export default class CircleYml {
         }
     }
 
-    static environment(arConfig: Object): Object {
-
-        let values = {
-            GIT_USER_NAME: 'CircleCI',
-            GIT_USER_EMAIL: 'circleci@cureapp.jp',
-            VERSION_PREFIX: 'v',
-            CREATE_BRANCH: 1,
-            GH_PAGES_DIR: 'doc',
-            NPM_SHRINKWRAP: 1,
-            NPM_UPDATE_DEPTH: 9999
-        }
-
-        Object.keys(arConfig).forEach(key => {
-            const KEY = key.toUpperCase()
-            values[KEY] = arConfig[key]
-        })
-
-        return values
+    static updateModulesCommand(depth: number|string|boolean): ?Array<string> {
+        if (!depth) { return }
+        return ['$(npm bin)/nca update-modules']
     }
+
 }
