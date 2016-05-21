@@ -13,6 +13,7 @@ parserOptions:
 plugins:
   - react
   - flowtype
+  - flow-vars
 rules:
   comma-dangle: off
   no-unused-vars: warn
@@ -40,6 +41,9 @@ rules:
   flowtype/type-id-match:
     - 1
     - "^([A-Z][a-z0-9]+)+Type$"
+
+  flow-vars/define-flow-type: 1
+  flow-vars/use-flow-type: 1
 
 settings:
   flowtype:
