@@ -27,7 +27,8 @@
     "coffee-script": "^1.10.0",
     "commander": "^2.9.0",
     "deepmerge": "^0.2.10",
-    "js-yaml": "^3.4.3"
+    "js-yaml": "^3.4.3",
+    "shelljs": "^0.7.0"
   },
   "devDependencies": {
     "babel-eslint": "^6.0.4",
@@ -46,7 +47,6 @@
     "eslint-plugin-react": "^5.1.1",
     "flow-bin": "^0.25.0",
     "mocha": "^2.4.5",
-    "power-assert": "^1.4.1",
-    "shelljs": "^0.7.0"
+    "power-assert": "^1.4.1"
   }
 }
