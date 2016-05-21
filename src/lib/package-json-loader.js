@@ -1,17 +1,18 @@
+// @flow
 import fs from 'fs'
 
-class PackageJSONLoader {
+export default class PackageJSONLoader {
 
     static load(cwd) {
 
-        let path = cwd + '/package.json'
+        const path = cwd + '/package.json'
 
         if (!fs.existsSync(path)) {
             throw new Error(path + ' is not found.')
         }
 
         try {
-            return require(path)
+            return JSON.parse(fs.readFileSync(path, 'utf8'))
 
         } catch (e) {
             throw new Error(path + ': parse error.\n' + e.message)
@@ -26,7 +27,3 @@ class PackageJSONLoader {
         return fs.writeFileSync(path, JSON.stringify(content, null, 2) + '\n')
     }
 }
-
-
-
-export default PackageJSONLoader

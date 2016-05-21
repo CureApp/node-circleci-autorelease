@@ -1,4 +1,5 @@
 /*eslint no-console: 0 */
+// @flow
 
 import {exec, which} from 'shelljs'
 import program from 'commander'

@@ -1,8 +1,13 @@
 #!/usr/bin/env node
+// @flow
 
-const fs = require('fs')
+import fs from 'fs'
+import PackageJSONLoader from '../lib/package-json-loader'
+
+const version = PackageJSONLoader.load(__dirname + '/../..').version
+
 const program = require('commander')
-    .version(require(__dirname + '/../../package.json').version)
+    .version(version)
 
 const subcommands = {
     'bmp'            : 'version bumping',

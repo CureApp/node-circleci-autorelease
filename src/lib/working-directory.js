@@ -1,8 +1,10 @@
+// @flow
 import fs from 'fs'
 import path from 'path'
 
+export default class WorkingDirectory {
 
-class WorkingDirectory {
+    path: string;
 
     constructor() {
         this.path = process.cwd()
@@ -31,6 +33,3 @@ class WorkingDirectory {
         return fs.existsSync(upperPackagePath)
     }
 }
-
-
-export default WorkingDirectory
