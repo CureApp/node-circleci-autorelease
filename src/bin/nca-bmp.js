@@ -1,3 +1,5 @@
+/*eslint no-console: 0 */
+
 import {exec, which} from 'shelljs'
 import program from 'commander'
 import chalk from 'chalk'
@@ -36,7 +38,7 @@ export default function run() {
 
     const version = getCurrentVersion()
 
-    exec(`git add -A`)
+    exec('git add -A')
     exec(`git commit --allow-empty -m "${verb} ${version}"`)
     showNotice()
 
