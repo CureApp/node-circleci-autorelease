@@ -28,6 +28,7 @@
     "js-yaml": "^3.4.3"
   },
   "devDependencies": {
+    "babel-eslint": "^6.0.4",
     "babel-plugin-array-includes": "^2.0.3",
     "babel-plugin-syntax-flow": "^6.8.0",
     "babel-plugin-transform-flow-strip-types": "^6.8.0",
@@ -37,6 +38,9 @@
     "babel-preset-power-assert": "^1.0.0",
     "babel-preset-stage-0": "^6.5.0",
     "babel-register": "^6.9.0",
+    "eslint": "^2.10.2",
+    "eslint-plugin-flowtype": "^2.2.7",
+    "eslint-plugin-react": "^5.1.1",
     "mocha": "^2.4.5",
     "power-assert": "^1.4.1",
     "shelljs": "^0.7.0"
