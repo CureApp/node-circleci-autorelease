@@ -12,7 +12,7 @@ const subcommands = {
 }
 
 Object.keys(subcommands)
-    .filter(function(sub) { return fs.existsSync(__dirname + '/nca-' + sub + '.js')})
-    .forEach(function(sub) { program.command(sub, subcommands[sub]) })
+    .filter(sub => fs.existsSync(__dirname + '/nca-' + sub + '.js'))
+    .forEach(sub => program.command(sub, subcommands[sub]))
 
 program.parse(process.argv)
