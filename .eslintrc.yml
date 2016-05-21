@@ -14,6 +14,7 @@ plugins:
   - react
   - flowtype
 rules:
+  comma-dangle: off
   no-unused-vars: warn
   indent:
     - error
@@ -28,10 +29,7 @@ rules:
     - error
     - never
 
-  flowtype/require-return-type:
-    - 1
-    - always
-    - { annotateUndefined: never }
+  flowtype/require-return-type: 0
 
   flowtype/space-after-type-colon:
     - 1
