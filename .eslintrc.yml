@@ -29,6 +29,7 @@ rules:
   semi:
     - error
     - never
+  prefer-const: warn
 
   flowtype/require-return-type: 0
 
