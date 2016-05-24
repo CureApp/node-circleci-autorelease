@@ -21,7 +21,7 @@ export default class GhPagesCreator {
             this.exec('git clean -fdx')
 
             ls(dir).forEach(file => {
-                this.exec(`git mv ${dir}/file .`)
+                this.exec(`git mv ${dir}/${file} .`)
             })
         }
 

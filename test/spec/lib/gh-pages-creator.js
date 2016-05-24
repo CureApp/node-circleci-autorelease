@@ -38,14 +38,16 @@ describe('GhPagesCreator', function() {
         context('when dir is given,', function() {
 
             it('should release gh-pages only the given dir', function() {
-                this.creator.create('doc')
+                this.creator.create('test/spec/data/doc')
 
                 assert.deepEqual(this.executedCommands, [
                     'git checkout --orphan gh-pages',
                     'git reset',
                     'add_circle_yml',
-                    'git add -f doc',
+                    'git add -f test/spec/data/doc',
                     'git clean -fdx',
+                    'git mv test/spec/data/doc/abc.txt .',
+                    'git mv test/spec/data/doc/xyz.txt .',
                     'git commit -m "gh-pages"',
                     'git push --force origin gh-pages'
                 ])
