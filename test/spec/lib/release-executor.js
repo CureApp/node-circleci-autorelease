@@ -18,7 +18,6 @@ describe('ReleaseExecutor', function() {
                 code: 0
             }
         }
-
     })
 
     describe('release', function() {
@@ -121,9 +120,29 @@ describe('ReleaseExecutor', function() {
             it('should push to the given location', function() {
                 assert(this.executedCommands[8] === 'git push --force github v4.5.5')
             })
+        })
+     })
 
+    describe('publishNpm', function() {
 
+        beforeEach(function() {
+            this.npmrcPath = resolve(__dirname + '/../data/.npmrc')
+            this.executor.publishNpm('shinout310@gmail.com', 'abcdexxxxx', this.npmrcPath)
         })
 
-     })
+        afterEach(function() {
+            fs.unlinkSync(this.npmrcPath)
+        })
+
+        it('should create npmrc file', function() {
+            assert(fs.existsSync(this.npmrcPath) === true)
+            assert(fs.readFileSync(this.npmrcPath, 'utf8') === '_auth=abcdexxxxx\nemail=shinout310@gmail.com\n')
+        })
+
+        it('should add .npmignore and publish', function() {
+            assert(this.executedCommands[0] === 'cp .releaseignore .npmignore')
+            assert(this.executedCommands[1] === 'npm publish')
+            assert(this.executedCommands[2] === 'rm .npmignore')
+        })
+    })
 })

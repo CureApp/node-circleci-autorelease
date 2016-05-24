@@ -1,5 +1,6 @@
 // @flow
 
+import fs from 'fs'
 import {exec} from 'shelljs'
 import escapeSpace from '../util/escape-space'
 
@@ -37,6 +38,22 @@ export default class ReleaseExecutor {
     }
 
     /**
+     * publish npm
+     * @public
+     */
+    publishNpm(email: string,
+               auth: string,
+               path?: string = '~/.npmrc') {
+
+        const npmrc = `_auth=${auth}\nemail=${email}\n`
+        fs.writeFileSync(path, npmrc)
+
+        this.exec('cp .releaseignore .npmignore')
+        this.exec('npm publish')
+        this.exec('rm .npmignore')
+    }
+
+     /**
      * ignore files in .releaseignore
      * @private
      */
