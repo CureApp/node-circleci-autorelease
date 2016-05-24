@@ -14,6 +14,7 @@ const subcommands = {
     'generate'       : 'generate circle.yml',
     'update-modules' : 'update node modules',
     'release'        : 'release current version',
+    'gh-pages'       : 'create "gh-pages" branch for documentation',
     'notice'         : 'show notice',
 }
 

@@ -25,7 +25,7 @@ export default class AutoreleaseYml {
 
         // options for nca gh-pages
         create_gh_pages: false,
-        gh_pages_dir: 'doc',
+        gh_pages_dir: null,
     }
 
 

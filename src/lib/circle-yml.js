@@ -96,8 +96,11 @@ export default class CircleYml {
         if (!create) {
             return '$(npm bin)/nca notice gh-pages'
         }
-
-        return `$(npm bin)/nca gh-pages --dir ${dir}`
+        let command = '$(npm bin)/nca gh-pages'
+        if (dir) {
+            command += ` --dir ${dir}`
+        }
+        return command
     }
 
     /**

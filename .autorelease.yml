@@ -1,0 +1,2 @@
+config:
+  create_gh_pages: true
