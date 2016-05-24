@@ -66,7 +66,7 @@ export default class AutoreleaseYml {
 
 
     config(key: string): primitive {
-        let val = this.__data.config ? this.__data.config[key] : undefined
+        const val = this.__data.config ? this.__data.config[key] : undefined
         return (val != null)? val : this.constructor.defaultConfig[key]
     }
 
@@ -184,6 +184,9 @@ export default class AutoreleaseYml {
      * @private
      */
     checkCircleFormat(circle: Object) {
+        if (!circle) return
+
+        // TODO
         return
     }
 

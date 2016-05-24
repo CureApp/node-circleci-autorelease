@@ -2,7 +2,6 @@
 // @flow
 
 import program from 'commander'
-import chalk from 'chalk'
 import GhPagesCreator from '../lib/gh-pages-creator'
 
 

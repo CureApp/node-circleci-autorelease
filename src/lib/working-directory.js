@@ -28,7 +28,7 @@ export default class WorkingDirectory {
 
     upperPackageJSON() {
 
-        let upperPackagePath = path.normalize(this.path + '/../../package.json')
+        const upperPackagePath = path.normalize(this.path + '/../../package.json')
 
         return fs.existsSync(upperPackagePath)
     }

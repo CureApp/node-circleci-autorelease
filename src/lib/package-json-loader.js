@@ -22,7 +22,7 @@ export default class PackageJSONLoader {
 
     static save(cwd, content) {
 
-        let path = cwd + '/package.json'
+        const path = cwd + '/package.json'
 
         return fs.writeFileSync(path, JSON.stringify(content, null, 2) + '\n')
     }
