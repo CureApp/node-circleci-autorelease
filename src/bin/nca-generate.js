@@ -20,7 +20,14 @@ export default function run() {
 
     const filename = join(rootDir, 'circle.yml')
 
-    fs.writeFileSync(filename, ymlStr)
+    if (process.env.DRY_RUN) {
+        console.log(chalk.green('[DRY RUN] generating circle.yml'))
+        console.log(chalk.green(ymlStr))
+    }
+    else {
+        fs.writeFileSync(filename, ymlStr)
+    }
+
 
     console.log(chalk.green('circle.yml was successfully generated!'))
 }
