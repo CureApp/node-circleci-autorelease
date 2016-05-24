@@ -17,6 +17,12 @@ const COMMAND_DESC = `
     r: re-release (0.0.0)
 `
 
+const optionNames = {
+    p: 'patch',
+    m: 'minor',
+    j: 'major',
+}
+
 
 export default function run() {
 
@@ -31,22 +37,30 @@ export default function run() {
         program.help()
     }
 
-    if (! bmpExist()) {
+    const bin = which('bmp') || which('yangpao')
+
+    if (!bin) {
+        console.log(chalk.red(HOW_TO_INSTALL_BMP_OR_YANGPAO))
         process.exit(1)
     }
+    console.log(`bumping tool path: ${bin}`)
 
     generateCircleYml()
 
 
     const verb = arg === 'r' ? 're-release' : 'release'
 
-    exec(`bmp -${arg}`)
+    const optionName = optionNames[arg]
+
+    if (optionName) {
+        exec(`${bin} --${optionName}`)
+    }
 
     const version = getCurrentVersion()
 
     exec('git add -A')
     exec(`git commit --allow-empty -m "${verb} ${version}"`)
-    showNotice()
+    console.log(NOTICE_AFTER_BUMPING)
 
     return 0
 }
@@ -62,33 +76,24 @@ function getCurrentVersion(): string {
 }
 
 
-/**
- * Check if bmp command exists
- * @private
- */
-function bmpExist(): boolean {
+const HOW_TO_INSTALL_BMP_OR_YANGPAO = `
+    You need to install one of the version-bumping tools of the followings.
 
-    if (!which('bmp')) {
+        - [bmp](https://github.com/kt3k/bmp)
+        - [yangpao](https://github.com/januswel/yangpao)
 
-        console.error(chalk.yellow(`
-            bmp is not installed.
-            Try the following command.
+    ## install bmp
+    \tgem install bmp
 
-            \tgem install bmp\n`.replace(/\n +/g, '\n  ')))
-
-        return false
-    }
-    return true
-}
-
-
+    ## install yangpao
+    \tgo get github.com/januswel/yangpao
+`
 
 /**
  * Show notice after git commit
  * @private
  */
-function showNotice () {
-    console.error(`
+const NOTICE_AFTER_BUMPING = `
 --------------------------------------------------------
    if you mistakenly ran this command, you can reset by
 
@@ -102,7 +107,6 @@ function showNotice () {
 
    will be the next command.
 --------------------------------------------------------
-`)
-}
+`
 
 if (require.main === module) run()

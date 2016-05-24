@@ -1,21 +1,7 @@
 // @flow
 
-import fs from 'fs'
-import yaml from 'js-yaml'
 import exec from '../util/exec'
-import WorkingDirectory from '../lib/working-directory'
 
-
-function VERSION_MISMATCH(logVersion: string, bmpVersion: string): string {
-    return `
---------------------------------------------------------
-    Commit version is not consistent with bmp version.
-
-        commit version : ${logVersion}
-        bmp version    : ${bmpVersion}
---------------------------------------------------------
-`
-}
 
 const NON_RELEASE_COMMIT_MESSAGE = `
 ----------------------------------------------------------------
@@ -44,17 +30,9 @@ export default class ReleasabilityChecker {
     /**
      * @public
      */
-    check(cwd ?: string): ?string {
+    check(): ?string {
         const logVersion = this.getVersionFromLog()
         if (!logVersion) { return NON_RELEASE_COMMIT_MESSAGE }
-
-        const bmpVersion = this.getVersionFromBmp(cwd)
-        if (!bmpVersion) { return } // no bmp, no problem
-
-        if (bmpVersion !== logVersion) {
-            return VERSION_MISMATCH(logVersion, bmpVersion)
-        }
-        return
     }
 
     /**
@@ -71,21 +49,6 @@ export default class ReleasabilityChecker {
         return commitMsg.split(/release +/)[1]
     }
 
-
-    /**
-     * @private
-     */
-    getVersionFromBmp(cwd ?: string): ?string {
-        try {
-            if (!cwd) cwd = new WorkingDirectory().resolve()
-            const bmpYml = yaml.safeLoad(fs.readFileSync(cwd + '/.bmp.yml', 'utf8'))
-            return bmpYml.version
-
-        }
-        catch (e) { // no bmp.yml not found
-            return null
-        }
-    }
 
     exec(...args: Array<any>): Object {
         return exec(...args)
