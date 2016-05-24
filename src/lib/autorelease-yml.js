@@ -50,6 +50,21 @@ export default class AutoreleaseYml {
     }
 
 
+    /**
+     * get hook commands
+     * @public
+     */
+    hooks(name: string, timing: string): Array<string> {
+        if (!this.hookNames.includes(name)) throw new Error(`Invalid hook name: "${name}" was given.`)
+        if (!this.__data.hooks) return []
+        const hookObjs = this.__data.hooks[name]
+        if (!hookObjs) return []
+
+        const hooks = hookObjs[timing]
+        return Array.isArray(hooks) ? hooks : hooks ? [hooks] : []
+    }
+
+
     config(key: string): primitive {
         let val = this.__data.config ? this.__data.config[key] : undefined
         return (val != null)? val : this.constructor.defaultConfig[key]

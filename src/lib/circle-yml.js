@@ -38,18 +38,25 @@ export default class CircleYml {
             },
 
             dependencies: {
-                post: [
-                    this.updateModulesCommand(arYml.config('npm_update_depth'))
-                ]
+                post: flat(
+                    arYml.hooks('update_modules', 'pre'),
+                    this.updateModulesCommand(arYml.config('npm_update_depth')),
+                    arYml.hooks('update_modules', 'post')
+                )
             },
 
             deployment: {
                 create_release_branch: {
                     branch: ['master'],
-                    commands: [
+                    commands: flat(
+                        arYml.hooks('release', 'pre'),
                         this.releaseCommand(arYml),
-                        this.ghPagesCommand(arYml.config('create_gh_pages'), arYml.config('gh_pages_dir'))
-                    ]
+                        arYml.hooks('release', 'post'),
+
+                        arYml.hooks('gh_pages', 'pre'),
+                        this.ghPagesCommand(arYml.config('create_gh_pages'), arYml.config('gh_pages_dir')),
+                        arYml.hooks('gh_pages', 'post'),
+                    )
                 }
             }
         }
@@ -111,4 +118,17 @@ export default class CircleYml {
         .join(' ')
     }
 
+}
+
+
+function flat(...args) {
+    return args.reduce((arr, v) => {
+        if (Array.isArray(v)) {
+            return arr.concat(flat(...v))
+        }
+        else {
+            arr.push(v)
+        }
+        return arr
+    }, [])
 }
