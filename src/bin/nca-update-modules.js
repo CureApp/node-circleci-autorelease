@@ -1,7 +1,7 @@
 /*eslint no-console: 0 */
 // @flow
 
-import {exec} from 'shelljs'
+import exec from '../util/exec'
 import program from 'commander'
 
 export default function run() {

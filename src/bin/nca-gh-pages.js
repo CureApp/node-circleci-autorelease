@@ -3,7 +3,7 @@
 
 import program from 'commander'
 import chalk from 'chalk'
-import GhPagesCreator from './gh-pages-creator'
+import GhPagesCreator from '../lib/gh-pages-creator'
 
 
 export default function run() {
@@ -19,7 +19,7 @@ export default function run() {
         console.log(HOW_TO_HOST_SPECIFIC_DIR)
     }
 
-    GhPagesCreator.create(dir)
+    new GhPagesCreator().create(dir)
 }
 
 const HOW_TO_HOST_SPECIFIC_DIR = `

@@ -1,7 +1,8 @@
 /*eslint no-console: 0 */
 // @flow
 
-import {exec, which} from 'shelljs'
+import {which} from 'shelljs'
+import exec from '../util/exec'
 import program from 'commander'
 import chalk from 'chalk'
 import WorkingDirectory from '../lib/working-directory'
@@ -39,12 +40,12 @@ export default function run() {
 
     const verb = arg === 'r' ? 're-release' : 'release'
 
-    exec(`echo bmp -${arg}`)
+    exec(`bmp -${arg}`)
 
     const version = getCurrentVersion()
 
-    exec('echo git add -A')
-    exec(`echo git commit --allow-empty -m "${verb} ${version}"`)
+    exec('git add -A')
+    exec(`git commit --allow-empty -m "${verb} ${version}"`)
     showNotice()
 
     return 0

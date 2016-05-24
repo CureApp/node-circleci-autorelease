@@ -2,7 +2,7 @@
 
 import fs from 'fs'
 import yaml from 'js-yaml'
-import {exec} from 'shelljs'
+import exec from '../util/exec'
 import WorkingDirectory from '../lib/working-directory'
 
 

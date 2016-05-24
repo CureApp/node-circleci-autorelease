@@ -1,7 +1,7 @@
 // @flow
 
 import fs from 'fs'
-import {exec} from 'shelljs'
+import exec from '../util/exec'
 import escapeSpace from '../util/escape-space'
 
 

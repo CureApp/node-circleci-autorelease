@@ -1,5 +1,6 @@
 
-import {exec, ls} from 'shelljs'
+import {ls} from 'shelljs'
+import exec from '../util/exec'
 
 export default class GhPagesCreator {
 
