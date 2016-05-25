@@ -62,7 +62,7 @@ const SHOW_HOW_TO_NPM_PUBLISH = (userName: string, repoName: string): string => 
     'npm publish' was not executed as $NPM_AUTH and $NPM_EMAIL environment variables does not exist.
 
     Set it at
-        https://circleci.com/gh/${userName}/${repoName}/edit#env-vars
+        https://circleci.com/gh/${userName}/${repoName}/edit#checkout
 
     Name: NPM_AUTH
     Value: (value of '_auth' at your .npmrc after 'npm login')
