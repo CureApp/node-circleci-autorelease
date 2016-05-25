@@ -29,6 +29,32 @@ export default function run() {
     }
 
     console.log(chalk.green('circle.yml was successfully generated!'))
+    console.log(WHAT_TO_DO_NEXT)
 }
+
+
+const WHAT_TO_DO_NEXT = `
+-----------------------------------------------------------------
+    What you do next:
+
+    1. check your circle.yml
+
+        $EDITOR circle.yml
+
+    2. commit the changes
+
+        git add -A
+        git commit -m "add circle.yml"
+
+    3. version bumping
+
+        $(npm bin)/nca bmp p # patch level version up
+        $(npm bin)/nca bmp m # minor level version up
+        $(npm bin)/nca bmp j # major level version up
+
+-----------------------------------------------------------------
+`
+
+
 
 if (require.main === module) run()
