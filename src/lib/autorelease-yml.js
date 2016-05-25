@@ -215,7 +215,10 @@ export default class AutoreleaseYml {
      * @private
      */
     checkConfigFormat(config: Object) {
-        Object.keys(config).forEach(name => {
+        Object.keys(config)
+
+        .filter(name => config[name] != null)
+        .forEach(name => {
             if (!this.configNames.includes(name)) {
                 throw new Error(`Unknown field: "config.${name}"`)
             }
