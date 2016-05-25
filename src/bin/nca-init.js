@@ -37,7 +37,7 @@ const SHOW_FILE_ALREADY_EXISTS = `
 
     Reflect the setting to circle.yml via the following command:
 
-        nca generate
+        $(npm bin)/nca generate
 -----------------------------------------------------------------
 `
 
@@ -53,7 +53,7 @@ const SHOW_WHAT_TO_DO_NEXT = `
 
     2. Reflect it to circle.yml
 
-        nca generate
+        $(npm bin)/nca generate
 
 -----------------------------------------------------------------
 `

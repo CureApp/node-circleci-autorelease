@@ -138,7 +138,7 @@ hooks:
 
 ## circle field
 Write your custom circle.yml setting here.
-**don't write circle.yml** but write here and make them via `nca generate` command.
+**don't write circle.yml** but write here and make them via `$(npm bin)/nca generate` command.
 
 ### example
 ```yaml
@@ -207,18 +207,18 @@ go get github.com/januswel/yangpao
 
 ## usage
 
-```sh
-nca bmp p
-nca bmp m
-nca bmp j
-nca bmp r
+```bash
+$(npm bin)/nca bmp p
+$(npm bin)/nca bmp m
+$(npm bin)/nca bmp j
+$(npm bin)/nca bmp r
 ```
 
-They update version and commit with a message except running `nca bmp r`.
+They update version and commit with a message except running `$(npm bin)/nca bmp r`.
 These commands also update circle.yml automatically.
 
 ### re-release
-`nca bmp r` doesn't bump version. Instead, it makes an empty commit with the following message:
+`$(npm bin)/nca bmp r` doesn't bump version. Instead, it makes an empty commit with the following message:
 
 ```
 re-release X.Y.Z
