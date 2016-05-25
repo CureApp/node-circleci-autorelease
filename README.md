@@ -64,16 +64,30 @@ Contains three sections.
 
 ## config field
 
-| key             | description                      | default              |
-|:----------------|:---------------------------------|:---------------------|
-| git_user_name   | user name of the release commit  | CircleCI             |
-| git_user_email  | user email of the release commit | circleci@example.com |
-| version_prefix  | prefix of tags to be created     | v                    |
-| create_branch   | create release branch or not     | false                |
-| create_gh_pages | create gh-pages branch or not    | false                |
-| gh_pages_dir    | directory to publish on gh-pages | (null)               |
+| key              | description                         | default              |
+|:-----------------|:------------------------------------|:---------------------|
+| git_user_name    | user name of the release commit     | CircleCI             |
+| git_user_email   | user email of the release commit    | circleci@example.com |
+| npm_update_depth | --depth option to "npm update"      | 0 ( = no run)        |
+| version_prefix   | prefix of tags to be created        | v                    |
+| create_branch    | create release branch or not        | false                |
+| npm_shrinkwrap   | run "npm shrinkwrap" before release | false                |
+| create_gh_pages  | create gh-pages branch or not       | false                |
+| gh_pages_dir     | directory to publish on gh-pages    | (null)               |
 
-### prefix
+
+### npm_update_depth
+node-circleci-autorelease tries to update node_modules via `npm update` everytime after `npm install`.
+`npm_update_depth` config is the depth of the update.
+By default, 0 is set and `npm update` will never occur.
+
+```yaml
+config:
+  npm_update_depth: 3
+```
+
+
+### version_prefix
 To release `v1.2.3`, you should set
 
 ```yaml
@@ -86,7 +100,17 @@ at your .autorelease.yml and make a commit with message
 release 1.2.3
 ```
 
-### gh-pages
+### npm_shrinkwrap
+node-circleci-autorelease tries to fix all the node_modules versions before release
+by the executed ones using `npm shrinkwrap`. To enable this function,
+
+```yaml
+config:
+  version_prefix: v
+```
+
+
+### config about gh-pages
 To release `gh-pages` branch, you should set
 
 ```yaml
@@ -104,8 +128,10 @@ If `gh_pages_dir` is set, only the directory is hosted.
 config:
   git_user_name: shinout
   git_user_email: shinout310@gmail.com
+  npm_update_depth: 5
   version_prefix: v
   create_branch: true
+  npm_shrinkwrap: true
   create_gh_pages: true
   gh_pages_dir: doc
 ```
@@ -116,6 +142,7 @@ You can register commands before/after the following timings.
 - update_modules: before/after running `npm update`
 - release: before/after releasing process
 - gh_pages: before/after creating gh-pages branch
+
 
 Each section must have "pre" or "post" section containing a command or list of commands.
 
