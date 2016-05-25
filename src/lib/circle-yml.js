@@ -15,7 +15,7 @@ export default class CircleYml {
         const custom = arYml.circle
 
         const merged = merge(standard, custom)
-        return yaml.dump(merged, {indent: 4, lineWidth: 120})
+        return yaml.dump(merged, {indent: 2, lineWidth: 120})
     }
 
 
