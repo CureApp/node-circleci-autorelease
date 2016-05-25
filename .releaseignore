@@ -1,8 +1,31 @@
+# dot files
+.*
+# npm https://www.npmjs.com
 node_modules
-.editorconfig
-.releaseignore
-.gitignore
-.bmp.yml
+
+
+# documentations
+/doc
+
+# source files
+/src
+
+# test files
+/test
+
+# development tools
+/tools
+
+# CircleCI cetting https://circleci.com
 circle.yml
+
+# debug logs
+*.log
+
+# vim
+*.swp
+:
+
+# sublime text
+*.sublime-*node_modules
 npm-debug.log
-README.md
