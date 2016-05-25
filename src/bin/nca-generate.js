@@ -28,7 +28,6 @@ export default function run() {
         fs.writeFileSync(filename, ymlStr)
     }
 
-
     console.log(chalk.green('circle.yml was successfully generated!'))
 }
 

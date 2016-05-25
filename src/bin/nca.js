@@ -10,8 +10,9 @@ const program = require('commander')
     .version(version)
 
 const subcommands = {
-    'bmp'            : 'generate circle.yml and bumping version',
+    'init'           : 'add .autorelease.yml to your project',
     'generate'       : 'generate circle.yml',
+    'bmp'            : 'generate circle.yml and bumping version',
     'update-modules' : 'update node modules',
     'release'        : 'release current version',
     'gh-pages'       : 'create "gh-pages" branch for documentation',

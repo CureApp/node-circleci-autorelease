@@ -8,26 +8,48 @@ import {join} from 'path'
 export default class AutoreleaseYml {
 
     __data: Object
+    loaded: boolean
 
     static filename = '.autorelease.yml'
 
-    static defaultConfig = {
-        git_user_name: 'CircleCI',
-        git_user_email: 'circleci@cureapp.jp',
 
-        // options for nca update-modules
-        npm_update_depth: 0,
-
-        // options for nca release
-        version_prefix: 'v',
-        create_branch: false,
-        npm_shrinkwrap: false,
-
-        // options for nca gh-pages
-        create_gh_pages: false,
-        gh_pages_dir: null,
+    /**
+     * default values, used when no file exists
+     */
+    static get defaultValues() {
+        return {
+            hooks: {
+                update_modules: { pre: ['echo "before update-modules"'], post: ['echo "after update-modules"'] },
+                release: { pre: ['echo "before release"'], post: ['echo "after release"'] },
+                gh_pages: { pre: ['echo "before gh-pages"'], post: ['echo "after gh-pages"'] }
+            },
+            config: this.defaultConfig,
+            circle: {}
+        }
     }
 
+    /**
+     * default configs
+     */
+    static get defaultConfig() {
+        return {
+            git_user_name: 'CircleCI',
+            git_user_email: 'circleci@cureapp.jp',
+
+            // options for nca update-modules
+            npm_update_depth: 0,
+
+            // options for nca release
+            version_prefix: 'v',
+            create_branch: false,
+            npm_shrinkwrap: false,
+
+            // options for nca gh-pages
+            create_gh_pages: false,
+            gh_pages_dir: null,
+
+        }
+    }
 
     /**
      * load yml file in the given directory
@@ -40,12 +62,16 @@ export default class AutoreleaseYml {
 
 
     constructor(path: string) {
+
+        this.loaded = false
+
         try {
             this.__data = yaml.safeLoad(fs.readFileSync(path, 'utf8'))
+            this.loaded = true
         }
         // if .autorelease.yml is not found, silently prepare a default object
         catch (e) {
-            this.__data = {}
+            this.__data = this.constructor.defaultValues
         }
     }
 
@@ -65,13 +91,34 @@ export default class AutoreleaseYml {
     }
 
 
+    /**
+     * @public
+     */
     config(key: string): primitive {
         const val = this.__data.config ? this.__data.config[key] : undefined
         return (val != null)? val : this.constructor.defaultConfig[key]
     }
 
+    /**
+     * @public
+     */
     get circle(): Object {
         return Object.assign({}, this.__data.circle)
+    }
+
+    /**
+     * get YAML format
+     */
+    toString(): string {
+        return yaml.dump(this.__data, {indent: 2, lineWidth: 120})
+    }
+
+    /**
+     * save .autorelease.yml to the given directory
+     */
+    saveTo(dir: string) {
+        const path = join(dir, this.constructor.filename)
+        fs.writeFileSync(path, this.toString())
     }
 
     /**
