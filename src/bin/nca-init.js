@@ -15,7 +15,7 @@ export default function run() {
     const arYml = AutoreleaseYml.loadFromDir(rootDir)
 
     if (arYml.loaded) {
-        console.log(SHOW_FILE_ALREADY_EXISTS)
+        console.log(FILE_ALREADY_EXISTS)
         process.exit(0)
     }
 
@@ -26,12 +26,12 @@ export default function run() {
     else {
         arYml.saveTo(rootDir)
         console.log(chalk.green(`${filename} was successfully generated!`))
-        console.log(SHOW_WHAT_TO_DO_NEXT)
+        console.log(WHAT_TO_DO_NEXT)
     }
 }
 
 
-const SHOW_FILE_ALREADY_EXISTS = `
+const FILE_ALREADY_EXISTS = `
 -----------------------------------------------------------------
     ${filename} already exists.
 
@@ -41,7 +41,7 @@ const SHOW_FILE_ALREADY_EXISTS = `
 -----------------------------------------------------------------
 `
 
-const SHOW_WHAT_TO_DO_NEXT = `
+const WHAT_TO_DO_NEXT = `
 -----------------------------------------------------------------
     What you do next:
 
