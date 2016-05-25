@@ -34,7 +34,7 @@ export default class AutoreleaseYml {
     static get defaultConfig() {
         return {
             git_user_name: 'CircleCI',
-            git_user_email: 'circleci@cureapp.jp',
+            git_user_email: 'circleci@example.com',
 
             // options for nca update-modules
             npm_update_depth: 0,

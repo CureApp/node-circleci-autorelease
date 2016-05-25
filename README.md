@@ -64,14 +64,14 @@ Contains three sections.
 
 ## config field
 
-| key             | description                      | default             |
-|:----------------|:---------------------------------|:--------------------|
-| git_user_name   | user name of the release commit  | CircleCI            |
-| git_user_email  | user email of the release commit | circleci@cureapp.jp |
-| version_prefix  | prefix of tags to be created     | v                   |
-| create_branch   | create release branch or not     | false               |
-| create_gh_pages | create gh-pages branch or not    | false               |
-| gh_pages_dir    | directory to publish on gh-pages | (null)              |
+| key             | description                      | default              |
+|:----------------|:---------------------------------|:---------------------|
+| git_user_name   | user name of the release commit  | CircleCI             |
+| git_user_email  | user email of the release commit | circleci@example.com |
+| version_prefix  | prefix of tags to be created     | v                    |
+| create_branch   | create release branch or not     | false                |
+| create_gh_pages | create gh-pages branch or not    | false                |
+| gh_pages_dir    | directory to publish on gh-pages | (null)               |
 
 ### prefix
 To release `v1.2.3`, you should set
