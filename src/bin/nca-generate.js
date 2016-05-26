@@ -8,7 +8,7 @@ import WorkingDirectory from '../lib/working-directory'
 import AutoreleaseYml from '../lib/autorelease-yml'
 import CircleYml from '../lib/circle-yml'
 
-export default function run() {
+export default function run(skipShowingWhatToDoNext?: boolean = false) {
 
     const rootDir = new WorkingDirectory().resolve()
 
@@ -29,7 +29,8 @@ export default function run() {
     }
 
     console.log(chalk.green('circle.yml was successfully generated!'))
-    console.log(WHAT_TO_DO_NEXT)
+
+    if (!skipShowingWhatToDoNext) console.log(WHAT_TO_DO_NEXT)
 }
 
 

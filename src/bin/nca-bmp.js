@@ -49,7 +49,7 @@ export default function run() {
         console.log('skip generating circle.yml')
     }
     else {
-        generateCircleYml()
+        generateCircleYml(true) // skip showing what to do next
         console.log(HOW_TO_SKIP_GENERATION_OF_CIRCLE_YML)
     }
 
