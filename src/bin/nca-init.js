@@ -48,6 +48,8 @@ const WHAT_TO_DO_NEXT = `
 
         $EDITOR ${filename}
 
+      You can remove all the meaningless 'echo' commands in hooks.
+
       see https://github.com/CureApp/node-circleci-autorelease
 
     2. Reflect it to circle.yml
