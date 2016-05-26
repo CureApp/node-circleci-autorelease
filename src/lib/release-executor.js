@@ -41,7 +41,7 @@ export default class ReleaseExecutor {
      */
     publishNpm(email: string,
                auth: string,
-               path?: string = '~/.npmrc') {
+               path?: string = '.npmrc') {
 
         const npmrc = `_auth=${auth}\nemail=${email}\n`
         fs.writeFileSync(path, npmrc)
@@ -49,6 +49,7 @@ export default class ReleaseExecutor {
         this.exec('cp .releaseignore .npmignore')
         this.exec('npm publish')
         this.exec('rm .npmignore')
+        this.exec('rm .npmrc')
     }
 
      /**
