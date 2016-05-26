@@ -6,16 +6,16 @@ general:
 machine:
   pre:
     - git config --global user.name "CircleCI"
-    - git config --global user.email "circleci@cureapp.jp"
+    - git config --global user.email "circleci@example.com"
 dependencies:
+  environment:
+    PATH: './node_modules/.bin:$PATH'
   post:
-    - $(npm bin)/nca update-modules --depth 5
+    - npm run nca update-modules --depth 5
     - babel src -d dist
 deployment:
   create_release_branch:
     branch:
       - master
     commands:
-      - $(npm bin)/nca release --prefix v
-      - echo "we'd like to use documentationjs!!"
-      - $(npm bin)/nca notice gh-pages
+      - npm run nca release --prefix v --shrinkwrap
