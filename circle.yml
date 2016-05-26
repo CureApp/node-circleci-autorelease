@@ -19,3 +19,4 @@ deployment:
       - master
     commands:
       - npm run nca release --prefix v --shrinkwrap
+      - npm run nca notice gh-pages

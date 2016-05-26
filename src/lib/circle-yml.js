@@ -31,6 +31,9 @@ export default class CircleYml {
             },
 
             machine: {
+
+                environment: this.environment(arYml.config('npm_bin_path')),
+
                 pre: [
                     `git config --global user.name "${arYml.config('git_user_name')}"`,
                     `git config --global user.email "${arYml.config('git_user_email')}"`
@@ -38,9 +41,6 @@ export default class CircleYml {
             },
 
             dependencies: {
-
-                environment: this.environment(arYml.config('npm_bin_path')),
-
                 post: flat(
                     arYml.hooks('update_modules', 'pre'),
                     this.updateModulesCommand(arYml.config('npm_update_depth')),
