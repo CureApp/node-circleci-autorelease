@@ -1,6 +1,12 @@
 # node-circleci-autorelease
+Autorelease your node packages.
 
-create release tags, release branches and gh-pages at CircleCI for Node.js project
+- tag
+- branch
+- gh-pages
+- npm publish
+
+It looks up the latest commit log and extracts release name.
 
 ```sh
 git commit -m 'release 1.2.3'
@@ -20,213 +26,237 @@ npm install --save-dev node-circleci-autorelease
 on your Node.js project.
 
 # usage
-## generate circle.yml
-
-```sh
-npm run circle
+## initializing
+```bash
+$(npm bin)/nca init
 ```
 
-creates `circle.yml` to your current working directory for auto-release.
+Two setting files will be generated.
+
+1. `.autorelease.yml`: config file.
+2. `.releaseignore`: files/patterns to be ignored in release. the same format as .gitignore.
+
+## generate circle.yml
+
+```bash
+$(npm bin)/nca generate
+```
+It creates `circle.yml` to your current working directory for auto-release.
 
 
 ## create a release tag at CircleCI
 
-push to master branch with a specific commit message.
+Push to master branch with a specific commit message.
 
 ```sh
 git commit -m 'release X.Y.Z'
 git push origin master
 ```
 
-CircleCI detects the commit message pattern and
+Then, CircleCI detects the commit message pattern and creates a tag `X.Y.Z`
 
-creates a tag `X.Y.Z`
+# .autorelease.yml
+Contains three sections.
 
-### prefix
-You can set version prefix like
+- config: config fields
+- hooks: hook commands
+- circle: totally compatible with circle.yml
 
-- `vX.Y.Z`
-- `release-X.Y.Z`
+## config field
 
-when you set `version-prefix` field in package.json
+| key              | description                         | default              |
+|:-----------------|:------------------------------------|:---------------------|
+| git_user_name    | user name of the release commit     | CircleCI             |
+| git_user_email   | user email of the release commit    | circleci@example.com |
+| npm_update_depth | --depth option to "npm update"      | 0 ( = no run)        |
+| version_prefix   | prefix of tags to be created        | v                    |
+| create_branch    | create release branch or not        | false                |
+| npm_shrinkwrap   | run "npm shrinkwrap" before release | false                |
+| create_gh_pages  | create gh-pages branch or not       | false                |
+| gh_pages_dir     | directory to publish on gh-pages    | (null)               |
 
-See "customize" section for detail.
 
+### npm_update_depth
+node-circleci-autorelease tries to update node_modules via `npm update` everytime after `npm install`.
+`npm_update_depth` config is the depth of the update.
+By default, 0 is set and `npm update` will never occur.
 
-## hooks
-
-Three npm scripts are prepared for hooks.
-
-1. post-dependencies
-2. pre-release
-3. post-release
-4. post-release
-
-### post-dependencies
-
-```sh
-npm run post-dependencies
-```
-It runs at the last of `dependencies` section in CircleCI.
-
-Thus, it runs at all commits.
-Suitable for files required for test.
-
-### pre-release
-
-```sh
-npm run pre-release
-```
-It runs just before creating a release tag.
-
-Thus, it runs only at commits for release.
-Suitable for files required only for production (`*.min.js`).
-
-### post-release
-
-```sh
-npm run post-release
-```
-It runs just after creating a release tag.
-
-Suitable for releasing commands like
-
-```sh
-bower register
+```yaml
+config:
+  npm_update_depth: 3
 ```
 
 
-### gh-pages
+### version_prefix
+To release `v1.2.3`, you should set
 
-```sh
-npm run gh-pages
+```yaml
+config:
+  version_prefix: v
 ```
-It runs just before creating "gh-pages" branch.
+at your .autorelease.yml and make a commit with message
 
-Document generation would be suitable.
+```
+release 1.2.3
+```
 
-```sh
-grunt yuidoc
+### npm_shrinkwrap
+node-circleci-autorelease tries to fix all the node_modules versions before release
+by the executed ones using `npm shrinkwrap`. To enable this function,
+
+```yaml
+config:
+  version_prefix: v
 ```
 
 
-## .releaseignore file
+### config about gh-pages
+To release `gh-pages` branch, you should set
 
-Files and directories written in `.releaseignore` are newly written into `.gitignore` just before creating a release tag.
+```yaml
+config:
+  create_gh_pages: true
+  gh_pages_dir: doc
+```
+
+If `gh_pages_dir` is set, only the directory is hosted.
 
 
-## with bmp
+### example
+```yaml
+---
+config:
+  git_user_name: shinout
+  git_user_email: shinout310@gmail.com
+  npm_update_depth: 5
+  version_prefix: v
+  create_branch: true
+  npm_shrinkwrap: true
+  create_gh_pages: true
+  gh_pages_dir: doc
+```
 
-more powerful commands with [kt3k/bmp](https://github.com/kt3k/bmp).
+## hooks field
+You can register commands before/after the following timings.
+
+- update_modules: before/after running `npm update`
+- release: before/after releasing process
+- gh_pages: before/after creating gh-pages branch
+
+
+Each section must have "pre" or "post" section containing a command or list of commands.
+
+### example
+
+```yaml
+---
+hooks:
+  update_modules:
+    post:
+        - npm run bundle-js
+        - npm run bundle-css
+
+  release:
+    pre: npm run minify
+
+  gh_pages:
+    pre: npm run generate-doc
+```
+
+## circle field
+Write your custom circle.yml setting here.
+**don't write circle.yml** but write here and make them via `$(npm bin)/nca generate` command.
+
+### example
+```yaml
+---
+circle:
+  general:
+    branches:
+      ignore:
+        - xxx
+  machine:
+    environment:
+      ABC: 123
+  dependencies:
+    post:
+      - npm run xxx
+```
+
+# .releaseignore
+Files/patterns to be ignored in release.
+Format is the same as .gitignore.
+
+## example
+```text
+# dot files
+.*
+
+# npm https://www.npmjs.com
+node_modules
+
+# documentations
+/doc
+
+# source files
+/src
+
+# test files
+/test
+
+# development tools
+/tools
+
+# CircleCI cetting https://circleci.com
+circle.yml
+
+# debug logs
+*.log
+```
+
+
+## with version-bumping tools
+
+Two bumping tools are available.
+
+- bmp: [kt3k/bmp](https://github.com/kt3k/bmp).
+- bmp: [januswel/yangpao](https://github.com/januswel/yangpao).
 
 ```sh
 gem install bmp
 ```
 
-then you can use following commands.
+or
 
 ```sh
-npm run bmp-p
-npm run bmp-m
-npm run bmp-j
-npm run bmp-r
+go get github.com/januswel/yangpao
 ```
 
-they update version and commit with a message except running `npm run bmp-r`.
+## usage
 
+```bash
+$(npm bin)/nca bmp p
+$(npm bin)/nca bmp m
+$(npm bin)/nca bmp j
+$(npm bin)/nca bmp r
 ```
-release X.Y.Z
-```
-if you push to github/master, then CircleCI create a release tag.
+
+They update version and commit with a message except running `$(npm bin)/nca bmp r`.
+These commands also update circle.yml automatically.
 
 ### re-release
-`npm run bmp-r` doesn't bump version. Instead, it makes an empty commit with the following message:
+`$(npm bin)/nca bmp r` doesn't bump version. Instead, it makes an empty commit with the following message:
 
 ```
 re-release X.Y.Z
 ```
 where X.Y.Z is the current version. This is useful when the last release is failed.
 
-
-## gh-pages
-
-Just push to master, then `gh-pages` branch is created.
-
 This feature is disabled by default.
-
-Turn `create-gh-pages` to true in your package.json to enable it.
-
-```json
-{
-  "node-circleci-autorelease": {
-    "config": {
-      "create-gh-pages": true,
-      "gh-pages-dir": "doc"
-    }
-  }
-}
-```
-
-`npm run gh-pages` is executed before creating the branch.
-
-
-# customize
-
-## ignore files for release
-
-add `.releaseignore` file.
-Format is the same as `.gitignore`.
-
-
-## overwrite circle.yml
-
-simply overwriting circle.yml works unless you rewrite the following section.
-
-```yaml
-deployment:
-    create_release_branch:
-```
-
-## package.json
-
-`node-circleci-autorelease` section in your package.json will be parsed as the same structure as circle.yml
-except for `config` fields.
-
-For example,
-```json
-{
-  "node-circleci-autorelease": {
-    "machine": {
-      "node": {
-        "version": "4.0.0"
-      }
-    },
-    "config": {
-      "version-prefix": "v"
-    }
-  }
-}
-```
-
-**Don't forget to call** `npm run circle` after adding information to package.json.
-
-
-### "config" field
-
-customize "config" field in "node-circleci-autorelease" to add git information.
-
-| key             | description                      | default             |
-|:----------------|:---------------------------------|:--------------------|
-| git-user-name   | user name of the release commit  | CircleCI            |
-| git-user-email  | user email of the release commit | circleci@cureapp.jp |
-| version-prefix  | prefix of tags to be created     | v                   |
-| create-branch   | create release branch or not     | false               |
-| create-gh-pages | create gh-pages branch or not    | false               |
-| gh-pages-dir    | directory to publish on gh-pages | doc                 |
 
 
 ## npm publish
-if you set two environment variables at CircleCI project settings,
+Enable publishing your project by setting two environment variables at CircleCI.
 
 ```sh
 NPM_AUTH  # "_auth" of your .npmrc
@@ -234,44 +264,6 @@ NPM_EMAIL # "email" of your .npmrc
 ```
 
 then CircleCI automatically runs `npm publish`.
-
-
-# requirements
-
-- must be a node.js project.
-
-- **grant write access for github to CircleCI**
-
-There are two ways to grant write access:
-- SSH key
-- OAuth token
-
-## SSH key
-add user key, or [manually add read-write deployment key](https://circleci.com/docs/adding-read-write-deployment-key) to the project at [CircleCI](https://circleci.com)
-
-
-## OAuth token
-See [github: creating an access token](https://help.github.com/articles/creating-an-access-token-for-command-line-use/).
-
-After creating, set `GITHUB_TOKEN` environment variable at CircleCI project settings.
-
-
-# tips
-## with grunt
-
-add `grunt-cli` to devDependencies
-
-you can write `grunt` command without full path in npm.
-
-## with gulp
-
-add `gulp` to devDependencies (which must already be included though.)
-
-
-## with bower
-
-add `bower` to devDependencies
-
 
 # LICENSE
 MIT

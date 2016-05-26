@@ -1,0 +1,26 @@
+#!/usr/bin/env node
+// @flow
+
+import fs from 'fs'
+import PackageJSONLoader from '../lib/package-json-loader'
+
+const version = PackageJSONLoader.load(__dirname + '/../..').version
+
+const program = require('commander')
+    .version(version)
+
+const subcommands = {
+    'init'           : 'add .autorelease.yml to your project',
+    'generate'       : 'generate circle.yml',
+    'bmp'            : 'generate circle.yml and bumping version',
+    'update-modules' : 'update node modules',
+    'release'        : 'release current version',
+    'gh-pages'       : 'create "gh-pages" branch for documentation',
+    'notice'         : 'show notice',
+}
+
+Object.keys(subcommands)
+    .filter(sub => fs.existsSync(__dirname + '/nca-' + sub + '.js'))
+    .forEach(sub => program.command(sub, subcommands[sub]))
+
+program.parse(process.argv)
