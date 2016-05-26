@@ -2,8 +2,6 @@
 
 import fs from 'fs'
 import exec from '../util/exec'
-import escapeSpace from '../util/escape-space'
-
 
 export default class ReleaseExecutor {
 
@@ -11,9 +9,9 @@ export default class ReleaseExecutor {
      * Release the version
      * @public
      */
-    release(version: string, 
+    release(version: string,
             shrinkwrap: boolean = false,
-            branch: boolean = false, 
+            branch: boolean = false,
             remote: string = 'origin'): boolean {
 
         this.exec(`git checkout -b release-${version}`)
@@ -64,8 +62,7 @@ export default class ReleaseExecutor {
         const filesToRemove = this.exec('git ls-files --full-name -i --exclude-from .releaseignore').stdout
 
         if (filesToRemove) {
-            // FIXME: Flow doesn't understand function bind syntax sugar see https://github.com/facebook/flow/issues/662
-            /*::"*/ this.exec(`git rm --cached ${filesToRemove.trim()::escapeSpace().split('\n').join(' ')}`) /*::"*/
+            this.exec(`git rm --cached ${filesToRemove}`)
         }
     }
 
