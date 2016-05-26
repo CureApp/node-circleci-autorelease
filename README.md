@@ -265,5 +265,15 @@ NPM_EMAIL # "email" of your .npmrc
 
 then CircleCI automatically runs `npm publish`.
 
+# JavaScript API
+
+Run command with args.
+
+```js
+
+import nca from 'node-circleci-autorelease'
+nca.run(process.argv)
+```
+
 # LICENSE
 MIT

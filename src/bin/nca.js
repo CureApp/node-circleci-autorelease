@@ -3,11 +3,10 @@
 
 import fs from 'fs'
 import PackageJSONLoader from '../lib/package-json-loader'
+import program from 'commander'
 
 const version = PackageJSONLoader.load(__dirname + '/../..').version
-
-const program = require('commander')
-    .version(version)
+program.version(version)
 
 const subcommands = {
     'init'           : 'add .autorelease.yml to your project',
@@ -23,4 +22,9 @@ Object.keys(subcommands)
     .filter(sub => fs.existsSync(__dirname + '/nca-' + sub + '.js'))
     .forEach(sub => program.command(sub, subcommands[sub]))
 
-program.parse(process.argv)
+
+export default function run(argv: Array<string>) {
+    program.parse(argv)
+}
+
+if (require.main === module) run(process.argv)
