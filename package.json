@@ -11,6 +11,7 @@
     "npm": ">=3"
   },
   "scripts": {
+    "babel": "babel src -d dist",
     "lint": "eslint $(find src -type f ! -path '*/decls/*')",
     "flow": "flow",
     "test": "npm run lint && flow && npm run test:spec",

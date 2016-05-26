@@ -4,15 +4,15 @@ general:
       - gh-pages
       - /release.*/
 machine:
+  environment:
+    PATH: './node_modules/.bin:$PATH'
   pre:
     - git config --global user.name "CircleCI"
     - git config --global user.email "circleci@example.com"
 dependencies:
-  environment:
-    PATH: './node_modules/.bin:$PATH'
   post:
     - ./nca update-modules --depth 5
-    - babel src -d dist
+    - npm run babel
 deployment:
   create_release_branch:
     branch:

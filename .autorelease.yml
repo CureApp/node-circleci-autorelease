@@ -1,7 +1,7 @@
 hooks:
   update_modules:
     post:
-      - babel src -d dist
+      - npm run babel
 
 config:
   git_user_name: CircleCI
