@@ -11,8 +11,8 @@ machine:
     - git config --global user.email "circleci@example.com"
 dependencies:
   post:
-    - ./nca update-modules --depth 5
     - npm run babel
+    - ./nca update-modules --depth 5
 deployment:
   create_release_branch:
     branch:

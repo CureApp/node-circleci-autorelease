@@ -1,6 +1,6 @@
 hooks:
   update_modules:
-    post:
+    pre:
       - npm run babel
 
 config:
