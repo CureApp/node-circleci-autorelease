@@ -38,6 +38,9 @@ export default class CircleYml {
             },
 
             dependencies: {
+
+                environment: this.environment(arYml.config('npm_bin_path')),
+
                 post: flat(
                     arYml.hooks('update_modules', 'pre'),
                     this.updateModulesCommand(arYml.config('npm_update_depth')),
@@ -61,6 +64,17 @@ export default class CircleYml {
             }
         }
     }
+
+    /**
+     * generate command to update node_modules
+     * @private
+     */
+    static environment(enableNpmBinPath: primitive): ?{PATH: string} {
+        if (!enableNpmBinPath) return undefined
+
+        return { PATH: './node_modules/.bin:$PATH' }
+    }
+
 
     /**
      * generate command to update node_modules

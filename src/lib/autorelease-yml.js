@@ -36,6 +36,9 @@ export default class AutoreleaseYml {
             git_user_name: 'CircleCI',
             git_user_email: 'circleci@example.com',
 
+            // options for PATH, enable to run executables in node_modules/.bin without prefix
+            npm_bin_path: true,
+
             // options for nca update-modules
             npm_update_depth: 0,
 
