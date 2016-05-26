@@ -31,6 +31,7 @@
     "shelljs": "^0.7.0"
   },
   "devDependencies": {
+    "babel-cli": "^6.9.0",
     "babel-eslint": "^6.0.4",
     "babel-plugin-array-includes": "^2.0.3",
     "babel-plugin-syntax-flow": "^6.8.0",
