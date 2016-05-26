@@ -85,12 +85,13 @@ describe('ReleaseExecutor', function() {
                 this.executor.release('v4.5.3', true)
             })
 
-            it('should execute 10 commands', function() {
-                assert(this.executedCommands.length === 10)
+            it('should execute 11 commands', function() {
+                assert(this.executedCommands.length === 11)
             })
 
             it('should run "npm shrinkwrap"', function() {
-                assert(this.executedCommands[5] === 'npm shrinkwrap')
+                assert(this.executedCommands[5] === 'npm prune --production')
+                assert(this.executedCommands[6] === 'npm shrinkwrap')
             })
         })
 

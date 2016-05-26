@@ -73,6 +73,7 @@ export default class ReleaseExecutor {
      * @private
      */
     addShrinkwrap() {
+        this.exec('npm prune --production')
         this.exec('npm shrinkwrap')
     }
 
