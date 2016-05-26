@@ -11,12 +11,12 @@ dependencies:
   environment:
     PATH: './node_modules/.bin:$PATH'
   post:
-    - npm run nca update-modules --depth 5
+    - ./nca update-modules --depth 5
     - babel src -d dist
 deployment:
   create_release_branch:
     branch:
       - master
     commands:
-      - npm run nca release --prefix v --shrinkwrap
-      - npm run nca notice gh-pages
+      - ./nca release --prefix v --shrinkwrap
+      - ./nca notice gh-pages

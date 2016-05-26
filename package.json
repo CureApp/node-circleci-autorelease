@@ -11,7 +11,6 @@
     "npm": ">=3"
   },
   "scripts": {
-    "nca": "./dist/bin/nca.js",
     "lint": "eslint $(find src -type f ! -path '*/decls/*')",
     "flow": "flow",
     "test": "npm run lint && flow && npm run test:spec",

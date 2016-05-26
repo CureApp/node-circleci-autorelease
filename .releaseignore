@@ -1,3 +1,11 @@
+# symlink, only for development
+/nca
+
+
+
+###
+# basic files
+###
 # dot files
 .*
 # npm https://www.npmjs.com
