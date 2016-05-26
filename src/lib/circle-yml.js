@@ -4,6 +4,9 @@ import merge from 'deepmerge'
 import yaml from 'js-yaml'
 import type AutoreleaseYml from './autorelease-yml'
 
+/**
+ * Generator for circle.yml
+ */
 export default class CircleYml {
 
     /**

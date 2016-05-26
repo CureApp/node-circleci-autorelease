@@ -2,6 +2,9 @@
 import {ls} from 'shelljs'
 import exec from '../util/exec'
 
+/**
+ * Creator for gh-pages
+ */
 export default class GhPagesCreator {
 
 

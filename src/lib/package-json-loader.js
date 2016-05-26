@@ -1,9 +1,16 @@
 // @flow
 import fs from 'fs'
 
+/**
+ * Loader for package.json
+ */
 export default class PackageJSONLoader {
 
-    static load(cwd) {
+    /**
+     * load package.json of the given path
+     * @param cwd project root dir
+     */
+    static load(cwd: string) {
 
         const path = cwd + '/package.json'
 

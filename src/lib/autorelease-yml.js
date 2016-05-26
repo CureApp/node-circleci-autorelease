@@ -5,6 +5,9 @@ import yaml from 'js-yaml'
 import {join} from 'path'
 
 
+/**
+ * Reader/Writer of .autorelease.yml
+ */
 export default class AutoreleaseYml {
 
     __data: Object
@@ -82,6 +85,8 @@ export default class AutoreleaseYml {
     /**
      * get hook commands
      * @public
+     * @param name hook name
+     * @param timing one of [update_modules release gh_pages]
      */
     hooks(name: string, timing: string): Array<string> {
         if (!this.hookNames.includes(name)) throw new Error(`Invalid hook name: "${name}" was given.`)

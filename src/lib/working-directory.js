@@ -2,6 +2,10 @@
 import fs from 'fs'
 import path from 'path'
 
+/**
+ * Getting current working directory
+ *
+ */
 export default class WorkingDirectory {
 
     path: string;
@@ -11,7 +15,11 @@ export default class WorkingDirectory {
     }
 
 
-    resolve() {
+    /**
+     * get current project root
+     * @public
+     */
+    resolve(): string {
         if (this.inNodeModules() && this.upperPackageJSON()) {
             this.path = path.normalize(this.path + '/../..')
         }

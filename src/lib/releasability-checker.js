@@ -23,8 +23,9 @@ const NON_RELEASE_COMMIT_MESSAGE = `
 ----------------------------------------------------------------
 `
 
-
-
+/**
+ * Checker for releasability
+ */
 export default class ReleasabilityChecker {
 
     /**

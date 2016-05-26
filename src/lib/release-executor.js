@@ -3,11 +3,17 @@
 import fs from 'fs'
 import exec from '../util/exec'
 
+/**
+ * Executes release process
+ */
 export default class ReleaseExecutor {
 
     /**
      * Release the version
      * @public
+     * @param version version name formatted as X.Y.Z
+     * @param shrinkwrap  [] whether or not to run `npm shrinkwrap`
+     * @param branch  whether or not to release branch
      */
     release(version: string,
             shrinkwrap: boolean = false,
