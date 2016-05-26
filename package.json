@@ -43,6 +43,7 @@
     "babel-preset-power-assert": "^1.0.0",
     "babel-preset-stage-0": "^6.5.0",
     "babel-register": "^6.9.0",
+    "documentation": "^4.0.0-beta2",
     "eslint": "^2.10.2",
     "eslint-plugin-flow-vars": "^0.4.0",
     "eslint-plugin-flowtype": "^2.2.7",
