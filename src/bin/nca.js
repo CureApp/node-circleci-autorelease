@@ -24,8 +24,10 @@ Object.keys(subcommands)
     .forEach(sub => program.command(sub, subcommands[sub]))
 
 
-export default function run(argv: Array<string>) {
+export function run(args: Array<string>) {
+    let argv = args.slice()
+    argv.unshift(process.execPath, __filename)
     program.parse(argv)
 }
 
-if (require.main === module) run(process.argv)
+if (require.main === module) run(process.argv.slice(2))

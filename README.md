@@ -275,11 +275,19 @@ DRY_RUN=1 $(npm bin)/nca
 
 Run command with args.
 
+es6+
 ```js
-
-import nca from 'node-circleci-autorelease'
-nca.run(process.argv)
+import {run} from 'node-circleci-autorelease'
+nca.run(['bmp', 'p', '-s'])
 ```
+
+commonjs
+```js
+var nca = require('node-circleci-autorelease')
+nca.run(['bmp', 'p', '-s'])
+```
+
+Note that 2nd argument should be
 
 # LICENSE
 MIT
