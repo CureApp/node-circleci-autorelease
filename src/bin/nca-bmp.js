@@ -50,6 +50,7 @@ export default function run() {
     }
     else {
         generateCircleYml()
+        console.log(HOW_TO_SKIP_GENERATION_OF_CIRCLE_YML)
     }
 
     const verb = arg === 'r' ? 're-release' : 'release'
@@ -79,6 +80,12 @@ function getCurrentVersion(): string {
     return PackageJSONLoader.load(cwd).version
 }
 
+const HOW_TO_SKIP_GENERATION_OF_CIRCLE_YML = `
+
+    To skip circle.yml generation,
+    run with --skipCircle (or -s) option.
+
+`
 
 const HOW_TO_INSTALL_BMP_OR_YANGPAO = `
     You need to install one of the version-bumping tools of the followings.
