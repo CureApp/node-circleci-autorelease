@@ -28,6 +28,7 @@ export default function run() {
 
     program
         .arguments('<bump-level>', /[pmjr]/)
+        .option('-s, --skipCircle', 'No generation of circle.yml')
         .description(COMMAND_DESC)
         .parse(process.argv)
 
@@ -43,10 +44,13 @@ export default function run() {
         console.log(chalk.red(HOW_TO_INSTALL_BMP_OR_YANGPAO))
         process.exit(1)
     }
-    console.log(`bumping tool path: ${bin}`)
 
-    generateCircleYml()
-
+    if (program.skipCircle) {
+        console.log('skip generating circle.yml')
+    }
+    else {
+        generateCircleYml()
+    }
 
     const verb = arg === 'r' ? 're-release' : 'release'
 
