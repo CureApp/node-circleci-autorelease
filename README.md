@@ -265,6 +265,12 @@ NPM_EMAIL # "email" of your .npmrc
 
 then CircleCI automatically runs `npm publish`.
 
+# DRY RUN
+
+```sh
+DRY_RUN=1 $(npm bin)/nca
+```
+
 # JavaScript API
 
 Run command with args.
