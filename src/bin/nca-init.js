@@ -1,7 +1,6 @@
 /*eslint no-console: 0 */
 // @flow
 
-import fs from 'fs'
 import chalk from 'chalk'
 import AutoreleaseYml from '../lib/autorelease-yml'
 import WorkingDirectory from '../lib/working-directory'
