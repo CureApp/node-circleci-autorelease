@@ -13,4 +13,7 @@ config:
   npm_shrinkwrap: true
   create_gh_pages: false
   gh_pages_dir: null
-circle: {}
+circle:
+  machine:
+    node:
+      version: 6.2.0
