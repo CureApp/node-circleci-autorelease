@@ -19,8 +19,8 @@ export default function run() {
     }
 
     if (process.env.DRY_RUN) {
-        console.log(chalk.green(`[DRY RUN] generating ${filename}`))
-        console.log(chalk.green(arYml.toString()))
+        console.log(chalk.yellow(`[DRY RUN]: generating ${filename}`))
+        console.log(chalk.yellow(arYml.toString()))
     }
     else {
         arYml.saveTo(rootDir)

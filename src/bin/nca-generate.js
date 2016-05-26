@@ -21,14 +21,13 @@ export default function run(skipShowingWhatToDoNext?: boolean = false) {
     const filename = join(rootDir, 'circle.yml')
 
     if (process.env.DRY_RUN) {
-        console.log(chalk.green('[DRY RUN] generating circle.yml'))
-        console.log(chalk.green(ymlStr))
+        console.log(chalk.yellow('[DRY RUN]: generating circle.yml'))
+        console.log(chalk.yellow(ymlStr))
     }
     else {
         fs.writeFileSync(filename, ymlStr)
+        console.log(chalk.green('circle.yml was successfully generated!'))
     }
-
-    console.log(chalk.green('circle.yml was successfully generated!'))
 
     if (!skipShowingWhatToDoNext) console.log(WHAT_TO_DO_NEXT)
 }
