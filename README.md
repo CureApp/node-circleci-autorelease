@@ -39,6 +39,14 @@ Two setting files will be generated.
 1.  `.autorelease.yml`: config file.
 2.  `.releaseignore`: files/patterns to be ignored in release. the same format as .gitignore.
 
+You can set current node version with `--node` option.
+
+
+```bash
+$(npm bin)/nca init --node
+```
+
+
 ## generate circle.yml
 
 ```bash

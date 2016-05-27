@@ -3,6 +3,7 @@
 import fs from 'fs'
 import yaml from 'js-yaml'
 import {join} from 'path'
+import merge from 'deepmerge'
 
 
 /**
@@ -112,6 +113,16 @@ export default class AutoreleaseYml {
      */
     get circle(): Object {
         return Object.assign({}, this.__data.circle)
+    }
+
+
+    /**
+     * set node version to circle section
+     * @public
+     * @param version node version
+     */
+    setNodeVersion(version: string) {
+        this.__data.circle = merge(this.__data.circle, {machine: {node: {version}}} )
     }
 
     /**

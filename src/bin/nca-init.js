@@ -2,12 +2,17 @@
 // @flow
 
 import chalk from 'chalk'
+import program from 'commander'
 import AutoreleaseYml from '../lib/autorelease-yml'
 import WorkingDirectory from '../lib/working-directory'
 
 const {filename} = AutoreleaseYml
 
 export default function run() {
+
+    program
+        .option('-n, --node', 'attach current node.js information')
+        .parse(process.argv)
 
     const rootDir = new WorkingDirectory().resolve()
 
@@ -16,6 +21,10 @@ export default function run() {
     if (arYml.loaded) {
         console.log(FILE_ALREADY_EXISTS)
         process.exit(0)
+    }
+
+    if (program.node) {
+        arYml.setNodeVersion(process.version.slice(1)) // slice(1): strip 'v'
     }
 
     if (process.env.DRY_RUN) {
