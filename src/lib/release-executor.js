@@ -38,6 +38,11 @@ export default class ReleaseExecutor {
         if (branch) {
             this.pushReleaseBranch(version, remote)
         }
+
+        // re-install pruned modules
+        if (shrinkwrap) {
+            this.exec('npm install')
+        }
         return true
     }
 
