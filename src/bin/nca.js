@@ -25,7 +25,7 @@ Object.keys(subcommands)
 
 
 export function run(args: Array<string>) {
-    let argv = args.slice()
+    const argv = args.slice()
     argv.unshift(process.execPath, __filename)
     program.parse(argv)
 }
