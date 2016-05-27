@@ -6,7 +6,7 @@ import exec from '../util/exec'
 const NON_RELEASE_COMMIT_MESSAGE = `
 ----------------------------------------------------------------
     No release process is going to start, because
-    the latest commit log is not the valid.
+    the latest commit log is not valid.
     Run one of the following command to get valid commit log.
 
         $(npm bin)/nca bmp p # patch level (0.0.1)
