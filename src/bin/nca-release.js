@@ -52,7 +52,7 @@ const SHOW_HOW_TO_RELEASE_IN_CIRCLE_CI = (userName: string, repoName: string): s
     In most cases, it is due to the ssh key registered in CircleCI.
     Check the key have permission to write to github.
 
-    https://circleci.com/gh/${userName}/${repoName}
+    https://circleci.com/gh/${userName}/${repoName}/edit#checkout
 
 ----------------------------------------------------------------------
 `
@@ -63,7 +63,7 @@ const SHOW_HOW_TO_NPM_PUBLISH = (userName: string, repoName: string): string => 
     'npm publish' was not executed as $NPM_AUTH and $NPM_EMAIL environment variables does not exist.
 
     Set it at
-        https://circleci.com/gh/${userName}/${repoName}/edit#checkout
+        https://circleci.com/gh/${userName}/${repoName}/edit#env-vars
 
     Name: NPM_AUTH
     Value: (value of '_auth' at your .npmrc after 'npm login')
