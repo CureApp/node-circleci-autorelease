@@ -30,7 +30,7 @@ export default function run() {
     else {
         const { CIRCLE_PROJECT_USERNAME, CIRCLE_PROJECT_REPONAME } = process.env
         console.log(chalk.red(SHOW_HOW_TO_RELEASE_IN_CIRCLE_CI(CIRCLE_PROJECT_USERNAME, CIRCLE_PROJECT_REPONAME)))
-        process.exit(0)
+        process.exit(1)
     }
 
     // npm publish
