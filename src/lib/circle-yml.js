@@ -85,9 +85,9 @@ export default class CircleYml {
      */
     static updateModulesCommand(depth: primitive): string {
         if (!depth) {
-            return '$(npm bin)/nca notice update-modules'
+            return 'nca notice update-modules'
         }
-        return `$(npm bin)/nca update-modules --depth ${depth}`
+        return `nca update-modules --depth ${depth}`
     }
 
     /**
@@ -100,7 +100,7 @@ export default class CircleYml {
             branch:     !!arYml.config('create_branch'),
             shrinkwrap: !!arYml.config('npm_shrinkwrap')
         }
-        return '$(npm bin)/nca release ' + this.optionStr(options)
+        return 'nca release ' + this.optionStr(options)
     }
 
 
@@ -111,9 +111,9 @@ export default class CircleYml {
     static ghPagesCommand(create: primitive, dir: primitive): string {
 
         if (!create) {
-            return '$(npm bin)/nca notice gh-pages'
+            return 'nca notice gh-pages'
         }
-        let command = '$(npm bin)/nca gh-pages'
+        let command = 'nca gh-pages'
         if (dir) {
             command += ` --dir ${dir}`
         }
