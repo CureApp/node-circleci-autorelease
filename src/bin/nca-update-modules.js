@@ -12,6 +12,8 @@ export default function run() {
 
     const {depth} = program
 
+    if (!depth) return process.exit(0)
+
     if (getMajorNpmVersion() < 3) {
         console.log(WHY_NPM2_IS_NOT_RECOMMENDED)
         exec(`npm update --depth ${depth}`)
