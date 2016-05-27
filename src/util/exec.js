@@ -6,28 +6,29 @@ import chalk from 'chalk'
 const CHECK_OK = '✓'
 const CHECK_NG = '✖'
 
-export default function exec(command: string, options?: Object = {}): Object {
+export default function exec(command: string, options?: {silent?: boolean} = {}): Object {
 
     const dryRun = !!process.env.DRY_RUN
 
-    options.silent = true
+    const log = options.silent ?   function(){} : console.log.bind(console)
+    const error = options.silent ? function(){} : console.error.bind(console)
 
     if (dryRun) {
-        console.log(chalk.yellow(`[DRY RUN]: ${command}`))
+        log(chalk.yellow(`[DRY RUN]: ${command}`))
         return {command, stdout: '[DRY RUN]', stderr: '[DRY RUN]', code: 0}
     }
     else {
-        const result = shellJSExec(command, options)
+        const result = shellJSExec(command, {silent: true})
         const succeeded = result.code === 0
         const color = succeeded ? 'green': 'red'
         const check = succeeded ? CHECK_OK : CHECK_NG
-        console.log(chalk[color](` ${check}  ${command}`))
+        log(chalk[color](` ${check}  ${command}`))
 
         if (!succeeded) {
-            console.log('\tSTDOUT: ')
-            console.log(chalk.red(result.stdout))
-            console.error('\tSTDERR: ')
-            console.error(chalk.red(result.stderr))
+            log('\tSTDOUT: ')
+            log(chalk.red(result.stdout))
+            error('\tSTDERR: ')
+            error(chalk.red(result.stderr))
         }
 
         return result
