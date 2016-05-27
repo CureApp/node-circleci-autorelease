@@ -105,19 +105,24 @@ const HOW_TO_INSTALL_BMP_OR_YANGPAO = `
  * @private
  */
 const NOTICE_AFTER_BUMPING = `
---------------------------------------------------------
-   if you mistakenly ran this command, you can reset by
+----------------------------------------------------------------------------
+  Before pushing to github, make sure the following settings have been done.
 
-       git reset HEAD^
+  1. Checkout SSH keys [required]
+       Confirm CircleCI setting if your user key is registered.
 
+  2. Set Environment variables for publishing npm [optional]
+       Name: NPM_AUTH
+       Value: (value of '_auth' at your .npmrc after 'npm login')
 
-   Don't be upset :) Otherwise,
+       Name: NPM_EMAIL
+       Value: (your email registered to npm)
 
-       git push origin master
+  If you mistakenly ran this command, you can reset by
 
-
-   will be the next command.
---------------------------------------------------------
+      git reset HEAD^
+                       Don't be upset :)
+----------------------------------------------------------------------------
 `
 
 if (require.main === module) run()
