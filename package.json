@@ -1,6 +1,6 @@
 {
   "name": "node-circleci-autorelease",
-  "version": "2.0.6",
+  "version": "2.0.7",
   "description": "create release tags at CircleCI",
   "main": "dist/bin/nca",
   "bin": {
