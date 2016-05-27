@@ -12,6 +12,8 @@
   },
   "scripts": {
     "babel": "babel src -d dist",
+    "doc": "documentation build src/**/*.js --format html --output doc/reference",
+    "doc:watch": "documentation serve src/**/*.js -w",
     "lint": "eslint $(find src -type f ! -path '*/decls/*')",
     "flow": "flow",
     "test": "npm run lint && flow && npm run test:spec",
