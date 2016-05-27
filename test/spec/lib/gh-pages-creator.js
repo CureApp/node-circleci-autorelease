@@ -43,7 +43,6 @@ describe('GhPagesCreator', function() {
                 assert.deepEqual(this.executedCommands, [
                     'git checkout --orphan gh-pages',
                     'git reset',
-                    'add_circle_yml',
                     'git add -f test/spec/data/doc',
                     'git clean -fdx',
                     'git mv test/spec/data/doc/abc.txt .',

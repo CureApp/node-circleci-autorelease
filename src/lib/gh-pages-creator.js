@@ -19,7 +19,6 @@ export default class GhPagesCreator {
         if (dir) {
 
             this.exec('git reset')
-            this.exec('add_circle_yml')
             this.exec(`git add -f ${dir}`)
             this.exec('git clean -fdx')
 
