@@ -96,7 +96,16 @@ export default class AutoreleaseYml {
         if (!hookObjs) return []
 
         const hooks = hookObjs[timing]
-        return Array.isArray(hooks) ? hooks : hooks ? [hooks] : []
+        const hookArr = Array.isArray(hooks) ? hooks : hooks ? [hooks] : []
+        return hookArr.map(this.addOkCommandBeforeHook, this) // Notice that "this" will change
+    }
+
+
+    /**
+     * attach 'nca ok' before command
+     */
+    addOkCommandBeforeHook(hookCommand: string): string {
+        return `nca ok && ${hookCommand}`
     }
 
 
