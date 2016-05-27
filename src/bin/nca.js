@@ -17,6 +17,7 @@ const subcommands = {
     'release'        : 'release current version',
     'gh-pages'       : 'create "gh-pages" branch for documentation',
     'notice'         : 'show notice',
+    'ok'             : 'check releasability (reflect to status code)',
 }
 
 Object.keys(subcommands)
