@@ -28,7 +28,8 @@ export default function run() {
         console.log(chalk.green(`The tag "${version}" was successfully released.`))
     }
     else {
-        console.log(chalk.red(SHOW_HOW_TO_RELEASE_IN_CIRCLE_CI))
+        const { CIRCLE_PROJECT_USERNAME, CIRCLE_PROJECT_REPONAME } = process.env
+        console.log(chalk.red(SHOW_HOW_TO_RELEASE_IN_CIRCLE_CI(CIRCLE_PROJECT_USERNAME, CIRCLE_PROJECT_REPONAME)))
         process.exit(0)
     }
 
@@ -38,7 +39,7 @@ export default function run() {
         executor.publishNpm(NPM_EMAIL, NPM_AUTH)
     }
     else {
-        const {CIRCLE_PROJECT_USERNAME, CIRCLE_PROJECT_REPONAME } = process.env
+        const { CIRCLE_PROJECT_USERNAME, CIRCLE_PROJECT_REPONAME } = process.env
         console.log(SHOW_HOW_TO_NPM_PUBLISH(CIRCLE_PROJECT_USERNAME, CIRCLE_PROJECT_REPONAME))
     }
 }
