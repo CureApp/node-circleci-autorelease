@@ -85,9 +85,9 @@ export default class CircleYml {
      */
     static updateModulesCommand(depth: primitive): string {
         if (!depth) {
-            return 'nca notice update-modules'
+            return 'nca ok && nca notice update-modules'
         }
-        return `nca update-modules --depth ${depth}`
+        return `nca ok && nca update-modules --depth ${depth}`
     }
 
     /**
@@ -111,9 +111,9 @@ export default class CircleYml {
     static ghPagesCommand(create: primitive, dir: primitive): string {
 
         if (!create) {
-            return 'nca notice gh-pages'
+            return 'nca ok && nca notice gh-pages'
         }
-        let command = 'nca gh-pages'
+        let command = 'nca ok && nca gh-pages'
         if (dir) {
             command += ` --dir ${dir}`
         }
