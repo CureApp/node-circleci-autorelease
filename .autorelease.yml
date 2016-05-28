@@ -16,3 +16,5 @@ circle:
   machine:
     node:
       version: 6.2.0
+    environment:
+      PATH: '.'
