@@ -27,27 +27,39 @@ const NON_RELEASE_COMMIT_MESSAGE = `
  * Checker for releasability
  */
 export default class ReleasabilityChecker {
+    __commitMsg: ?string;
 
-    /**
-     * @public
-     */
-    check(): ?string {
-        const logVersion = this.getVersionFromLog()
-        if (!logVersion) { return NON_RELEASE_COMMIT_MESSAGE }
+    constructor() {
+        this.__commitMsg = null // cache
     }
 
     /**
      * @public
      */
-    getVersionFromLog(): ?string {
+    get isReleasable(): ?boolean {
+        return this.logVersion != null
+    }
 
-        const commitMsg = this.exec('git log --pretty=format:"%s" -1', {silent: true}).stdout
+    /**
+     * @public
+     */
+    get warnMessage(): ?string {
+        if (!this.logVersion) { return NON_RELEASE_COMMIT_MESSAGE }
+    }
 
-        if (! commitMsg.match(/^(re-)?release +[0-9]+\./)) {
+    get commitMsg(): string {
+        return this.__commitMsg || this.exec('git log --pretty=format:"%s" -1', {silent: true}).stdout
+    }
+
+    /**
+     * @public
+     */
+    get logVersion(): ?string {
+        if (! this.commitMsg.match(/^(re-)?release +[0-9]+\./)) {
             return null
         }
 
-        return commitMsg.split(/release +/)[1]
+        return this.commitMsg.split(/release +/)[1]
     }
 
 

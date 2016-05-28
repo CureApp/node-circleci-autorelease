@@ -17,9 +17,12 @@ export default function run() {
 
     const {prefix, branch, shrinkwrap} = program
 
-    // get version
-    const ver = checkReleasability()
-    const version = prefix + ver
+    const checker = new ReleasabilityChecker()
+    if (!checker.isReleasable) {
+        console.error(chalk.yellow(checker.warnMessage))
+        return process.exit(0)
+    }
+    const version = prefix + checker.logVersion
 
     // release
     const executor = new ReleaseExecutor()
@@ -72,20 +75,5 @@ const SHOW_HOW_TO_NPM_PUBLISH = (userName: string, repoName: string): string => 
     Value: (your email registered to npm)
 -----------------------------------------------------------------------------------------------------
 `
-
-
-function checkReleasability(): ?string {
-
-    const checker = new ReleasabilityChecker()
-    const warnMessage = checker.check()
-
-    if (warnMessage) {
-        console.error(chalk.yellow(warnMessage))
-        process.exit(0)
-    }
-
-    return checker.getVersionFromLog()
-}
-
 
 if (require.main === module) run()
