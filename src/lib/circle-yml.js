@@ -18,9 +18,24 @@ export default class CircleYml {
         const custom = arYml.circle
 
         const merged = merge(standard, custom)
+        this.modifyPathEnv(merged, standard.machine.environment.PATH)
         return yaml.dump(merged, {indent: 2, lineWidth: 120})
     }
 
+
+    static modifyPathEnv(circleYml: Object, standardPath: string) {
+        const {environment} = circleYml.machine
+
+        if (environment.PATH === standardPath) { return }
+
+        const standardPaths = standardPath.split(':')
+        const paths = environment.PATH.split(':');
+
+        standardPaths
+            .filter(path => !paths.includes(path))
+            .forEach(path => paths.push(path))
+        environment.PATH = paths.join(':')
+    }
 
     /**
      * @private
@@ -35,7 +50,9 @@ export default class CircleYml {
 
             machine: {
 
-                environment: this.environment(arYml.config('npm_bin_path')),
+                environment: {
+                    PATH: './node_modules/.bin:$PATH'
+                },
 
                 pre: [
                     `git config --global user.name "${arYml.config('git_user_name')}"`,
@@ -67,17 +84,6 @@ export default class CircleYml {
             }
         }
     }
-
-    /**
-     * generate command to update node_modules
-     * @private
-     */
-    static environment(enableNpmBinPath: primitive): ?{PATH: string} {
-        if (!enableNpmBinPath) return undefined
-
-        return { PATH: './node_modules/.bin:$PATH' }
-    }
-
 
     /**
      * generate command to update node_modules

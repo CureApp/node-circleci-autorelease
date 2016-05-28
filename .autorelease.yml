@@ -6,7 +6,6 @@ hooks:
 config:
   git_user_name: CircleCI
   git_user_email: circleci@example.com
-  npm_bin_path: true
   npm_update_depth: 5
   version_prefix: v
   create_branch: false
