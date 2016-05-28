@@ -102,10 +102,11 @@ export default class AutoreleaseYml {
 
 
     /**
-     * attach 'nca ok' before command
+     * attach 'nca run' before command
      */
     addOkCommandBeforeHook(hookCommand: string): string {
-        return `nca ok && ${hookCommand}`
+        // "--" cannot be recognized by node.js
+        return `nca run ${hookCommand.split(' -- ').join(' --- ')}`
     }
 
 
