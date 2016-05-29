@@ -7,6 +7,12 @@ import exec from '../util/exec'
  * Executes release process
  */
 export default class ReleaseExecutor {
+    log: (a: string) => void;
+
+
+    constructor(log: (a: string) => void) {
+        this.log = log
+    }
 
     /**
      * Release the version
@@ -41,6 +47,7 @@ export default class ReleaseExecutor {
 
         // re-install pruned modules
         if (shrinkwrap) {
+            this.log('---- re-installing node_modules after shrinkwrap ----')
             this.exec('npm install')
         }
         return true

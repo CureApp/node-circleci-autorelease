@@ -8,8 +8,9 @@ import {exec} from 'shelljs'
 describe('ReleaseExecutor', function() {
 
     beforeEach(function() {
+        const log = (v: string) => {}
         this.executedCommands = []
-        this.executor = new ReleaseExecutor()
+        this.executor = new ReleaseExecutor(log)
         this.executor.exec = x => {
             this.executedCommands.push(x)
             return {

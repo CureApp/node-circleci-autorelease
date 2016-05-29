@@ -25,7 +25,7 @@ export default function run() {
     const version = prefix + checker.logVersion
 
     // release
-    const executor = new ReleaseExecutor()
+    const executor = new ReleaseExecutor(console.log)
     const result = executor.release(version, shrinkwrap, branch)
     if (result) {
         console.log(chalk.green(`The tag "${version}" was successfully released.`))
