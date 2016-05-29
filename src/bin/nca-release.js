@@ -39,12 +39,12 @@ export default function run() {
     // npm publish
     const {NPM_EMAIL, NPM_AUTH} = process.env
     if (NPM_EMAIL && NPM_AUTH) {
-        const npmPublishResult = executor.publishNpm(NPM_EMAIL, NPM_AUTH)
-        if (npmPublishResult) {
-            console.log(chalk.green(`npm publish "${checker.logVersion}" succeeded.`))
+        const npmVersion = executor.publishNpm(NPM_EMAIL, NPM_AUTH)
+        if (npmVersion) {
+            console.log(chalk.green(`npm publish "${npmVersion}" succeeded.`))
         }
         else {
-            console.log(chalk.red(`npm publish "${checker.logVersion}" failed.`))
+            console.log(chalk.red(`npm publish "${npmVersion}" failed.`))
         }
     }
     else {

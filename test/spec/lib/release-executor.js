@@ -1,3 +1,4 @@
+
 import ReleaseExecutor from '../../../src/lib/release-executor'
 import assert from 'power-assert'
 
@@ -11,6 +12,7 @@ describe('ReleaseExecutor', function() {
         const log = (v: string) => {}
         this.executedCommands = []
         this.executor = new ReleaseExecutor(log)
+        this.executor.write = x => {}
         this.executor.exec = x => {
             this.executedCommands.push(x)
             return {
@@ -20,6 +22,7 @@ describe('ReleaseExecutor', function() {
             }
         }
     })
+
 
     describe('release', function() {
 
@@ -132,20 +135,33 @@ describe('ReleaseExecutor', function() {
     describe('publishNpm', function() {
 
         beforeEach(function() {
-            this.npmrcPath = resolve(__dirname + '/../data/.npmrc')
-            this.executor.publishNpm('shinout310@gmail.com', 'abcdexxxxx', this.npmrcPath)
+            this.write = (filename, content) => {
+                assert(filename === '.npmrc')
+                assert(content === '_auth=xyz\nemail=x@g.com\n')
+            }
         })
 
-        afterEach(function() {
-            fs.unlinkSync(this.npmrcPath)
+
+        it('should return version when npm publish succeeded', function() {
+
+            this.executor.exec = x => {
+                return { stdout: 'node-circleci-autorelease@0.1.2', code: 0 }
+            }
+            assert(this.executor.publishNpm('x@g.com', 'xyz') === '0.1.2')
         })
 
-        it('should create npmrc file', function() {
-            assert(fs.existsSync(this.npmrcPath) === true)
-            assert(fs.readFileSync(this.npmrcPath, 'utf8') === '_auth=abcdexxxxx\nemail=shinout310@gmail.com\n')
+        it('should return null when npm publish failed', function() {
+
+            this.executor.exec = x => {
+                return { stderr: '403', code: 1 }
+            }
+            assert(this.executor.publishNpm('x@g.com', 'xyz') === null)
         })
 
         it('should add .npmignore and publish', function() {
+
+            this.executor.publishNpm('x@g.com', 'xyz')
+
             assert(this.executedCommands[0] === 'cp .releaseignore .npmignore')
             assert(this.executedCommands[1] === 'npm publish')
             assert(this.executedCommands[2] === 'rm .npmignore')

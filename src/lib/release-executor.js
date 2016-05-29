@@ -59,17 +59,16 @@ export default class ReleaseExecutor {
      */
     publishNpm(email: string,
                auth: string,
-               path?: string = '.npmrc'): boolean {
+               path?: string = '.npmrc'): ?string {
 
         const npmrc = `_auth=${auth}\nemail=${email}\n`
-        fs.writeFileSync(path, npmrc)
-
+        this.write(path, npmrc)
         this.exec('cp .releaseignore .npmignore')
-        const result = this.exec('npm publish').code
+        const {stdout, code} = this.exec('npm publish')
         this.exec('rm .npmignore')
         this.exec('rm .npmrc')
 
-        return result === 0
+        return code === 0 ? stdout.split('@')[1] : null
     }
 
      /**
@@ -115,6 +114,14 @@ export default class ReleaseExecutor {
         this.exec(`git push --force ${remote} release-${version}`)
     }
 
+
+    /**
+     * Write a file with the content
+     * @private
+     */
+    write(filename: string, content: string) {
+        fs.writeFileSync(process.cwd() + '/' + filename, content)
+    }
 
     /**
      * execute a given command
