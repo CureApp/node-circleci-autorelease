@@ -39,7 +39,13 @@ export default function run() {
     // npm publish
     const {NPM_EMAIL, NPM_AUTH} = process.env
     if (NPM_EMAIL && NPM_AUTH) {
-        executor.publishNpm(NPM_EMAIL, NPM_AUTH)
+        const npmPublishResult = executor.publishNpm(NPM_EMAIL, NPM_AUTH)
+        if (npmPublishResult) {
+            console.log(chalk.green(`npm publish "${checker.logVersion}" succeeded.`))
+        }
+        else {
+            console.log(chalk.red(`npm publish "${checker.logVersion}" failed.`))
+        }
     }
     else {
         const { CIRCLE_PROJECT_USERNAME, CIRCLE_PROJECT_REPONAME } = process.env
