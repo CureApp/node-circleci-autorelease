@@ -13,7 +13,7 @@ machine:
     version: 6.2.0
 dependencies:
   post:
-    - nca run npm run babel
+    - npm run babel
     - nca run nca update-modules --depth 5
 deployment:
   create_release_branch:
