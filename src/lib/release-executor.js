@@ -68,7 +68,7 @@ export default class ReleaseExecutor {
         this.exec('rm .npmignore')
         this.exec('rm .npmrc')
 
-        return code === 0 ? stdout.split('@')[1] : null
+        return code === 0 ? stdout.trim().split('@')[1] : null
     }
 
      /**
