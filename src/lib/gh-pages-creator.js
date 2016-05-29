@@ -1,5 +1,6 @@
 
-import {ls, echo} from 'shelljs'
+import fs from 'fs'
+import {ls} from 'shelljs'
 import exec from '../util/exec'
 import yaml from 'js-yaml'
 
@@ -51,7 +52,7 @@ export default class GhPagesCreator {
      * @private
      */
     write(filename: string, content: string) {
-        echo(content).to(filename)
+        fs.writeFileSync(process.cwd() + '/' + filename, content)
     }
 
     /**
