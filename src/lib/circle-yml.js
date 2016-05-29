@@ -29,7 +29,7 @@ export default class CircleYml {
         if (environment.PATH === standardPath) { return }
 
         const standardPaths = standardPath.split(':')
-        const paths = environment.PATH.split(':');
+        const paths = environment.PATH.split(':')
 
         standardPaths
             .filter(path => !paths.includes(path))
