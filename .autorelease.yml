@@ -9,7 +9,7 @@ config:
   npm_update_depth: 5
   version_prefix: v
   create_branch: false
-  npm_shrinkwrap: true
+  npm_shrinkwrap: false
   create_gh_pages: false
   gh_pages_dir: null
 circle:
