@@ -4,6 +4,8 @@ import assert from 'power-assert'
 import fs from 'fs'
 import {resolve} from 'path'
 import {exec} from 'shelljs'
+import yaml from 'js-yaml'
+const ymlStr = yaml.dump({general: {branches: {ignore: ['gh-pages']}}}, {indent: 2})
 
 describe('GhPagesCreator', function() {
 
@@ -11,6 +13,12 @@ describe('GhPagesCreator', function() {
 
         this.executedCommands = []
         this.creator = new GhPagesCreator()
+
+        this.creator.write = (filename, content) => {
+            assert(filename === 'circle.yml')
+            assert(content === ymlStr)
+        }
+
         this.creator.exec = x => {
             this.executedCommands.push(x)
             return {
@@ -29,6 +37,7 @@ describe('GhPagesCreator', function() {
                 this.creator.create()
                 assert.deepEqual(this.executedCommands, [
                     'git checkout --orphan gh-pages',
+                    'git add -f circle.yml',
                     'git commit -m "gh-pages"',
                     'git push --force origin gh-pages',
                 ])
@@ -47,6 +56,7 @@ describe('GhPagesCreator', function() {
                     'git clean -fdx',
                     'git mv test/spec/data/doc/abc.txt .',
                     'git mv test/spec/data/doc/xyz.txt .',
+                    'git add -f circle.yml',
                     'git commit -m "gh-pages"',
                     'git push --force origin gh-pages'
                 ])
