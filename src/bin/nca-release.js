@@ -44,7 +44,7 @@ export default function run() {
             console.log(chalk.green(`npm publish "${npmVersion}" succeeded.`))
         }
         else {
-            console.log(chalk.red(`npm publish "${npmVersion}" failed.`))
+            console.log(chalk.red('npm publish failed.'))
         }
     }
     else {
