@@ -1,6 +1,7 @@
 /*eslint no-console: 0 */
 // @flow
 
+import fs from 'fs'
 import chalk from 'chalk'
 import program from 'commander'
 import AutoreleaseYml from '../lib/autorelease-yml'
@@ -16,11 +17,42 @@ export default function run() {
 
     const rootDir = new WorkingDirectory().resolve()
 
+    generateReleaseIgnoreFile(rootDir)
+
+    generateYml(rootDir)
+
+    if (!process.env.DRY_RUN) console.log(WHAT_TO_DO_NEXT)
+
+}
+
+function generateReleaseIgnoreFile(rootDir) {
+
+    if (fs.existsSync(rootDir + '/.releaseignore')) {
+        console.log(chalk.yellow('.releaseignore already exists.'))
+        return
+    }
+
+    const contents = (fs.existsSync(rootDir + '/.gitignore'))
+        ? fs.readFileSync(rootDir + '/.gitignore', 'utf8')
+        : '#write down files to ignore in release tags.\n'
+
+    if (process.env.DRY_RUN) {
+        console.log(chalk.yellow('[DRY RUN]: generating .releaseignore'))
+        console.log(chalk.yellow(contents))
+    }
+    else {
+        fs.writeFileSync(rootDir + '/.releaseignore', contents)
+        console.log(chalk.green('.releaseignore was successfully generated!'))
+    }
+}
+
+function generateYml(rootDir: string) {
+
     const arYml = AutoreleaseYml.loadFromDir(rootDir)
 
     if (arYml.loaded) {
-        console.log(FILE_ALREADY_EXISTS)
-        process.exit(0)
+        console.log(chalk.yellow(`${filename} already exists.`))
+        return
     }
 
     if (program.node) {
@@ -34,20 +66,8 @@ export default function run() {
     else {
         arYml.saveTo(rootDir)
         console.log(chalk.green(`${filename} was successfully generated!`))
-        console.log(WHAT_TO_DO_NEXT)
     }
 }
-
-
-const FILE_ALREADY_EXISTS = `
------------------------------------------------------------------
-    ${filename} already exists.
-
-    Reflect the setting to circle.yml via the following command:
-
-        $(npm bin)/nca generate
------------------------------------------------------------------
-`
 
 const WHAT_TO_DO_NEXT = `
 -----------------------------------------------------------------
