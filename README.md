@@ -2,10 +2,10 @@
 
 Autorelease your node packages.
 
--   tag
--   branch
--   gh-pages
--   npm publish
+-   [tag](#3-commit-and-push-it)
+-   [branch](#config-field)
+-   [gh-pages](#config-about-gh-pages)
+-   [npm publish](#npm-publish)
 
 It looks up the latest commit log and extracts release name.
 
@@ -23,15 +23,31 @@ You can add and remove files for release tag via hooks.
 ```sh
 npm install --save-dev node-circleci-autorelease
 ```
-
 on your Node.js project.
+
+
+## install cli for global (optional)
+Use [nca-cli](https://github.com/CureApp/nca-cli) for omitting `$(npm bin)/`.
+
+```sh
+npm install -g nca-cli
+```
+
+This tiny module calls local `nca` command without absolute path (e.g. `$(npm bin)/`).
+
+As `nca-cli` itself doesn't contain `node-circleci-autorelease`, you don't have to consider version inconsistencies.
+
+**Notice: the following sample commands call global `nca`.**
+
+**If you skip installing `nca-cli`, attach `$(npm bin)/` before `nca` command.**
+
 
 # usage
 
-## initializing
+## 1. initializing
 
 ```bash
-$(npm bin)/nca init
+nca init
 ```
 
 Two setting files will be generated.
@@ -43,19 +59,19 @@ You can set current node version with `--node` option.
 
 
 ```bash
-$(npm bin)/nca init --node
+nca init --node
 ```
 
 
-## generate circle.yml
+## 2. generate circle.yml
 
 ```bash
-$(npm bin)/nca generate
+nca generate
 ```
 
 It creates `circle.yml` to your current working directory for auto-release.
 
-## create a release tag at CircleCI
+## 3. commit and push it
 
 Push to master branch with a specific commit message.
 
@@ -65,10 +81,28 @@ git push origin master
 ```
 
 Then, CircleCI detects the commit message pattern and creates a tag `X.Y.Z`
+(See [version-bumping](#version-bumping) for automated commit.)
 
-# .autorelease.yml
+# configuration
 
-Contains three sections.
+Edit `.autorelease.yml`. It's like the following format.
+
+```yaml
+hooks:
+  gh_pages:
+    pre:
+      - npm run generate-doc
+config:
+  version_prefix: v
+  create_gh_pages: true
+  create_gh_pages: doc
+circle:
+  machine:
+    environment:
+      node:
+        version: 6.2.0
+```
+You can see three fields.
 
 -   config: config fields
 -   hooks: hook commands
@@ -118,7 +152,7 @@ by the executed ones using `npm shrinkwrap`. To enable this function,
 
 ```yaml
 config:
-  version_prefix: v
+  shrinkwrap: true
 ```
 
 ### config about gh-pages
@@ -192,7 +226,7 @@ hooks:
 ## circle field
 
 Write your custom circle.yml setting here.
-**don't write circle.yml** but write here and make them via `$(npm bin)/nca generate` command.
+**don't write circle.yml** but write here and make them via `nca generate` command.
 
 ### example
 
@@ -211,7 +245,7 @@ circle:
       - npm run xxx
 ```
 
-# .releaseignore
+# .releaseignore file
 
 Files/patterns to be ignored in release.
 Format is the same as .gitignore.
@@ -244,8 +278,9 @@ circle.yml
 *.log
 ```
 
-## with version-bumping tools
+# version bumping
 
+`node-circleci-autorelease` can bump versions with version-bumping tools.
 Two bumping tools are available.
 
 -   bmp: [kt3k/bmp](https://github.com/kt3k/bmp).
@@ -264,18 +299,18 @@ go get github.com/januswel/yangpao
 ## usage
 
 ```bash
-$(npm bin)/nca bmp p
-$(npm bin)/nca bmp m
-$(npm bin)/nca bmp j
-$(npm bin)/nca bmp r
+nca bmp p
+nca bmp m
+nca bmp j
+nca bmp r
 ```
 
-They update version and commit with a message except running `$(npm bin)/nca bmp r`.
+They update version and commit with a message except running `nca bmp r`.
 These commands also update circle.yml automatically.
 
 ### re-release
 
-`$(npm bin)/nca bmp r` doesn't bump version. Instead, it makes an empty commit with the following message:
+`nca bmp r` doesn't bump version. Instead, it makes an empty commit with the following message:
 
     re-release X.Y.Z
 
@@ -283,7 +318,7 @@ where X.Y.Z is the current version. This is useful when the last release is fail
 
 This feature is disabled by default.
 
-## npm publish
+# npm publish
 
 Enable publishing your project by setting two environment variables at CircleCI.
 
@@ -297,7 +332,7 @@ then CircleCI automatically runs `npm publish`.
 # DRY RUN
 
 ```sh
-DRY_RUN=1 $(npm bin)/nca
+DRY_RUN=1 nca
 ```
 
 # JavaScript API
