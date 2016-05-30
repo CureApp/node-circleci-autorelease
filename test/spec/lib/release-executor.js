@@ -1,4 +1,4 @@
-
+// @flow
 import ReleaseExecutor from '../../../src/lib/release-executor'
 import assert from 'power-assert'
 
@@ -6,12 +6,17 @@ import fs from 'fs'
 import {resolve} from 'path'
 import {exec} from 'shelljs'
 
+class ReleaseExecutor4t extends ReleaseExecutor {
+    write: Function;
+    exec: Function;
+}
+
 describe('ReleaseExecutor', function() {
 
     beforeEach(function() {
         const log = (v: string) => {}
         this.executedCommands = []
-        this.executor = new ReleaseExecutor(log)
+        this.executor = new ReleaseExecutor4t(log)
         this.executor.write = x => {}
         this.executor.exec = x => {
             this.executedCommands.push(x)

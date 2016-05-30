@@ -1,3 +1,4 @@
+// @flow
 import GhPagesCreator from '../../../src/lib/gh-pages-creator'
 import assert from 'power-assert'
 
