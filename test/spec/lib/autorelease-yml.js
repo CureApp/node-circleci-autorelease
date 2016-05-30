@@ -1,3 +1,4 @@
+// @flow
 import AutoreleaseYml from '../../../src/lib/autorelease-yml'
 import assert from 'power-assert'
 import fs from 'fs'
@@ -26,11 +27,9 @@ describe('AutoreleaseYml', function() {
 
     describe('checkFormat',function() {
 
-        it('should throw error when no file exists', function() {
-            const arYml = new AutoreleaseYml(this.path)
-            arYml.__data = null
-
-            assert.throws(x => { arYml.checkFormat() }, /Yaml has not been loaded/)
+        it('should be ok when no file exists', function() {
+            const arYml = new AutoreleaseYml('invalid path')
+            assert.doesNotThrow(x => { arYml.checkFormat() })
         })
 
 
