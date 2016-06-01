@@ -20,10 +20,10 @@ You can add and remove files for release tag via hooks.
 
 # installation
 
+Just run the following command on your Node.js project.
 ```sh
 npm install --save-dev node-circleci-autorelease
 ```
-on your Node.js project.
 
 
 ## install cli for global (optional)
@@ -35,7 +35,7 @@ npm install -g nca-cli
 
 This tiny module calls local `nca` command without absolute path (e.g. `$(npm bin)/`).
 
-As `nca-cli` itself doesn't contain `node-circleci-autorelease`, you don't have to consider version inconsistencies.
+As `nca-cli` itself doesn't contain `node-circleci-autorelease`, you don't have to consider about version inconsistencies.
 
 **Notice: the following sample commands call global `nca`.**
 
@@ -53,7 +53,7 @@ nca init
 Two setting files will be generated.
 
 1.  `.autorelease.yml`: config file.
-2.  `.releaseignore`: files/patterns to be ignored in release. the same format as .gitignore.
+2.  `.releaseignore`: files/patterns to be ignored in release. The same format as .gitignore.
 
 You can set current node version with `--node` option.
 
@@ -85,7 +85,7 @@ Then, CircleCI detects the commit message pattern and creates a tag `X.Y.Z`
 
 # configuration
 
-Edit `.autorelease.yml`. It's like the following format.
+Edit `.autorelease.yml`. It will show below format.
 
 ```yaml
 hooks:
@@ -102,7 +102,7 @@ circle:
       node:
         version: 6.2.0
 ```
-You can see three fields.
+Three are three fields in this format.
 
 -   config: config fields
 -   hooks: hook commands
@@ -155,7 +155,7 @@ config:
   shrinkwrap: true
 ```
 
-### config about gh-pages
+### gh-pages configuration
 
 To release `gh-pages` branch, you should set
 
@@ -184,7 +184,7 @@ config:
 
 ## hooks field
 
-You can register commands before/after the following timings.
+You can register commands before/after the following events.
 
 -   update_modules: before/after running `npm update`
 -   release: before/after releasing process
@@ -226,7 +226,7 @@ hooks:
 ## circle field
 
 Write your custom circle.yml setting here.
-**don't write circle.yml** but write here and make them via `nca generate` command.
+**Don't write circle.yml directory**, `nca generate` command will generate it automatically.
 
 ### example
 
@@ -306,7 +306,11 @@ nca bmp r
 ```
 
 They update version and commit with a message except running `nca bmp r`.
-These commands also update circle.yml automatically.
+These commands also update circle.yml automatically. `--skipCircle` or its alias `-s` option skips updating circle.yml.
+
+```bash
+nca bmp p --skipCircle
+```
 
 ### re-release
 
