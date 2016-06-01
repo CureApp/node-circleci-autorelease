@@ -102,7 +102,7 @@ circle:
       node:
         version: 6.2.0
 ```
-Three are three fields in this format.
+There are three fields in this format.
 
 -   config: config fields
 -   hooks: hook commands
