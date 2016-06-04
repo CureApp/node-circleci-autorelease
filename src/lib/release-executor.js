@@ -45,7 +45,7 @@ export default class ReleaseExecutor {
             this.pushReleaseBranch(version, remote)
         }
 
-        // re-install pruned modules
+        // re-install dev-dependent modules
         if (shrinkwrap) {
             this.log('---- re-installing node_modules after shrinkwrap ----')
             this.exec('npm install')
@@ -88,11 +88,31 @@ export default class ReleaseExecutor {
     }
 
     /**
-     * add shrinkwrap.json before release
+     * Add shrinkwrap.json before release
+     *
+     * On npm v2,
+     *
+     *  - `npm shrinkwrap` omits dev-dependent modules
+     *  -  wrongly omits dev-dependent modules which are sub-dependent
+     *
+     *  On npm v3,
+     *  - `npm shrinkwrap` includes some (not all) of dev-dependent modules
+     *  - after `npm prune --production`, it's ok
+     *
+     *  Currenlty, the following process is the only way to get the correct result on npm >=v2.
+     *
+     *  ```sh
+     *  rm -rf node_modules
+     *  npm install --production
+     *  npm shrinkwrap
+     *  ```
+     * @see https://github.com/npm/npm/issues/11189
+     *
      * @private
      */
     addShrinkwrap() {
-        this.exec('npm prune --production')
+        this.exec('rm -rf node_modules')
+        this.exec('npm install --production')
         this.exec('npm shrinkwrap')
     }
 

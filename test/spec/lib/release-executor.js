@@ -94,17 +94,18 @@ describe('ReleaseExecutor', function() {
                 this.executor.release('v4.5.3', true)
             })
 
-            it('should execute 12 commands', function() {
-                assert(this.executedCommands.length === 12)
+            it('should execute 13 commands', function() {
+                assert(this.executedCommands.length === 13)
             })
 
             it('should run "npm shrinkwrap"', function() {
-                assert(this.executedCommands[5] === 'npm prune --production')
-                assert(this.executedCommands[6] === 'npm shrinkwrap')
+                assert(this.executedCommands[5] === 'rm -rf node_modules')
+                assert(this.executedCommands[6] === 'npm install --production')
+                assert(this.executedCommands[7] === 'npm shrinkwrap')
             })
 
             it('should re-install modules', function() {
-                assert(this.executedCommands[11] === 'npm install')
+                assert(this.executedCommands[12] === 'npm install')
             })
         })
 
