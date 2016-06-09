@@ -15,9 +15,12 @@
     "doc": "documentation build src/**/*.js --format html --output doc/reference",
     "doc:watch": "documentation serve src/**/*.js -w",
     "lint": "eslint $(find src -type f ! -path '*/decls/*')",
+    "parse": "npm run lint && flow",
+    "parse:watch": "nodemon --watch src --watch test --exec npm run parse",
     "flow": "flow",
     "test": "npm run lint && flow && npm run test:spec",
-    "test:spec": "mocha $(find test/spec -type f ! -path '*/data/*')"
+    "test:spec": "mocha $(find test/spec -type f ! -path '*/data/*')",
+    "test:watch": "nodemon --watch src --watch test --exec npm test"
   },
   "repository": {
     "type": "git",
