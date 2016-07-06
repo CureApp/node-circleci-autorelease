@@ -189,6 +189,7 @@ You can register commands before/after the following events.
 -   update_modules: before/after running `npm update`
 -   release: before/after releasing process
 -   gh_pages: before/after creating gh-pages branch
+-   bmp: before/after bumping (in `nca bmp` command)
 
 Each section must have "pre" or "post" section containing a command or list of commands.
 
@@ -321,6 +322,17 @@ nca bmp p --skipCircle
 where X.Y.Z is the current version. This is useful when the last release is failed.
 
 This feature is disabled by default.
+
+### bmp hooks
+```yaml
+hooks:
+  bmp:
+    pre:
+      - echo "bmp start"
+    post:
+      - echo "bmp end"
+```
+You can set bumping hooks in `.autorelease.yml`.
 
 # npm publish
 
