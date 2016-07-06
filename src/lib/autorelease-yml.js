@@ -81,7 +81,7 @@ export default class AutoreleaseYml {
 
 
     /**
-     * get hook commands
+     * get hook commands (except bmp hook)
      * @public
      * @param name hook name
      * @param timing one of [update_modules release gh_pages]
@@ -95,6 +95,21 @@ export default class AutoreleaseYml {
         const hooks = hookObjs[timing]
         const hookArr = Array.isArray(hooks) ? hooks : hooks ? [hooks] : []
         return hookArr.map(this.addOkCommandBeforeHook, this) // Notice that "this" will change
+    }
+
+
+    /**
+     * get bmp hook commands
+     * @public
+     * @param timing one of [update_modules release gh_pages]
+     */
+    bmpHooks(timing: string): Array<string> {
+        if (!this.__data.hooks) return []
+        const hookObjs = this.__data.hooks.bmp
+        if (!hookObjs) return []
+
+        const hooks = hookObjs[timing]
+        return Array.isArray(hooks) ? hooks : hooks ? [hooks] : []
     }
 
 
@@ -182,7 +197,7 @@ export default class AutoreleaseYml {
      * @private
      */
     get hookNames(): Array<string> {
-        return ['update_modules', 'release', 'gh_pages']
+        return ['update_modules', 'release', 'gh_pages', 'bmp']
     }
 
     /**

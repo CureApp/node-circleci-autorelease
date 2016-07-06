@@ -8,6 +8,7 @@ import fs from 'fs'
 import chalk from 'chalk'
 import WorkingDirectory from '../lib/working-directory'
 import PackageJSONLoader from '../lib/package-json-loader'
+import AutoreleaseYml from '../lib/autorelease-yml'
 import generateCircleYml from './nca-generate'
 
 const COMMAND_DESC = `
@@ -59,7 +60,14 @@ export default function run() {
     const optionName = optionNames[arg]
 
     if (optionName) {
+        const rootDir = new WorkingDirectory().resolve()
+        const arYml = AutoreleaseYml.loadFromDir(rootDir)
+
+        arYml.bmpHooks('pre').forEach(cmd => exec(cmd))
+
         exec(`${bin} --${optionName}`)
+
+        arYml.bmpHooks('post').forEach(cmd => exec(cmd))
     }
 
     const version = getCurrentVersion()
