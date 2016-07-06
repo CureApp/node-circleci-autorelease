@@ -4,6 +4,7 @@
 import {which} from 'shelljs'
 import exec from '../util/exec'
 import program from 'commander'
+import fs from 'fs'
 import chalk from 'chalk'
 import WorkingDirectory from '../lib/working-directory'
 import PackageJSONLoader from '../lib/package-json-loader'
@@ -38,7 +39,7 @@ export default function run() {
         program.help()
     }
 
-    const bin = which('bmp') || which('yangpao')
+    const bin = getBmpBin()
 
     if (!bin) {
         console.log(chalk.red(HOW_TO_INSTALL_BMP_OR_YANGPAO))
@@ -80,6 +81,22 @@ function getCurrentVersion(): string {
     return PackageJSONLoader.load(cwd).version
 }
 
+/**
+ * Get bmp|yangpao full path
+ * @private
+ */
+function getBmpBin(): string {
+    const cwd = new WorkingDirectory().resolve()
+
+    if (fs.existsSync(cwd + '/.yangpao.toml')) {
+        return which('yangpao')
+    }
+    if (fs.existsSync(cwd + '/.bmp.yml')) {
+        return which('bmp')
+    }
+}
+
+
 const HOW_TO_SKIP_GENERATION_OF_CIRCLE_YML = `
 
     To skip circle.yml generation,
@@ -88,7 +105,7 @@ const HOW_TO_SKIP_GENERATION_OF_CIRCLE_YML = `
 `
 
 const HOW_TO_INSTALL_BMP_OR_YANGPAO = `
-    You need to install one of the version-bumping tools of the followings.
+    You need to install one of the version-bumping tools of the followings,
 
         - [bmp](https://github.com/kt3k/bmp)
         - [yangpao](https://github.com/januswel/yangpao)
@@ -98,6 +115,8 @@ const HOW_TO_INSTALL_BMP_OR_YANGPAO = `
 
     ## install yangpao
     \tgo get github.com/januswel/yangpao
+
+    Make sure to run this command on project root.
 `
 
 /**
