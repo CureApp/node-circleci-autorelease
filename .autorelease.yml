@@ -1,8 +1,3 @@
-hooks:
-  update_modules:
-    pre:
-      - npm run babel
-
 config:
   git_user_name: CircleCI
   git_user_email: circleci@example.com
@@ -18,3 +13,6 @@ circle:
       version: 6.2.0
     environment:
       PATH: '.'
+  dependencies:
+    override:
+      - npm install && npm run babel

@@ -13,8 +13,9 @@ machine:
     version: 6.2.0
 dependencies:
   post:
-    - nca run npm run babel
     - nca run nca update-modules --depth 5
+  override:
+    - npm install && npm run babel
 deployment:
   create_release_branch:
     branch:
