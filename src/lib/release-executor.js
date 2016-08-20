@@ -83,7 +83,7 @@ export default class ReleaseExecutor {
 
         if (filesToRemove) {
             for (const file of filesToRemove.trim().split('\n')) {
-                this.exec(`git rm --cached ${file}`)
+                this.exec(`git rm --cached "${file}"`) // TODO handle file names with double quotations
             }
         }
     }
