@@ -82,8 +82,9 @@ export default class ReleaseExecutor {
         const filesToRemove = this.exec('git ls-files --full-name -i --exclude-from .releaseignore').stdout
 
         if (filesToRemove) {
-            // TODO manage files with space
-            this.exec(`git rm --cached ${filesToRemove.split('\n').join(' ')}`)
+            for (const file of filesToRemove.split('\n')) {
+                this.exec(`git rm --cached ${file}`)
+            }
         }
     }
 
