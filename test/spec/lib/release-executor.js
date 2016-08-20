@@ -72,7 +72,7 @@ describe('ReleaseExecutor', function() {
 
             it('should remove ignored files', function() {
                 const prevResult = 'stdout mock'
-                assert(this.executedCommands[4] === `git rm --cached ${prevResult}`)
+                assert(this.executedCommands[4] === `git rm --cached "${prevResult}"`)
             })
 
             it('should add all untracked changes, commit them, create a tag and push to origin', function() {
