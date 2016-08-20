@@ -82,7 +82,7 @@ export default class ReleaseExecutor {
         const filesToRemove = this.exec('git ls-files --full-name -i --exclude-from .releaseignore').stdout
 
         if (filesToRemove) {
-            for (const file of filesToRemove.split('\n')) {
+            for (const file of filesToRemove.trim().split('\n')) {
                 this.exec(`git rm --cached ${file}`)
             }
         }
