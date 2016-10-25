@@ -227,7 +227,7 @@ hooks:
 ## circle field
 
 Write your custom circle.yml setting here.
-**Don't write circle.yml directory**, `nca generate` command will generate it automatically.
+**Don't write circle.yml directly**, `nca generate` command will generate it automatically.
 
 ### example
 
