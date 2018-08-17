@@ -18,7 +18,7 @@
     "parse": "npm run lint && flow",
     "parse:watch": "nodemon --watch src --watch test --exec npm run parse",
     "flow": "flow",
-    "test": "npm run lint && flow && npm run test:spec",
+    "test": "npm run lint && npm run test:spec",
     "test:spec": "mocha $(find test/spec -type f ! -path '*/data/*')",
     "test:watch": "nodemon --watch src --watch test --exec npm test"
   },
