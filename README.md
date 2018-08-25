@@ -1,4 +1,5 @@
 # node-circleci-autorelease
+**Note:** This library is no longer maintained.
 
 Autorelease your node packages.
 
